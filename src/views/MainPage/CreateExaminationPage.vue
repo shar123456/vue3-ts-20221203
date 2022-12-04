@@ -260,6 +260,8 @@ import {
 } from "../../Request/ExaminationRequest";
  import { useStore } from "vuex";
  import { message, Modal } from "ant-design-vue";
+
+   import dayjs, { Dayjs } from 'dayjs';
 export default defineComponent({
   components: { UploadOutlined,SearchDataModal2 },
   setup() {
@@ -419,8 +421,8 @@ let validateflowNo = async (rule: any, value: any) => {
       let pageType = route.query.pageType;
       console.log("pageType", pageType);
 
-  values.startTimeStr=  dateFormat("YYYY-mm-dd HH:MM:SS",new Date(values.startTimeStr),0);
-  values.endTimeStr=  dateFormat("YYYY-mm-dd HH:MM:SS",new Date(values.endTimeStr),0);
+  values.startTimeStr=  dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(values.startTimeStr),0),"YYYY-MM-DD HH:mm:ss");
+  values.endTimeStr=  dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(values.endTimeStr),0),"YYYY-MM-DD HH:mm:ss");
 let params={
    flowName: values.flowName,
    useStatus: values.useStatus,

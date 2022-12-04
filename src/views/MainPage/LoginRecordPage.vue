@@ -110,7 +110,7 @@ import {
 } from "../../Request/userRequest";
 
 import { deepClone } from "../../utility/commonFunc";
-
+ import dayjs, { Dayjs } from 'dayjs';
 export default defineComponent({
   components: {
     LoginRecordQueryHeader,
@@ -442,8 +442,8 @@ if(columnList==undefined||columnList.length==0)
       loading.value = true;
       DataEntityState.QueryConditionInfo = {
         name: "",
-        loginEndTime: "",
-        loginStartTime: "",
+        loginEndTime: dayjs(),
+        loginStartTime:dayjs(),
       };
       GetLoginRecordDatas({
         current: current1.value,

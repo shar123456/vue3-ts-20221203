@@ -12,7 +12,8 @@
   </a-row>
 
          <div :style="{ width: '100%', border: '1px solid #d9d9d9', borderRadius: '4px' }">
-     <a-calendar v-model:value="value" :fullscreen="true" :locale="locale"   @select="onSelect" @panelChange="onPanelChange"  >   
+        
+ <a-calendar v-model:value="value" :fullscreen="true"   @select="onSelect" @panelChange="onPanelChange"  >   
     <template #dateCellRender="{  current: value  }">
       <ul class="events">
         <li v-for="item in getListData(value)" :key="item.content" >
@@ -30,6 +31,13 @@
       </div>
     </template>
   </a-calendar>
+           
+    
+
+
+
+
+
      </div> 
    </div>
 </template>
@@ -37,7 +45,12 @@
 <script lang="ts">
 import { defineComponent,ref,reactive,onMounted } from 'vue'
 import { useRouter, useRoute } from "vue-router";
- import 'moment/locale/zh-cn';
+// //  import 'moment/locale/zh-cn';
+// //   import dayjs from 'dayjs';
+// //   import 'dayjs/locale/zh-cn';
+// //     dayjs.locale('zh-cn');
+//    import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN';
+//       import en from 'ant-design-vue/lib/locale-provider/en_US';
  import {
   GetWorkScheduleDatas,DeleteById,BatchDelete
 }
@@ -46,17 +59,16 @@ import { useRouter, useRoute } from "vue-router";
   WorkScheduleEntity,
   IWorkScheduleInfo,
 } from "../../TypeInterface/IWorkScheduleInterface";
+import { Dayjs } from 'dayjs';
 export default defineComponent({
     setup () {
            const route = useRoute();
     const router = useRouter();
 
     let DataEntityState = reactive(new WorkScheduleEntity());
-  
-      
 
 
-onMounted(async()=>{
+onMounted(async()=>{ console.log("11111DataEntityState.DataList")
 let res= await   GetWorkScheduleDatas({
         current:1,
         pageSize: 500,
@@ -72,9 +84,9 @@ let res= await   GetWorkScheduleDatas({
 
 
  let calendarMark=ref<number>(0);
-   const value = ref<any>();
+ const value = ref<Dayjs>();
  let listData:any[]|undefined=undefined;
-    const getListData = (value: any) => {
+    const getListData = (value: Dayjs) => {
         console.log("month",value.month())
  listData=[];
    let date=new Date();
@@ -183,15 +195,63 @@ let res= await   GetWorkScheduleDatas({
  return listData || [];
     }
 
-const getMonthData = (value: any) => {
+const getMonthData = (value: Dayjs) => {
       if (value.month() === 8) {
         return "约见重要客人";
       }
     };
- const onSelect = (value: any) => {
+
+
+
+ const getListData11 = (value: Dayjs) => {
+      let listData;
+      switch (value.date()) {
+        case 8:
+          listData = [
+            { type: 'warning', content: 'This is warning event.' },
+            { type: 'success', content: 'This is usual event.' },
+          ];
+          break;
+        case 10:
+          listData = [
+            { type: 'warning', content: 'This is warning event.' },
+            { type: 'success', content: 'This is usual event.' },
+            { type: 'error', content: 'This is error event.' },
+          ];
+          break;
+        case 15:
+          listData = [
+            { type: 'warning', content: 'This is warning event' },
+            { type: 'success', content: 'This is very long usual event。。....' },
+            { type: 'error', content: 'This is error event 1.' },
+            { type: 'error', content: 'This is error event 2.' },
+            { type: 'error', content: 'This is error event 3.' },
+            { type: 'error', content: 'This is error event 4.' },
+          ];
+          break;
+        default:
+      }
+      return listData || [];
+    };
+
+    const getMonthData11 = (value: Dayjs) => {
+      if (value.month() === 8) {
+        return 1394;
+      }
+    };
+
+
+
+
+
+
+
+
+
+ const onSelect = (value: Dayjs) => {
      console.log(value)
     };
-    const onPanelChange = (value: any) => {
+    const onPanelChange = (value: Dayjs) => {
      console.log("onPanelChange",value.month())
 calendarMark.value=value.month();
   //            listData11.value=[];
@@ -234,12 +294,8 @@ calendarMark.value=value.month();
     };
 
         return {getListData,
-      getMonthData,locale: {
-          lang: {
-            month: '月',
-            year: '年',
-          },
-        }, onSelect,
+      getMonthData,
+         onSelect,
       onPanelChange,value,goBackBtn,addBtn,gotoDetail}
     }
 })

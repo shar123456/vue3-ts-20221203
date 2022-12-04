@@ -11,6 +11,7 @@
   <div id="RemindRecordDataList">
     <a-table
       bordered
+      @resizeColumn="handleResizeColumn"
       :rowClassName="(index:number) => (index % 2 == 1 ? 'table-striped' : null)"
       id="yy"
       :loading="loading"
@@ -400,7 +401,9 @@ SearchBtn,
       
       refreshBtn,
     
-      
+      handleResizeColumn: (w:any, col:any) => {
+        col.width = w;
+      },
 
     };
   },
@@ -413,6 +416,7 @@ SearchBtn,
   border: 0px solid red;
   box-sizing: border-box;
    overflow: auto;
+   
 }
 .userPagination {
   border: 0px solid red;

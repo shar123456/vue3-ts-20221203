@@ -201,6 +201,7 @@ import {
  from "../../Request/WorkScheduleRequest";
  import {dateFormat} from '../../utility/commonFunc'
  import { useStore } from "vuex";
+  import dayjs, { Dayjs } from 'dayjs';
 export default defineComponent({
     components: { SearchDataModal2 },
   setup() {
@@ -378,7 +379,7 @@ let validateUseStatus = async (rule: any, value: any) => {
      DataEntityState.EditData.workScheduleStatus= "未开始";
      //DataEntityState.EditData.initiator= "";
      DataEntityState.EditData.workScheduleDesc="";
-     DataEntityState.EditData.startTimeStr= dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0);
+     DataEntityState.EditData.startTimeStr= (dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"));
      DataEntityState.EditData.noticeType="";
      DataEntityState.EditData.noticeTypeArray=[];
      DataEntityState.EditData.remarkDesc="",
@@ -393,7 +394,7 @@ let validateUseStatus = async (rule: any, value: any) => {
   state.spinning = !state.spinning;
  let pageType = route.query.pageType;
      console.log("pageType",pageType);
-    values.startTimeStr=  dateFormat("YYYY-mm-dd HH:MM:SS",new Date(values.startTimeStr),0);
+    values.startTimeStr=  dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(values.startTimeStr),0),"YYYY-MM-DD HH:mm:ss");
       if ((pageType != undefined && pageType == "add")||pageType==undefined) {
     
  AddWorkSchedule(values).then((res: any) => {
@@ -424,7 +425,7 @@ let validateUseStatus = async (rule: any, value: any) => {
 
 
 
-      DataEntityState.EditData.startTimeStr=  dateFormat("YYYY-mm-dd HH:MM:SS",new Date(DataEntityState.EditData.startTimeStr),0);
+      DataEntityState.EditData.startTimeStr= dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(values.startTimeStr),0),"YYYY-MM-DD HH:mm:ss");
 UpdateWorkSchedule(DataEntityState.EditData).then((res: any) => {
         console.log(res);
         if (res.isSuccess) {
@@ -439,7 +440,7 @@ UpdateWorkSchedule(DataEntityState.EditData).then((res: any) => {
      DataEntityState.EditData.workScheduleStatus= "未选择";
      DataEntityState.EditData.initiator= "";
      DataEntityState.EditData.workScheduleDesc="";
-     DataEntityState.EditData.startTimeStr= dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0);
+     DataEntityState.EditData.startTimeStr= (dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"));
      DataEntityState.EditData.noticeType="";
      DataEntityState.EditData.noticeTypeArray=[];
      DataEntityState.EditData.remarkDesc="",

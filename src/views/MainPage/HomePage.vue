@@ -2,10 +2,21 @@
   <div class="HomePage">
     <!-- <div class="HomePageContent"> 主页显示</div> -->
 
-    <div class="HP-Up" style="width: 100%;
+    <!-- <div class="HP-Up" style="width: 100%;
   height: 350px;">
-      <div class="HP-Up-Left"   style="width: 70%;
-  height: 350px;"   id="chinaChart"></div>
+      
+      
+     
+
+       <div class="HP-Up-Left"   style="width: 70%;
+  height: 350px;"   id="chinaChart"></div> 
+
+      
+
+
+     
+     
+     
       <div class="HP-Up-Right">
         <a-card
           :hoverable="true"
@@ -32,8 +43,14 @@
           </div>
         </a-card>
       </div>
-    </div>
-    <div class="HP-Down" style="width: 100%; height: 450px; border: 0px solid red">
+      
+    </div> -->
+
+
+
+
+
+    <!-- <div class="HP-Down" style="width: 100%; height: 450px; border: 0px solid red">
       <a-row style="width: 100%; height: 350px; border: 0px solid red">
         <a-col :span="6"
           ><div style="width: 100%; height: 350px;" id="pinA"></div>
@@ -96,7 +113,123 @@
           </div></a-col
         >
       </a-row>
-    </div>
+    </div> -->
+
+   
+
+<a-row type="flex" justify="center"  >
+          <a-col class="col"  style="height: 350px;"   :xs="{ span: 24 }" :lg="{ span: 17 }">
+    <div class="HP-Up-Left"   style="width: 100%;
+  height: 350px;"   id="chinaChart"></div> 
+
+ </a-col>
+ <a-col class="col" style="height: 350px;"  :xs="{ span: 24 }" :lg="{ span: 7 }">
+ <div class="HP-Up-Right" style="width: 100%; height: 350px;" >
+        <a-card
+          :hoverable="true"
+          size="small"
+          title="本月工作计划"
+          headStyle="font-size:21px;font-weight:600;"
+          style="width: 100%; height: 100%"
+        >
+          <template #extra><a href="#" @click="ShowSchedule">更多</a></template>
+          <div
+            style="width: 100%; height: 100%; border: 0px solid red"
+            v-if="ScheduleEmptyMark"
+          >
+            <a-empty description="暂无计划" />
+          </div>
+          <div style="width: 100%; height: 100%; border: 0px solid red">
+            <p
+              v-for="(item, index) in DataList"
+              :key="index"
+              @click="gotoDetail(item.id)"
+            >
+              {{ index + 1 }}、{{ item.workScheduleName }}.
+            </p>
+          </div>
+        </a-card>
+      </div>
+
+ </a-col>
+    </a-row>
+
+    
+ 
+   <!-- <div   style="width: 100%;
+  height: 10px;">
+ <a-row type="flex" justify="center">
+   <a-col class="col" style="width: 100%; height: 10px; border: 1px solid red"  :xs="{ span: 24 }" :lg="{ span: 24 }">
+     </a-col>
+  </a-row>
+ </div> -->
+ 
+ <a-row type="flex" justify="center">
+          <a-col class="col" style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 6 }">
+            <div style="width: 100%; height: 350px;" id="pinA"></div>
+          <div
+            style="
+              width: 100%;
+              height: 15%;
+              text-align: center;
+              font-size: 18px;
+              font-weight: 700;
+              color: #83757e;
+            "
+          >
+            设备号ED0001
+          </div>
+              </a-col>
+                <a-col class="col"   style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 6 }">
+                  <div style="width: 100%; height: 350px;" id="pinB"></div>
+          <div
+            style="
+              width: 100%;
+              height: 15%;
+              text-align: center;
+              font-size: 18px;
+              font-weight: 700;
+              color: #83757e;
+            "
+          >
+            设备号ED0002
+          </div>
+              </a-col>
+               <a-col class="col"   style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 6 }">
+                <div style="width: 100%; height: 350px;" id="pinC"></div>
+          <div
+            style="
+              width: 100%;
+              height: 15%;
+              text-align: center;
+              font-size: 18px;
+              font-weight: 700;
+              color: #83757e;
+            "
+          >
+            设备号ED0003
+          </div>
+              </a-col>
+               <a-col class="col"   style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 6 }">
+                <div style="width: 100%; height: 350px;" id="pinD"></div>
+          <div
+            style="
+              width: 100%;
+              height: 15%;
+              text-align: center;
+              font-size: 18px;
+              font-weight: 700;
+              color: #83757e;
+            "
+          >
+            设备号ED0004
+          </div>
+              </a-col>
+        </a-row>
+
+
+
+
   </div>
 
   <New-Message-Tip   :ExaminationTotals="ExaminationTotal" />
@@ -326,7 +459,7 @@ let pinA=document?.getElementById("pinA");
     };
 
  showPinA();
- setTimeout(() => {
+ setInterval(() => {
           if(ProductEfficiencyChart!=undefined){
  ProductEfficiencyChart?.resize();
           }
@@ -336,7 +469,7 @@ let pinA=document?.getElementById("pinA");
         showPinBChart?.resize();
         showPinCChart?.resize();
         showPinDChart?.resize();
-      }, 200);
+      }, 2000);
 
 
     });
@@ -974,45 +1107,41 @@ ProductEfficiencyChart = echarts.init(
   background-color: darkgray;
 }
 .HomePage {
-  border: 0px solid red;
+  border: 1px solid red;
   box-sizing: border-box;
   padding: 1px;
   /* height: calc(100vh - 92px); */
-  overflow: auto;
-  display: flex;
+   overflow: auto;
+  /* display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
+  align-items: center;  */
+ height: calc(100vh - 92px); 
 }
 
 .HP-Up {
-  border: 0px solid blue;
+  border: 1px solid blue;
 
   box-sizing: border-box;
   width: 100%;
-  height: 350px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  
 }
 .HP-Up-Left {
   border: 1px solid #dedede;
 
   box-sizing: border-box;
  
-  width: 70%;
-  height: 100%;
-   min-width: 5px;
-   min-height: 5px;
+   
+ 
+  
 }
 .HP-Up-Right {
   border: 1px solid #dedede;
 
   box-sizing: border-box;
-  width: 29.8%;
-  height: 100%;
-  overflow: auto;
+
+  
+  /* //overflow: auto; */
 }
 
 .HP-Down {
@@ -1021,8 +1150,8 @@ ProductEfficiencyChart = echarts.init(
   box-sizing: border-box;
   width: 100%;
   /* //height: 350px; */
-   min-width: 5px;
-   min-height: 5px;
+   /* min-width: 5px;
+   min-height: 5px; */
 }
 
 .events {

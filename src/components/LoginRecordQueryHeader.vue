@@ -16,14 +16,14 @@
  <div>
           <label>最近登录开始时间：</label>
           <div>
-             <a-date-picker v-model:value="QueryConditionInfo.loginStartTime" placeholder="最近登录开始时间" />
+             <a-date-picker v-model:value="QueryConditionInfo.loginStartTime" format="YYYY-MM-DD" placeholder="最近登录开始时间" />
           </div>     
         </div>
 
 <div>
           <label>最近登录结束时间：</label>
           <div>
-             <a-date-picker v-model:value="QueryConditionInfo.loginEndTime" placeholder="最近登录结束时间" />
+             <a-date-picker v-model:value="QueryConditionInfo.loginEndTime" format="YYYY-MM-DD" placeholder="最近登录结束时间" />
           </div>     
         </div>
 
@@ -54,6 +54,7 @@ import { reactive, toRefs, defineComponent } from "vue";
 import { LoginRecordDataEntity } from "../TypeInterface/ILoginRecordInterface";
 import { SearchOutlined,PlusOutlined, DeleteOutlined,BarChartOutlined,RedoOutlined,ClearOutlined,AppstoreAddOutlined,ToolOutlined} from "@ant-design/icons-vue";
 import {dateFormat} from '../utility/commonFunc'
+ import dayjs, { Dayjs } from 'dayjs';
 export default defineComponent({
   components: {
     SearchOutlined,PlusOutlined,DeleteOutlined,BarChartOutlined,RedoOutlined,ClearOutlined,AppstoreAddOutlined,ToolOutlined
@@ -62,10 +63,13 @@ export default defineComponent({
   setup(props, context) {
     const state = reactive(new LoginRecordDataEntity());
     const SearchBtn = () => {
-      if(state.QueryConditionInfo.loginStartTime!="")
+      let loginStartTimeTemp:any=state.QueryConditionInfo.loginStartTime;
+       let loginEndTimeTemp:any=state.QueryConditionInfo.loginEndTime;
+      if(state.QueryConditionInfo.loginStartTime!=dayjs())
       {
-state.QueryConditionInfo.loginStartTime=dateFormat("YYYY-mm-dd HH:MM:SS",new Date(state.QueryConditionInfo.loginStartTime),0);
-    state.QueryConditionInfo.loginEndTime=dateFormat("YYYY-mm-dd HH:MM:SS",new Date(state.QueryConditionInfo.loginEndTime),0);
+
+state.QueryConditionInfo.loginStartTime=dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(loginStartTimeTemp),0),"YYYY-MM-DD");
+    state.QueryConditionInfo.loginEndTime=dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(loginEndTimeTemp),0)),"YYYY-MM-DD";
       }
     
       context.emit("SearchBtn", { ...state.QueryConditionInfo });
@@ -75,8 +79,8 @@ state.QueryConditionInfo.loginStartTime=dateFormat("YYYY-mm-dd HH:MM:SS",new Dat
     
       state.QueryConditionInfo.name = "";
      
-      state.QueryConditionInfo.loginEndTime = "";
-      state.QueryConditionInfo.loginStartTime = "";
+      state.QueryConditionInfo.loginEndTime = dayjs();
+      state.QueryConditionInfo.loginStartTime = dayjs();
     };
 
 const batchDeleteBtn = () => {
@@ -164,7 +168,7 @@ const configGridBtn = () => {
 }
 .upPad-up div div {
   width: 60%;
-  border: 0px solid red;
+ 
 }
 .upPad-down {
   border: 0px solid red;

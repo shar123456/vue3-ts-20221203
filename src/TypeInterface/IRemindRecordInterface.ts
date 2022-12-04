@@ -26,24 +26,24 @@ interface IRemindRecordInfo {
 }
 
 const RemindRecordColumns = [
-  {  oldTitle: '编号',title: '编号',width:130, dataIndex: 'remindRecordNo', isUse: true,configOrder: 1 }, 
-    { oldTitle: '类型', title: '类型',width:80, dataIndex: 'functionType', isUse: true,configOrder: 2  },
-    {  oldTitle: '主题',title: '主题',width:180, dataIndex: 'topic', isUse: true,configOrder: 3 },
+  {  oldTitle: '编号',title: '编号',width:130, dataIndex: 'remindRecordNo', isUse: true,configOrder: 1  ,resizable: true,ellipsis: true}, 
+    { oldTitle: '类型', title: '类型',width:80, dataIndex: 'functionType', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
+    {  oldTitle: '主题',title: '主题',width:210, dataIndex: 'topic', isUse: true,configOrder: 3  ,resizable: true,ellipsis: true},
    
     
-    {  oldTitle: '发送内容',title: '发送内容',width:370, dataIndex: 'sendContent', isUse: true,configOrder: 4 },
-    {  oldTitle: '通知类型',title: '通知类型',width:90, dataIndex: 'noticeType', isUse: true,configOrder: 5 },
+    {  oldTitle: '发送内容',title: '发送内容',width:470,  dataIndex: 'sendContent', isUse: true,configOrder: 4  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '通知类型',title: '通知类型',width:90, dataIndex: 'noticeType', isUse: true,configOrder: 5  ,resizable: true,},
     
-    {  oldTitle: '操作账户',title: '操作账户',width:80, dataIndex: 'loginName', isUse: true,configOrder: 6},
-    {  oldTitle: '接收人',title: '接收人',width:80, dataIndex: 'receiver', isUse: true,configOrder: 7 },
-    {  oldTitle: '接收人Email',title: '接收人Email',width:150, dataIndex: 'receiverEmail', isUse: true,configOrder: 8 },
+    {  oldTitle: '操作账户',title: '操作账户',width:80, dataIndex: 'loginName', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true},
+    {  oldTitle: '接收人',title: '接收人',width:100, dataIndex: 'receiver', isUse: true,configOrder: 7 ,resizable: true ,ellipsis: true,},
+    {  oldTitle: '接收人Email',title: '接收人Email',width:0, dataIndex: 'receiverEmail', isUse: true,configOrder: 8  ,ellipsis: true,},
 
 
 
-    {  oldTitle: '发送方式',title: '发送方式',width:80, dataIndex: 'operateType', slots: { customRender: 'operateType' },isUse: true,configOrder: 9 },
-    {  oldTitle: '发送时间',title: '发送时间',width:140, dataIndex: 'startTimeStr', isUse: true,configOrder: 10 },
+    {  oldTitle: '发送方式',title: '发送方式',width:0, dataIndex: 'operateType', slots: { customRender: 'operateType' },isUse: true,configOrder: 9   ,ellipsis: true},
+    {  oldTitle: '发送时间',title: '发送时间',width:0,dataIndex: 'startTimeStr', isUse: true,configOrder: 10 ,ellipsis: true},
    
-  
+   
   ];
   
 const RemindRecordDatas=[

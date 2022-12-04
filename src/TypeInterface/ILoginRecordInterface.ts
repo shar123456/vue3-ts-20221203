@@ -1,6 +1,6 @@
 
 import {dateFormat} from '../utility/commonFunc'
-
+import dayjs, { Dayjs } from 'dayjs';
 interface ILoginRecordInfo {
     loginRecordId: string;
     name: string;
@@ -15,8 +15,8 @@ interface ILoginRecordInfo {
   interface ILoginRecordQueryInfo {
    
     name:string; 
-    loginStartTime: string ;
-    loginEndTime: string ;
+    loginStartTime: Dayjs ;
+    loginEndTime: Dayjs ;
 }
 
 
@@ -25,8 +25,8 @@ class LoginRecordDataEntity{
     QueryConditionInfo:ILoginRecordQueryInfo={
     
       name: "",
-      loginStartTime:dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),-11),
-      loginEndTime:dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),
+      loginStartTime:dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),-11),"YYYY-MM-DD HH:mm:ss"),
+      loginEndTime:dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"),
     }
     
     DataList:Array<ILoginRecordInfo>=[];

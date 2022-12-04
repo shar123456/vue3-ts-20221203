@@ -1,5 +1,5 @@
 import {dateFormat} from '../utility/commonFunc'
-
+import dayjs, { Dayjs } from 'dayjs';
 interface IWorkScheduleInfo {
     id: string;
     workScheduleNo: string;
@@ -8,12 +8,12 @@ interface IWorkScheduleInfo {
     workScheduleStatus: string;
     initiator: string;
     workScheduleDesc:string;
-    startTimeStr:string;
+    startTimeStr:Dayjs;
     noticeType:string;
     noticeTypeArray?:string[];
     remarkDesc:string;
     useStatus:string;
-    createTimeStr: string;
+    createTimeStr: any;
     key: string;
     TmStamp:string[];
   }
@@ -118,7 +118,7 @@ const WorkScheduleDatas=[
     workScheduleStatus:  "未开始",
     initiator:  "",
     workScheduleDesc: "",
-    startTimeStr: dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),
+    startTimeStr:  dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"),
     noticeType:"",
     noticeTypeArray:[],
     remarkDesc: "",

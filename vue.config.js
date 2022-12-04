@@ -20,25 +20,7 @@ module.exports = {
     //         }
     //     },
 
-    // },
-    // devServer: {
-    //     open: false,
-    //     host: '0.0.0.0',
-    //     port: 8858,
-    //     https: false,
-    //     hotOnly: false,
-    //     proxy: { // 配置跨域
-    //         '/DevApi': {
-    //             target: 'http://120.40.187.174:8702/Api', //接口域名
-    //             ws: true, //是否代理websockets
-    //             changOrigin: true, //是否跨域
-    //             pathRewrite: { //重置路径
-    //                 '^/DevApi': '' //这里理解成用‘/api’代替target里面的地址，
-    //             }
-    //         }
-    //     },
-
-    //  },
+    //},
     devServer: {
         open: false,
         host: '0.0.0.0',
@@ -47,7 +29,7 @@ module.exports = {
         hotOnly: false,
         proxy: { // 配置跨域
             '/DevApi': {
-                target: 'http://localhost:3165/Api', //接口域名
+                target: 'http://120.40.187.174:8702/Api', //接口域名
                 ws: true, //是否代理websockets
                 changOrigin: true, //是否跨域
                 pathRewrite: { //重置路径
@@ -56,7 +38,25 @@ module.exports = {
             }
         },
 
-    },
+     },
+    // devServer: {
+    //     open: false,
+    //     host: '0.0.0.0',
+    //     port: 8858,
+    //     https: false,
+    //     hotOnly: false,
+    //     proxy: { // 配置跨域
+    //         '/DevApi': {
+    //             target: 'http://localhost:3165/Api', //接口域名
+    //             ws: true, //是否代理websockets
+    //             changOrigin: true, //是否跨域
+    //             pathRewrite: { //重置路径
+    //                 '^/DevApi': '' //这里理解成用‘/api’代替target里面的地址，
+    //             }
+    //         }
+    //     },
+
+    // },
     css: {
         loaderOptions: {
             scss: {

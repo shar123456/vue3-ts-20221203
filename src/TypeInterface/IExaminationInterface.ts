@@ -1,5 +1,5 @@
 import {dateFormat} from '../utility/commonFunc'
-  
+import dayjs, { Dayjs } from 'dayjs';
 interface IExaminationInfo {
   examResult:string;
   examUser:string;
@@ -183,8 +183,8 @@ interface IExaminationTaskInfo {
 
 
 
-    startTimeStr: string;
-    endTimeStr: string;
+    startTimeStr: Dayjs;
+    endTimeStr: Dayjs;
     createTimeStr: string;
 
 
@@ -352,8 +352,8 @@ class ExaminationTaskEntity{
       remarkDesc:  "",
       noticeType:  "邮件",
       noticeTypeArray:["邮件"],
-      startTimeStr:  dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),
-      endTimeStr:  dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),1),
+      startTimeStr:  dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),"YYYY-MM-DD HH:mm:ss"),
+      endTimeStr:  dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),1),"YYYY-MM-DD HH:mm:ss"),
 useStatus: "启用",
 createTimeStr:  dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0),
 key:  "",

@@ -5,7 +5,9 @@ import store from './store'
 import {setUpAntd} from '@/assets/ant-design-vue-config/ant-design-config'
 //import './Mock/mockDatas'
 import Fragment from 'vue-fragment'
-
+import dayjs from 'dayjs'; 
+import 'dayjs/locale/zh-cn'; 
+dayjs.locale('zh-cn');
 import { jsSeamlessScroll, cssSeamlessScroll,vueSeamless,vueSeamlessScroll  } from "vue-seamless-scroll";
 const app=createApp(App);
 app.use(cssSeamlessScroll);

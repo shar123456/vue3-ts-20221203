@@ -2,8 +2,10 @@
   <div class="HomePage">
     <!-- <div class="HomePageContent"> 主页显示</div> -->
 
-    <div class="HP-Up">
-      <div class="HP-Up-Left"  id="chinaChart"></div>
+    <div class="HP-Up" style="width: 100%;
+  height: 350px;">
+      <div class="HP-Up-Left"   style="width: 70%;
+  height: 350px;"   id="chinaChart"></div>
       <div class="HP-Up-Right">
         <a-card
           :hoverable="true"
@@ -31,10 +33,10 @@
         </a-card>
       </div>
     </div>
-    <div class="HP-Down">
-      <a-row style="width: 100%; height: 100%; border: 0px solid red">
+    <div class="HP-Down" style="width: 100%; height: 450px; border: 0px solid red">
+      <a-row style="width: 100%; height: 350px; border: 0px solid red">
         <a-col :span="6"
-          ><div style="width: 100%; height: 85%" id="pinA"></div>
+          ><div style="width: 100%; height: 350px;" id="pinA"></div>
           <div
             style="
               width: 100%;
@@ -49,7 +51,7 @@
           </div></a-col
         >
         <a-col :span="6" style="border-left: 1px dotted #dedede"
-          ><div style="width: 100%; height: 85%" id="pinB"></div>
+          ><div style="width: 100%; height: 350px;" id="pinB"></div>
           <div
             style="
               width: 100%;
@@ -64,7 +66,7 @@
           </div></a-col
         >
         <a-col :span="6" style="border-left: 1px dotted #dedede"
-          ><div style="width: 100%; height: 85%" id="pinC"></div>
+          ><div style="width: 100%; height: 350px;" id="pinC"></div>
           <div
             style="
               width: 100%;
@@ -79,7 +81,7 @@
           </div></a-col
         >
         <a-col :span="6" style="border-left: 1px dotted #dedede"
-          ><div style="width: 100%; height: 85%" id="pinD"></div>
+          ><div style="width: 100%; height: 350px;" id="pinD"></div>
           <div
             style="
               width: 100%;
@@ -159,6 +161,7 @@ export default defineComponent({
     let showPinBChart: any = undefined;
     let showPinCChart: any = undefined;
     let showPinDChart: any = undefined;
+      let ProductEfficiencyOption: any = undefined;
     onMounted(async () => {
       DataEntityState.QueryConditionInfo.useStatus = "启用";
       let res = await GetCurrentMonthWorkSchedule({
@@ -202,25 +205,14 @@ state.ExaminationTotal=ExaminationRes.datas;
     showPinCChart = undefined;
      showPinDChart = undefined;
 
-      ProductEfficiencyChart = echarts.init(
-        document?.getElementById("chinaChart") as HTMLElement
-      );
-
+      //vue3中如何解决echarts 二次渲染时不显示的问题
+      //https://blog.csdn.net/breakcastle/article/details/127461167?spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-127461167-blog-115304832.pc_relevant_3mothn_strategy_and_data_recovery&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-3-127461167-blog-115304832.pc_relevant_3mothn_strategy_and_data_recovery&utm_relevant_index=4
        showEchart();
-showPinAChart = echarts.init(
-        document?.getElementById("pinA") as HTMLElement
-      );
- showPinDChart = echarts.init(
-        document?.getElementById("pinD") as HTMLElement
-      );
 
-showPinCChart = echarts.init(
-        document?.getElementById("pinC") as HTMLElement
-      );
 
- showPinBChart = echarts.init(
-        document?.getElementById("pinB") as HTMLElement
-      );
+
+
+
 
 
       
@@ -235,7 +227,13 @@ showPinCChart = echarts.init(
  let showPinA = () => {
       const handred = 100;
       let point = 66;
+
+let pinA=document?.getElementById("pinA");
+     pinA?.removeAttribute("_echarts_instance_");
       
+      showPinAChart = echarts.init(
+        document?.getElementById("pinA") as HTMLElement
+      );
 
       let showPinAOption;
       showPinAOption = {
@@ -329,15 +327,15 @@ showPinCChart = echarts.init(
 
  showPinA();
  setTimeout(() => {
-//           if(ProductEfficiencyChart!=undefined){
-//  ProductEfficiencyChart?.resize();
-//           }
+          if(ProductEfficiencyChart!=undefined){
+ ProductEfficiencyChart?.resize();
+          }
        
         if(showPinAChart!=undefined)
         showPinAChart?.resize();
-        // showPinBChart?.resize();
-        // showPinCChart?.resize();
-        // showPinDChart?.resize();
+        showPinBChart?.resize();
+        showPinCChart?.resize();
+        showPinDChart?.resize();
       }, 200);
 
 
@@ -347,7 +345,12 @@ showPinCChart = echarts.init(
     let showPinD = () => {
       const handred = 100;
       let point = 70;
-     
+
+      let pinD=document?.getElementById("pinD");
+     pinD?.removeAttribute("_echarts_instance_");
+      showPinDChart = echarts.init(
+        document?.getElementById("pinD") as HTMLElement
+      );
 
       let showPinDOption;
       showPinDOption = {
@@ -441,8 +444,12 @@ showPinCChart = echarts.init(
     let showPinC = () => {
       const handred = 100;
       let point = 77;
-      
+          let pinC=document?.getElementById("pinC");
+     pinC?.removeAttribute("_echarts_instance_");
 
+showPinCChart = echarts.init(
+        document?.getElementById("pinC") as HTMLElement
+      );
       let showPinCOption;
       showPinCOption = {
         title: {
@@ -535,8 +542,11 @@ showPinCChart = echarts.init(
     let showPinB = () => {
       const handred = 100;
       let point = 38;
-     
-
+           let pinB=document?.getElementById("pinB");
+     pinB?.removeAttribute("_echarts_instance_");
+ showPinBChart = echarts.init(
+        document?.getElementById("pinB") as HTMLElement
+      );
       let showPinBOption;
       showPinBOption = {
         title: {
@@ -628,9 +638,13 @@ showPinCChart = echarts.init(
     };
 
     let showEchart = () => {
-     
+     let chinaChart=document?.getElementById("chinaChart");
+     chinaChart?.removeAttribute("_echarts_instance_");
+ProductEfficiencyChart = echarts.init(
+        document?.getElementById("chinaChart") as HTMLElement
+      );
 
-      let ProductEfficiencyOption;
+      
 
       // 统计百分比
       var data1 = [14, 15, 65, 24, 75, 23, 24, 43, 27, 72, 12, 53];
@@ -947,12 +961,12 @@ showPinCChart = echarts.init(
         font-size: 15px;border:1px solid red
       } */
 .HomePageContent {
-  border: 0px solid rgb(19, 92, 201);
+  border: 1px solid rgb(19, 92, 201);
   box-sizing: border-box;
 
   min-width: 1000px;
   min-height: 675px;
-  height: calc(100vh - 92px);
+   height: calc(100vh - 92px); 
   /* background-image: url("../../assets/bgHome.png");
     background-repeat: no-repeat; 
     background-origin: border-box;
@@ -963,7 +977,7 @@ showPinCChart = echarts.init(
   border: 0px solid red;
   box-sizing: border-box;
   padding: 1px;
-  height: calc(100vh - 92px);
+  /* height: calc(100vh - 92px); */
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -976,7 +990,7 @@ showPinCChart = echarts.init(
 
   box-sizing: border-box;
   width: 100%;
-  height: 43.8%;
+  height: 350px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -1006,7 +1020,7 @@ showPinCChart = echarts.init(
 
   box-sizing: border-box;
   width: 100%;
-  height: 56%;
+  /* //height: 350px; */
    min-width: 5px;
    min-height: 5px;
 }
