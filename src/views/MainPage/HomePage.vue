@@ -1107,7 +1107,7 @@ ProductEfficiencyChart = echarts.init(
   background-color: darkgray;
 }
 .HomePage {
-  border: 1px solid red;
+  border: 0px solid red;
   box-sizing: border-box;
   padding: 1px;
   /* height: calc(100vh - 92px); */

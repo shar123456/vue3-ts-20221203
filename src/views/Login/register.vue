@@ -91,6 +91,7 @@ export default defineComponent({
     const formRef = ref();
     const spinning = ref<boolean>(false);
     const delayTime = 1;
+    let velidateCodeCache = ref(111111);
     const formRegisterState: UnwrapRef<IFormRegisterState> = reactive({
       user: "",
       password: "",
@@ -106,7 +107,12 @@ export default defineComponent({
     });
     const handleFinish = async (values: any) => {
       spinning.value = !spinning.value;
-
+if(velidateCodeCache.value!=formRegisterState.code)
+{
+ message.error("验证码输入有误.");
+ spinning.value = !spinning.value;
+ return;
+}
       let res = await store.dispatch("RegisterSys", formRegisterState);
       console.log(res.result);
 
@@ -133,6 +139,7 @@ export default defineComponent({
     };
 
     const GetCode = async () => {
+      velidateCodeCache.value=111111;
       if (SetInetervalConfig.timer) {
         clearInterval(SetInetervalConfig.timer);
       }
@@ -142,7 +149,7 @@ export default defineComponent({
       let result = await store.dispatch("GetCodeSys");
       //formRegisterState.code=result.velidateCode;
       message.success(`验证码：${result.velidateCode}`);
-
+velidateCodeCache.value=result.velidateCode;
       SetInetervalConfig.timer = setInterval(() => {
         const s = SetInetervalConfig.sec--;
         SetInetervalConfig.btn_txt = `${s} 秒`;
