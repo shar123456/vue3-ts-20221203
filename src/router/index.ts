@@ -9,41 +9,47 @@ import {
 } from "../Request/menuRequest";
 import { MenuDataEntity, IMenuInfo } from "../TypeInterface/IMenuInterface";
 import store from '../store'
-const DataEntityState =new MenuDataEntity();
+const DataEntityState = new MenuDataEntity();
 
-const MenuArr:any=[
+const MenuArr: any = [
   {
-            path: 'HomePage',
-            name: 'HomePage',
-            meta:{rName:"/主页"},
-            component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/HomePage.vue')
-          },
-          
+    path: 'HomePage',
+    name: 'HomePage',
+    meta: { rName: "/主页" },
+    component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/HomePage.vue')
+  },
+
   {
-            path: 'ExaminationFlowDetail',
-            name: 'ExaminationFlowDetail',
-            meta:{rName:"/审批管理/审批流程详情",Sub:"sub5"},
-            component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/ExaminationFlowDetail.vue')
-          },
-          
-          {
-            path: 'ExaminationTaskDetail',
-            name: 'ExaminationTaskDetail',
-            meta:{rName:"/审批管理/审批任务详情",Sub:"sub5"},
-            component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/ExaminationTaskDetail.vue')
-          },
-          {
-                    path: 'WorkScheduleDetail',
-                    name: 'WorkScheduleDetail',
-                    meta:{rName:"/工作计划管理/工作计划明细",Sub:"gzjh"},
-                    component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/WorkScheduleDetail.vue')
-                  },
-                  // {
-                  //   path: 'GlobleParameterConfig',
-                  //   name: 'GlobleParameterConfig',
-                  //   meta:{rName:"/系统设置/全局参数配置",Sub:"sub1"},
-                  //   component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/GlobleParameterConfig.vue')
-                  // },
+    path: 'ExaminationFlowDetail',
+    name: 'ExaminationFlowDetail',
+    meta: { rName: "/审批管理/审批流程详情", Sub: "sub5" },
+    component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/ExaminationFlowDetail.vue')
+  },
+
+  {
+    path: 'ExaminationTaskDetail',
+    name: 'ExaminationTaskDetail',
+    meta: { rName: "/审批管理/审批任务详情", Sub: "sub5" },
+    component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/ExaminationTaskDetail.vue')
+  },
+  {
+    path: 'WorkScheduleDetail',
+    name: 'WorkScheduleDetail',
+    meta: { rName: "/工作计划管理/工作计划明细", Sub: "gzjh" },
+    component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/WorkScheduleDetail.vue')
+  },
+  // {
+  //   path: 'ProductManagementPage',
+  //   name: 'ProductManagementPage',
+  //   meta: { rName: "/CRM/产品管理", Sub: "crm-cpgl" },
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/CrmPage/ProductManagementPage.vue')
+  // },
+  // {
+  //   path: 'GlobleParameterConfig',
+  //   name: 'GlobleParameterConfig',
+  //   meta:{rName:"/系统设置/全局参数配置",Sub:"sub1"},
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/GlobleParameterConfig.vue')
+  // },
 ];
 
 
@@ -205,7 +211,7 @@ const MenuArr:any=[
 //         meta:{rName:"/审批管理/审批流程详情",Sub:"sub5"},
 //         component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/ExaminationFlowDetail.vue')
 //       },
-      
+
 //       {
 //         path: 'ExaminationTaskDetail',
 //         name: 'ExaminationTaskDetail',
@@ -233,7 +239,7 @@ const MenuArr:any=[
 //         meta:{rName:"/工作计划管理/创建工作计划",Sub:"gzjh"},
 //         component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/CreateWorkSchedule.vue')
 //       }
-      
+
 //       ,
 //       {
 //         path: 'MyCalendarPage',
@@ -247,10 +253,10 @@ const MenuArr:any=[
 //         meta:{rName:"/工作计划管理/工作计划明细",Sub:"gzjh"},
 //         component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/WorkScheduleDetail.vue')
 //       }
-      
 
 
-      
+
+
 
 //     ]
 //   },
@@ -278,15 +284,15 @@ const MenuArr:any=[
 // ]
 
 
-let routes: Array<RouteRecordRaw> =[
+let routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home1',
-    meta:{rName:"/首页/"},
+    meta: { rName: "/首页/" },
     //component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
     redirect: "/Home/HomePage"
   },
-  
+
   {
     path: '/login',
     name: 'login',
@@ -295,11 +301,11 @@ let routes: Array<RouteRecordRaw> =[
   {
     path: '/Home',
     name: 'Home',
-    meta:{rName:"/首页/"},
+    meta: { rName: "/首页/" },
     component: Home,
-    children:MenuArr
+    children: MenuArr
   },
-    {
+  {
     path: '/register',
     name: 'register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Login/register.vue')
@@ -311,20 +317,20 @@ const router = createRouter({
   routes
 })
 
-export function resetRouter():void{
+export function resetRouter(): void {
   // router = createRouter({
   //   history: createWebHistory(process.env.BASE_URL),
   //   routes
   // })
- // console.log(store)
-  store.commit('set_allRoutes',[])
-  
-  }
+  // console.log(store)
+  store.commit('set_allRoutes', [])
 
-  export function getInitRouter():void{
-   //
-    
-    }
+}
+
+export function getInitRouter(): void {
+  //
+
+}
 
 
 
@@ -343,104 +349,103 @@ export function resetRouter():void{
 
 
 
-router.beforeEach((to:any,from:any,next:any)=>{
+router.beforeEach((to: any, from: any, next: any) => {
   //console.log(to.path)
-  if(to.path==="/login"||to.path==="/register")
-  {
-   // console.log("/login",to.path);
+  if (to.path === "/login" || to.path === "/register") {
+    // console.log("/login",to.path);
     resetRouter();
     next();
   }
-  else
-  {
-    const token=localStorage.getItem("starToken");
+  else {
+    const token = localStorage.getItem("starToken");
     //console.log(token);
-    
-    if(!token){
+
+    if (!token) {
       next("/login");
     }
-    else
-    {
+    else {
 
-      
+
 
       //不是去首页的话，判湖store仓库中的aLLroutes是不是有值了，如果有说明己经构造过了，就跳转
-     
-      if(store.state.allRoutes&&store.state.allRoutes.length>0){
-//console.log("store.state.allRoutes",store.state.allRoutes)
+
+      if (store.state.allRoutes && store.state.allRoutes.length > 0) {
+        //console.log("store.state.allRoutes",store.state.allRoutes)
         // routes=store.state.allRoutes
-      //  console.log("s111tore.state.allRoutes",store.state.allRoutes)
+        //  console.log("s111tore.state.allRoutes",store.state.allRoutes)
         // router = createRouter({
         //   history: createWebHistory(process.env.BASE_URL),
         //   routes
         // })
-       next();
-       //next({ ...to })
+        next();
+        //next({ ...to })
       }
-        else{
-          //console.log("getInitRouter",store.state.allRoutes)
-        
-          GetMenuDatas({
-            current: 1,
-            pageSize: 1000,
-            ...DataEntityState.QueryConditionInfo,
-          }).then((res: any) => {
-           
-            if (res.isSuccess) {
-              //console.log("111111routerMenu",res.datas);
-               if(res.datas!=undefined&&res.datas!=null){
-               
-                res.datas.forEach((element:any) => {
-                  // console.log("routerMenuelement",element);
-                   if(element.menuLevel==1)
-                   {
-                    if(element.hasSub=="是")
-                    {
-                      element?.children?.forEach((elementSub2:any) => {
-                        const menuPageTemp= elementSub2.menuUrl.split('/');
-                        const menuPage=menuPageTemp[menuPageTemp.length-1]
-                       // console.log("menuPage",menuPage);
-                        // MenuArr.push(
-                        //   {
-                        //     path: menuPage,
-                        //     name: menuPage,
-                        //     meta:{rName:"/"+element.menuTitle+"/"+elementSub2.menuTitle,Sub:element.menuKey},
-                        //     component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
-                        //   }
-                        // );
-          
-                        router.addRoute('Home',{
-                          path: menuPage,
-                          name: menuPage,
-                          meta:{rName:"/"+element.menuTitle+"/"+elementSub2.menuTitle,Sub:element.menuKey},
-                          component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
-                        })
-                         
-                    
-          
-                        })
-                    }
-                   
-                    
-                   }
-          
-          
-                });
-          
-                //console.log("set");
-                //将更新后的路由提交给store，后续展示中会从store中获取
-                             store.commit( 'set_allRoutes' , router.getRoutes());
-                             //console.log("111埃夫特rgetInitRouter",store.state.allRoutes)
-                             next({...to,replace:true});
-                              
-                //console.log("MenuArr",MenuArr);
-               }
-            
+      else {
+        //console.log("getInitRouter",store.state.allRoutes)
+
+        GetMenuDatas({
+          current: 1,
+          pageSize: 1000,
+          ...DataEntityState.QueryConditionInfo,
+        }).then((res: any) => {
+
+          if (res.isSuccess) {
+            //console.log("111111routerMenu",res.datas);
+            if (res.datas != undefined && res.datas != null) {
+
+              res.datas.forEach((element: any) => {
+                // console.log("routerMenuelement",element);
+                if (element.menuLevel == 1) {
+                  if (element.hasSub == "是") {
+                    element?.children?.forEach((elementSub2: any) => {
+                      const menuPageTemp = elementSub2.menuUrl.split('/');
+                      const menuPage = menuPageTemp[menuPageTemp.length - 1]
+                     
+                      // console.log("menuPage",menuPage);
+                      // MenuArr.push(
+                      //   {
+                      //     path: menuPage,
+                      //     name: menuPage,
+                      //     meta:{rName:"/"+element.menuTitle+"/"+elementSub2.menuTitle,Sub:element.menuKey},
+                      //     component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
+                      //   }
+                      // );
+
+                      router.addRoute('Home', {
+                        path: menuPage,
+                        name: menuPage,
+                        meta: { rName: "/" + element.menuTitle + "/" + elementSub2.menuTitle, Sub: element.menuKey },
+                        // component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
+                        component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuTitle==="CRM"?"CrmPage":"MainPage"}/${menuPage}.vue`)
+
+
+                      })
+
+
+
+                    })
+                  }
+
+
+                }
+
+
+              });
+
+              //console.log("set");
+              //将更新后的路由提交给store，后续展示中会从store中获取
+              store.commit('set_allRoutes', router.getRoutes());
+              //console.log("111埃夫特rgetInitRouter",store.state.allRoutes)
+              next({ ...to, replace: true });
+
+              //console.log("MenuArr",MenuArr);
             }
-          });
-       
-        
-        }
+
+          }
+        });
+
+
+      }
 
 
 
