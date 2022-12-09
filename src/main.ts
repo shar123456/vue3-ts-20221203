@@ -8,6 +8,7 @@ import Fragment from 'vue-fragment'
 import dayjs from 'dayjs'; 
 import 'dayjs/locale/zh-cn'; 
 import '@/styles/antGlobelStyle.css'
+import '@/styles/CrmGlobleStyle.css'
 dayjs.locale('zh-cn');
 
 import { jsSeamlessScroll, cssSeamlessScroll,vueSeamless,vueSeamlessScroll  } from "vue-seamless-scroll";

@@ -1,0 +1,44 @@
+
+
+
+/* CommonQueryHeaderCRM */
+.userListPad_Crm {
+
+  box-sizing: border-box;
+  border: 0px solid red;
+  box-sizing: border-box;
+  margin-bottom: 0px;
+
+  overflow: auto;
+}
+
+.upPad_Crm {
+
+  border: 0px solid red;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 5px;
+  overflow: auto;
+}
+
+.upPad-up_Crm {
+  border: 0px solid red;
+  width: 100%;
+
+}
+
+.downPad_Crm {
+  min-height: 40px;
+  border: 0px solid red;
+
+}
+
+.centerPad_Crm {
+  height: 7px;
+  border: 0px solid red;
+  box-sizing: border-box;
+  background-color: #e5e6e9;
+}
+/* CommonQueryHeaderCRM */

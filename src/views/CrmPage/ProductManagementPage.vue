@@ -1,7 +1,9 @@
 <template>
    <Common-Query-Header-CRM
     @SearchBtn="SearchBtn"
-    @refreshBtn="refreshBtn"  
+    @RefreshBtn="RefreshBtn"  
+    @ClearQueryBtn="ClearQueryBtn"  
+    @CreateBtn="CreateBtn"
     :StateEntity="NewDataEntityState"
   >
   </Common-Query-Header-CRM>
@@ -17,17 +19,77 @@
       :data-source="DataList"
       :scroll="{ x: 1000, y:500 }"
       :customRow="rowActionClick"
-     
+      :row-selection="{
+        selectedRowKeys: selectedRowKeys,
+        onChange: onSelectChange,
+      }"
       :pagination="false"
     >
     
-      <template #operateType="{ text: operateType }">
+      <template #productCategory="{ text: productCategory }">
         <span>
-          <a-tag :color="operateType === '手动' ? 'blue' :'#AECF4B' ">
-            {{ operateType }}
+          <a-tag :color="productCategory != '未选择' ? '#AECF4B' :'#AECF4B' ">
+            {{ productCategory }}
           </a-tag>
         </span>
       </template>
+
+
+      <template #action="{ text: action }">
+       <a  @click="EditBth(action)"
+          style="
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            border:1px solid #dedede;
+             padding-top:1px;
+               padding-bottom:3px;
+             padding-left:7px;
+               padding-right:7px;
+             background-color:#3c8dbc;
+            border-radius: 4px;
+          "
+         
+          title="编辑"
+          ><EditOutlined  mark="delete"
+        />&nbsp;</a>
+
+
+
+       
+
+
+         <a  @click="DeleteBth(action)"
+          style="
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            border:1px solid #dedede;
+             padding-top:1px;
+               padding-bottom:3px;
+             padding-left:7px;
+               padding-right:3px;
+            background-color:#dd4b39 ;
+            border-radius: 4px;
+          "
+         
+          title="删除"
+          ><CloseOutlined  mark="delete"
+        />&nbsp;</a>
+
+          
+        
+
+
+
+     
+      </template>
+
+
+
+
+
+
     </a-table>
 
     <div class="userPagination">
@@ -83,9 +145,9 @@ import {
 
 
 import {
-  GetWorkScheduleDatas,DeleteById,BatchDelete,EmailRemind,BatchExport
+  GetProductManagementDatas,AddProduct,UpdateProduct
 }
- from "../../Request/WorkScheduleRequest";
+ from "../../Request/CrmRequest/ProductManagementRequest";
 
 import { deepClone } from "../../utility/commonFunc";
 import{useRouter} from 'vue-router'
@@ -107,12 +169,78 @@ configGridModal,configExportModal,
     let  NewDataEntityState=new ProductEntity();
     
     
+
+
+
+
+
+
+  
+
+
+
     /***分页****************/
     const pageSize = ref(10);
     const current1 = ref(1);
     const totalCount = ref(0);
     let refreshMark = ref<string>("");
     const pageSizeOptions = ref<string[]>(["5", "10", "20", "30", "40", "50"]);
+
+
+      const onShowSizeChange = (current: number, pageSize: number) => {
+      loading.value = true;
+      GetProductManagementDatas({
+        current: current,
+        pageSize: pageSize,
+        ...DataEntityState.QueryConditionInfo,
+      }).then((res: any) => {
+        console.log(res);
+        loading.value = false;
+        if (res.isSuccess) {
+          DataEntityState.DataList = res.datas;
+        }
+      });
+    };
+    watch(pageSize, () => {
+      //console.log("pageSize", pageSize.value);
+    });
+    watch(current1, () => {
+      loading.value = true;
+      GetProductManagementDatas({
+        current: current1.value,
+        pageSize: pageSize.value,
+        ...DataEntityState.QueryConditionInfo,
+      }).then((res: any) => {
+        //console.log(res);
+        loading.value = false;
+        if (res.isSuccess) {
+          DataEntityState.DataList = res.datas;
+        }
+      });
+    });
+    watch(refreshMark, () => {
+      loading.value = true;
+      GetProductManagementDatas({
+        current: current1.value,
+        pageSize: pageSize.value,
+        ...DataEntityState.QueryConditionInfo,
+      }).then((res: any) => {
+        loading.value = false;
+        if (res.isSuccess) {
+          console.log(res.datas);
+          DataEntityState.DataList = res.datas;
+          totalCount.value = res.totalCount;
+        }
+      });
+    });
+
+
+ 
+
+
+
+
+
   /***分页****************/
 
 /***数据初始化****************/
@@ -139,6 +267,11 @@ if(columnList==undefined||columnList.length==0)
       }
       DataEntityState.ListGridColumns = columnList;
 
+
+
+
+
+
       for (var i in DataEntityState.ListGridColumns) {
         if (DataEntityState.ListGridColumns[i]["slots"] == null) {
           delete DataEntityState.ListGridColumns[i]["slots"];
@@ -151,12 +284,17 @@ if(columnList==undefined||columnList.length==0)
       }
 
 
+      
 
 
-/*
+
+
+
+
+
       //获用户数据
       loading.value = true;
-      let UserDatasList = await GetRemindRecordDatas({
+      let UserDatasList = await GetProductManagementDatas({
         current: 1,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -169,15 +307,15 @@ if(columnList==undefined||columnList.length==0)
         totalCount.value = UserDatasList.totalCount;
         current1.value = 1;
       }
-      */
+      
       //测试
-      for(var s=0;s<11;s++)
-      {
-        DataEntityState.DataList.push(DataEntityState.ProductDatas[0]);
-      }
+      // for(var s=0;s<11;s++)
+      // {
+      //   DataEntityState.DataList.push(DataEntityState.ProductDatas[0]);
+      // }
        
-         totalCount.value = DataEntityState.DataList.length;
-       current1.value = 1;
+      //    totalCount.value = DataEntityState.DataList.length;
+      //  current1.value = 1;
 
     });
     /***数据初始化****************/
@@ -200,9 +338,23 @@ if(columnList==undefined||columnList.length==0)
 
 
 
-/********************************************* */
+/***功能按钮****************************************** */
 const SearchBtn = async (payload: any) => {
-     
+      loading.value = true;
+
+      let UserDatasList1 = await GetProductManagementDatas({
+        current: 1,
+        pageSize: pageSize.value,
+        ...payload,
+      });
+      //console.log("UserDatasList1",UserDatasList1)
+      loading.value = false;
+      if (UserDatasList1.isSuccess) {
+        DataEntityState.DataList = UserDatasList1.datas;
+        totalCount.value = UserDatasList1.totalCount;
+        current1.value = 1;
+      }
+      DataEntityState.QueryConditionInfo = payload;
     };
 
    
@@ -211,17 +363,61 @@ const SearchBtn = async (payload: any) => {
       console.log("ClearQueryBtn");
     };
  const CreateBtn = (payload: any) => {
-      router.push({ path: "/Home/CreateWorkSchedule", query: {pageType:"add"} });
+      router.push({ path: "/Home/CreateProductPage", query: {pageType:"add"} });
     };
 
     
 
    
-    const refreshBtn = async (payload: any) => {
+    const RefreshBtn = async (payload: any) => {
+   
+   loading.value = true;
+for(let item in  DataEntityState.QueryConditionInfo)
+{
+if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
+     {
+         DataEntityState.QueryConditionInfo[item]="";
+     }
+     if(DataEntityState.QueryConditionInfoConfig[item].type=="select")
+     {
+         DataEntityState.QueryConditionInfo[item]="未选择";
+     }
+}
+
+GetProductManagementDatas({
+     current: current1.value,
+     pageSize: pageSize.value,
+     ...DataEntityState.QueryConditionInfo,
+   }).then((res: any) => {
+     loading.value = false;
+     if (res.isSuccess) {
+       console.log(res.datas);
+       DataEntityState.DataList = res.datas;
+       totalCount.value = res.totalCount;
+     }
+   });
+ };
+
+/***功能按钮****************************************** */
+
+
+
+const DeleteBth = (item: any) => {
+
+
+
+   };
+
    
 
-     
-  }
+
+
+const EditBth = (item: any) => {
+
+
+
+};
+
 
 
 
@@ -233,13 +429,21 @@ const SearchBtn = async (payload: any) => {
       ...toRefs(state),
       ...toRefs(DataEntityState),
       DataEntityState,
-      NewDataEntityState,SearchBtn,refreshBtn,ClearQueryBtn,
+      NewDataEntityState,SearchBtn,RefreshBtn,ClearQueryBtn,
     
       pageSize,
       current1,
       totalCount,      
       loading,
       pageSizeOptions,
+      onShowSizeChange,
+
+      DeleteBth,
+      
+      EditBth,
+
+      CreateBtn,
+
       handleResizeColumn: (w:any, col:any) => {
         col.width = w;
       },
