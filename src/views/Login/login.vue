@@ -91,7 +91,7 @@ export default defineComponent({
     const formState: UnwrapRef<FormState> = reactive({
       user: "Admin",
       password: "123456",
-      loginType:"PC"
+      loginType:"PC Browser"
     });
     const handleFinish = async () => {
       const { user, password } = formState;
@@ -109,7 +109,7 @@ export default defineComponent({
         //   console.log(sss.data);
        var _isPc=IsPCEnd();
        if(!_isPc){
-formState.loginType="Mobile";
+formState.loginType="Mobile Browser";
        }
        
       let res = await store.dispatch("LoginSys", formState);
