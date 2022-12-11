@@ -5,7 +5,7 @@
         <a-col class="a" :xs="0" :sm="0" :md="12" :lg="14" :xl="16"></a-col>
         <a-col class="a" :xs="24" :sm="24" :md="12" :lg="10" :xl="5">
           <div class="form-container">
-            <header>欢迎进入后台系统</header>
+            <header>欢迎使用CRM系统</header>
             <div class="formBox">
               <a-form
                 layout="vertical"
@@ -72,10 +72,11 @@ import { message } from "ant-design-vue";
 import { useStore } from "vuex";
 import{useRouter} from 'vue-router'
 import {GetUserDemo} from '../../Request/userRequest'
-
+import {IsPCEnd} from '../../../src/utility/commonFunc'
 interface FormState {
   user: string;
   password: string;
+  loginType:string;
 }
 export default defineComponent({
   components: {
@@ -90,6 +91,7 @@ export default defineComponent({
     const formState: UnwrapRef<FormState> = reactive({
       user: "Admin",
       password: "123456",
+      loginType:"PC"
     });
     const handleFinish = async () => {
       const { user, password } = formState;
@@ -105,7 +107,11 @@ export default defineComponent({
            
         // let sss=   await  login(formState)
         //   console.log(sss.data);
-
+       var _isPc=IsPCEnd();
+       if(!_isPc){
+formState.loginType="Mobile";
+       }
+       
       let res = await store.dispatch("LoginSys", formState);
        //console.log(result);
 

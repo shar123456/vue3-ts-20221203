@@ -138,6 +138,10 @@ import {
   CloudDownloadOutlined,
   CloudFilled,
 } from "@ant-design/icons-vue";
+
+import {
+  G_BASEURL
+} from "../../Request/GlobelConfig";
 export default defineComponent({
   components: {
     ManagerFileQueryHeader,
@@ -322,7 +326,10 @@ export default defineComponent({
                   return ret;
                 },
               ],
-              url: "http://120.40.187.174:8702/Api/ManagerFile/DownLoadFile",
+              //url: "http://120.40.187.174:8702/Api/ManagerFile/DownLoadFile",
+url:G_BASEURL+'/ManagerFile/DownLoadFile',
+
+              
             });
 
             console.log(res);

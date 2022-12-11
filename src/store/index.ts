@@ -27,9 +27,9 @@ export default createStore({
   actions: {
      LoginSys({commit},payLoad){
      return new Promise((resolve)  => {
-        const {user,password}=payLoad;
+        const {user,password,loginType}=payLoad;
         setTimeout(  ()  => {          
-           login({user,password}).then((res:any)=>{
+           login({user,password,loginType}).then((res:any)=>{
        
               if (!res.result) {
                 resolve({result:false,msg:res.msg});

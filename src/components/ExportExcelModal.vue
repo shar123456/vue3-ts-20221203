@@ -54,7 +54,9 @@ import {
   importData
 } from "../Request/userRequest";
 import type { UploadProps } from 'ant-design-vue';
-
+import {
+  G_BASEURL
+} from "../Request/GlobelConfig";
 
 export default defineComponent({
       props: { UserData: UserDataEntity,
@@ -110,9 +112,12 @@ const isfile = file.type === 'application/vnd.openxmlformats-officedocument.spre
         formData.append('files', file as any);
       });
       uploading.value = true;
-  const token=localStorage.getItem("starToken");
-        
 
+   let urlT='http://120.40.187.174:8702/Api/ManagerFile/UpLoadFile';
+     
+  const token=localStorage.getItem("starToken");
+        console.log('formData11111',formData);
+ console.log(typeof formData );
       
       axios({
                 method: 'post',
@@ -122,9 +127,9 @@ const isfile = file.type === 'application/vnd.openxmlformats-officedocument.spre
                 }],
                headers:{'Authorization':token},
                 //url: '/api/SysAccount/UpLoadFile',
-                //url: 'http://120.40.187.174:8702/Api/SysAccount/UpLoadFile',
- url: 'http://localhost:3165/Api/SysAccount/UpLoadFile',
-
+               // url: 'http://120.40.187.174:8702/Api/SysAccount/UpLoadFile',
+ //url: 'http://localhost:3165/Api/SysAccount/UpLoadFile',
+ url:G_BASEURL+'/SysAccount/UpLoadFile'
                
                
             })

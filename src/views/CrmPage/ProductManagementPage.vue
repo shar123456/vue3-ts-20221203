@@ -4,6 +4,14 @@
     @RefreshBtn="RefreshBtn"  
     @ClearQueryBtn="ClearQueryBtn"  
     @CreateBtn="CreateBtn"
+ @BatchDelete="BatchDeleteBtn"
+  @ExportExcel="ExportExcelBtn"
+      @ConfigExport="ShowConfigExportBtn"
+       @ShowConfigGrid="ShowConfigGridBtn"
+
+
+
+    
     :StateEntity="NewDataEntityState"
   >
   </Common-Query-Header-CRM>
@@ -35,8 +43,8 @@
       </template>
 
 
-      <template #action="{ text: action }">
-       <a  @click="EditBth(action)"
+      <template #action="{ record }">
+       <a  @click="EditBth(record.id)"
           style="
             color: #fff;
             font-size: 14px;
@@ -54,12 +62,29 @@
           ><EditOutlined  mark="delete"
         />&nbsp;</a>
 
+<a  @click="CopyBtn(record.id)"
+          style="
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            border:1px solid #dedede;
+             padding-top:1px;
+               padding-bottom:3px;
+             padding-left:7px;
+               padding-right:7px;
+             background-color:#3c8dbc;
+            border-radius: 4px;
+          "
+         
+          title="复制"
+          ><CopyFilled  mark="delete"
+        />&nbsp;</a>
 
 
        
 
 
-         <a  @click="DeleteBth(action)"
+         <a  @click="DeleteBth(record.id,record.productCode)"
           style="
             color: #fff;
             font-size: 14px;
@@ -109,8 +134,21 @@
       </a-pagination>
     </div>
   </div>
-
-   
+<configGridModal
+    :visibleModelConfigGrid="visibleModelConfigGrid"
+    :modalTitleConfigGrid="modalTitleConfigGrid"
+    :ListColumns="DataEntityState.ListColumns"
+    configType="ProductManagement"
+    @CloseConfigGridMoadl="CloseConfigGridMoadl"
+    @refreshBtn="RefreshBtn"
+  />
+    <configExportModal
+    :visibleModelConfigGrid="visibleConfigExport"
+    :modalTitleConfigGrid="modalTitleConfigExport"
+    :ListColumns="DataEntityState.ExportColumns"
+    configType="ProductManagement"
+    @CloseConfigGridMoadl="CloseConfigExportMoadl"
+  />
 </template>
 
 <script lang="ts">
@@ -127,11 +165,11 @@ import { message, Modal } from "ant-design-vue";
 import {
   
   DeleteFilled,EditOutlined,
-  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined
+  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined,CopyFilled
   
 } from "@ant-design/icons-vue";
 import {
-  ProductEntity,ProductColumns
+  ProductEntity,ProductColumns,ExportColumns
 } from "../../TypeInterface/ICrm/IProductManagement";
 import CommonQueryHeaderCRM from "../../components/CommonQueryHeaderCRM.vue";
 import {
@@ -145,7 +183,7 @@ import {
 
 
 import {
-  GetProductManagementDatas,AddProduct,UpdateProduct
+  GetProductManagementDatas,AddProduct,UpdateProduct,DeleteById,BatchDelete,BatchExport,CopyDataById
 }
  from "../../Request/CrmRequest/ProductManagementRequest";
 
@@ -156,7 +194,7 @@ import configExportModal from "../../components/configExportModal.vue";
 export default defineComponent({
   components: {
 configGridModal,configExportModal,
-    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,BellOutlined
+    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,BellOutlined,CopyFilled
 
   },
   setup() {
@@ -285,6 +323,17 @@ if(columnList==undefined||columnList.length==0)
 
 
       
+let ExportColumnsList = await GetExpColumnsConfig({
+        pageName: "ProductManagement",
+      });
+
+     // console.log("ExportColumnsList", ExportColumnsList);
+
+      if (ExportColumnsList != undefined && ExportColumnsList.length > 0) {
+        DataEntityState.ExportColumns = ExportColumnsList;
+      } else {
+        DataEntityState.ExportColumns = ExportColumns;
+      }
 
 
 
@@ -324,7 +373,12 @@ if(columnList==undefined||columnList.length==0)
 
 
 
-
+/***勾选****************/
+    const onSelectChange = (selectedRowKeys: [], selectedRows: []) => { 
+      DataEntityState.selectedRowKeys = selectedRowKeys;
+      DataEntityState.selectedRows = selectedRows;
+    };
+    /***勾选****************/
 
 
 
@@ -368,8 +422,8 @@ const SearchBtn = async (payload: any) => {
 
     
 
-   
-    const RefreshBtn = async (payload: any) => {
+   //暂时不用
+    const RefreshBtnTemp = async (payload: any) => {
    
    loading.value = true;
 for(let item in  DataEntityState.QueryConditionInfo)
@@ -402,23 +456,316 @@ GetProductManagementDatas({
 
 
 
-const DeleteBth = (item: any) => {
+const DeleteBth = (item: any,productCode:any) => {
 
+Modal.confirm({
+              title: "您确定要删除这条记录吗?",
+              icon: createVNode(ExclamationCircleOutlined),
+              content: `产品编号：${productCode}`,
+              okText: "Yes",
+              okType: "danger",
+              cancelText: "No",
+              onOk() {
+                // const index = UserDataEntityState.UserDataList.findIndex(
+                //     (i: IUserInfo) => i.sysUserId == Id);
+                //     UserDataEntityState.UserDataList.splice(index, 1);
 
+                loading.value = true;
+                DeleteById({ Id: item }).then((res: any) => {
+                  if (res.isSuccess) {
+                    refreshMark.value = new Date().getTime().toString();
+                    message.success("删除成功.");
+                  }
+                });
+              },
+              onCancel() {
+                message.error("已取消.");
+              },
+            });
 
    };
 
    
 
-
+const CopyBtn = (item: any) => {
+ CopyDataById({ Id: item }).then((res: any) => {
+              //console.log(res);
+              if (res.isSuccess) {
+                refreshMark.value = new Date().getTime().toString();
+                DataEntityState.selectedRowKeys = [];
+                DataEntityState.selectedRows = [];
+                message.success(res.msg);
+              }else{
+                 message.success("error");
+              }
+            });
+}
 
 const EditBth = (item: any) => {
-
-
+console.log("EditBth",item)
+router.push({ path: "/Home/CreateProductPage", query: {pageType:"edit",id: item} });
 
 };
 
+ const BatchDeleteBtn = (payload: any) => {
+      let keys: string[] = [];
+      for (let i in DataEntityState.selectedRowKeys) {
+        keys[i] = DataEntityState.selectedRowKeys[i];
+      }
+      let isDesibleOkBtn = false;
+      if (keys.length == 0) {
+        isDesibleOkBtn = true;
+      }
 
+      Modal.confirm({
+        title: "您确定要执行批量删除操作吗?",
+        icon: createVNode(ExclamationCircleOutlined),
+        content: `共计：${keys.length} 条记录`,
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        okButtonProps: {
+          disabled: isDesibleOkBtn,
+        },
+        onOk() {
+          BatchDelete({ keys: keys }).then((res: any) => {
+            if (res.isSuccess) {
+              refreshMark.value = new Date().getTime().toString();
+              DataEntityState.selectedRowKeys = [];
+              DataEntityState.selectedRows = [];
+              message.success("批量删除成功.");
+            }
+          });
+         
+        },
+        onCancel() {
+          message.error("已取消.");
+        },
+      });
+    };
+
+
+
+/***导出 start************** */
+
+  const ExportExcelBtn = () => {
+      let keys: string[] = [];
+      for (let i in DataEntityState.selectedRowKeys) {
+        keys[i] = DataEntityState.selectedRowKeys[i];
+      }
+      let isDesibleOkBtn = false;
+      if (keys.length == 0) {
+        isDesibleOkBtn = true;
+      }
+
+      Modal.confirm({
+        title: "您确定要执行批量导出操作吗?",
+        icon: createVNode(ExclamationCircleOutlined),
+        content: `共计：${keys.length} 条记录`,
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        okButtonProps: {
+          disabled: isDesibleOkBtn,
+        },
+        onOk() {
+          //console.log(ids);
+          BatchExport({ keys: keys }).then((res: any) => {
+            // if (res.isSuccess) {
+            //   refreshMark.value = new Date().getTime().toString();
+            //   UserDataEntityState.selectedRowKeys = [];
+            //   UserDataEntityState.selectedRows = [];
+            //   message.success("导出成功.");
+            console.log(res);
+            console.log(typeof res);
+
+            var ress = [
+              //示例数组
+              {
+                name: "bob",
+                age: "13",
+                career: "student",
+              },
+              {
+                name: "clare",
+                age: "20",
+                career: "engineer",
+              },
+            ];
+            var dataType = "\uFEFF"; //解决乱码问题
+            dataType += ["" + "姓名", "年龄", "职业"].join(","); //添加表格的头
+            dataType += "\n";
+
+            ress.forEach(function (item) {
+              //遍历数组，用字符串拼接
+              dataType += ["" + item.name, item.age, item.career].join(",");
+              dataType += "\n";
+            });
+
+            // let blob1 = new Blob([res], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+            //    let url = window.URL.createObjectURL(blob1);
+            //    window.location.href = url;
+
+            //注释：有没有引入mock生成的数据文件,文件里引用了mockjs,mock会对返回的数据做处理,导致文件下载 乱码 文件损坏 打开undefind等
+           // console.log("headers", res.headers);
+            const blob = new Blob([res.data], {
+              type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            });
+            const f = "统计.xlsx";
+            // const contentDisposition =
+            //   res.headers["content-disposition"] ||
+            //   res.headers["Content-Disposition"];
+            //   console.log("contentDisposition",contentDisposition)
+            //const fileName =(contentDisposition && contentDisposition.split(";")[1]).split("=")[1] ||f ||"";
+         const fileName ="产品-"+new Date().getTime();
+            //const fileName = '统计.xlsx';
+            const elink = document.createElement("a");
+            elink.download = fileName;
+            elink.style.display = "none";
+            elink.href = URL.createObjectURL(blob);
+            document.body.appendChild(elink);
+            elink.click();
+            URL.revokeObjectURL(elink.href); // 释放URL 对象
+            document.body.removeChild(elink);
+
+            // }
+          });
+        },
+        onCancel() {
+          message.error("已取消.");
+        },
+      });
+    };
+
+
+
+/***导出 end************** */
+
+
+/***导出配置 start************** */
+
+let visibleConfigExport = ref<boolean>(false);
+    let modalTitleConfigExport = ref<string>("");
+
+    const ShowConfigExportBtn = () => {
+
+      //console.log(1111)
+      visibleConfigExport.value = true;
+      modalTitleConfigExport.value = "配置【导出信息】";
+    };
+
+    const CloseConfigExportMoadl = async () => {
+      visibleConfigExport.value = false;
+
+      let ExportColumnsList = await GetExpColumnsConfig({
+        pageName: "ProductManagement",
+      });
+
+  
+
+      if (ExportColumnsList != undefined && ExportColumnsList.length > 0) {
+        DataEntityState.ExportColumns = ExportColumnsList;
+      } else {
+        DataEntityState.ExportColumns = ExportColumns;
+      }
+    };
+
+/***导出配置 end************** */
+
+
+
+
+
+/***配置列表 start************** */
+let visibleModelConfigGrid = ref<boolean>(false);
+    let modalTitleConfigGrid = ref<string>("");
+  
+  const ShowConfigGridBtn = () => {
+      visibleModelConfigGrid.value = true;
+      modalTitleConfigGrid.value = "配置【列表显示】";
+    };
+
+    const CloseConfigGridMoadl = () => {
+      visibleModelConfigGrid.value = false;
+    };
+
+ const UpdateConfigGrid = async () => {
+      //获取表格列及处理表格列
+      let columnList = await GetLoginRecordColumn({ pageName: "ProductManagement" });
+    
+      if(columnList==undefined)
+{
+  columnList=deepClone(ProductColumns)
+}
+
+      DataEntityState.ListColumns = deepClone(columnList);
+
+      var len = columnList.length - 1;
+      //start from the top
+      for (var j = len; j >= 0; j--) {
+        console.log(j + "=" + columnList[j]);
+        if (columnList[j]["isUse"] == false) {
+          columnList.splice(j, 1);
+        }
+      }
+
+      DataEntityState.ListGridColumns = columnList;
+
+      for (var i in DataEntityState.ListGridColumns) {
+        if (DataEntityState.ListGridColumns[i]["slots"] == null) {
+          delete DataEntityState.ListGridColumns[i]["slots"];
+        }
+      }
+
+      for (var z in DataEntityState.ListColumns) {
+        if (DataEntityState.ListColumns[z]["slots"] == null) {
+          delete DataEntityState.ListColumns[z]["slots"];
+        }
+      }
+    };
+
+
+const RefreshBtn = async (payload: any) => {
+   
+ UpdateConfigGrid();
+      loading.value = true;
+    //   DataEntityState.QueryConditionInfo = {
+    //     workScheduleNo: "",
+    //     workScheduleName: "",
+    //     workScheduleType: "未选择",
+    //       workScheduleStatus: "未选择",
+    //   };
+
+ for(let item in  DataEntityState.QueryConditionInfo)
+  {
+if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
+        {
+            DataEntityState.QueryConditionInfo[item]="";
+        }
+        if(DataEntityState.QueryConditionInfoConfig[item].type=="select")
+        {
+            DataEntityState.QueryConditionInfo[item]="未选择";
+        }
+  }
+
+
+
+
+
+      GetProductManagementDatas({
+        current: current1.value,
+        pageSize: pageSize.value,
+        ...DataEntityState.QueryConditionInfo,
+      }).then((res: any) => {
+        loading.value = false;
+        if (res.isSuccess) {
+          console.log(res.datas);
+          DataEntityState.DataList = res.datas;
+          totalCount.value = res.totalCount;
+        }
+      });
+    };
+/***配置列表 end************** */
 
 
 
@@ -437,10 +784,10 @@ const EditBth = (item: any) => {
       loading,
       pageSizeOptions,
       onShowSizeChange,
-
+onSelectChange,
       DeleteBth,
-      
-      EditBth,
+      BatchDeleteBtn,
+      EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
 
       CreateBtn,
 

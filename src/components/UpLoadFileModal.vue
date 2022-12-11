@@ -62,9 +62,11 @@ import { InboxOutlined } from '@ant-design/icons-vue';
 
 
 import { message } from 'ant-design-vue';
-import axios from 'axios'
+import  axios  from 'axios'
 
-
+import {
+  G_BASEURL
+} from "../Request/GlobelConfig";
 
 
 export default defineComponent({
@@ -82,8 +84,17 @@ export default defineComponent({
         })
           let visible1 = ref<boolean>(props.visibleFileUpload);
           let modalTitle = ref<string|undefined>(props.modalFileUploadTitles);
-          const fileList = ref<any[]>([]);
-          
+         
+           const fileList = ref<any[]>([]);
+             let formData1 = new FormData();
+
+
+
+ let urlT='http://120.40.187.174:8702/Api/ManagerFile/UpLoadFile';
+
+
+
+
 const handleChange = (info: any) => {
       const status = info.file.status;
 console.log(info);
@@ -111,12 +122,19 @@ console.log(info);
       const newFileList = fileList.value.slice();
       newFileList.splice(index, 1);
       fileList.value = newFileList;
+
+formData1.delete(file.name);
+ 
+
+
+
+
     };
 
     const beforeUpload: any['beforeUpload'] =  (file:any) => {
 
-         
-
+        
+ formData1.append(file.name, file as any);
 
             console.log(file);
                fileList.value.push(file);
@@ -124,38 +142,77 @@ console.log(info);
       console.log(fileList.value);
       return false;
     };
-
+  const token=localStorage.getItem("starToken");
     const handleUpload = () => {
       let submitMark:number=0;
-      const formData = new FormData();
-      fileList.value.forEach((file: any) => {
-           console.log(file);
-        const isLt30M = file.size / 1024 / 1024 < 0.5
-        if (!isLt30M) {
-          message.warning('资源包不能超过30MB')
-         submitMark=1;
-        } 
-        formData.append('files', file);
-      });
+    
+      // fileList.value.forEach((file: any) => {
+          
+      //   const isLt30M = file.size / 1024 / 1024 < 0.5;
+      //   if (!isLt30M) {
+      //     message.warning('资源包不能超过30MB')
+      //    submitMark=1;
+      //   } 
+      //   formData.append('files', file);
+      // });
 
+//  fileList.value.forEach((file:any) => {
+//          console.log(file);
+//         formData1.append('files', file as any);
+//       });
+
+
+
+
+ console.log(typeof formData1 );
       if(submitMark==0)
-      {
+      { console.log('formData11111',formData1);
 uploading.value = true;
+  console.log("G_BASEURL",G_BASEURL);
+  //  let instanceT=axios.create({
+  //   baseURL:urlT,
+  //    headers:{'Content-Type':'multipart/form-data','Authorization':token},
+  //    data:formData
+  //  })
 
-      axios({
+  //  instanceT.post("/ManagerFile/UpLoadFile",formData) .then(res => {
+  //               res = res.data;
+  //                context.emit("closeFileUploadModal");
+  //   fileList.value=[];
+              
+  //           });
+   //urlT='http://localhost:3165/Api/ManagerFile/UpLoadFile';
+
+  let formData = new FormData();
+for(var pair of formData1.entries()) {
+   console.log(pair[0]+ ', '+ pair[1]);
+   formData.append("files",pair[1])
+}
+
+
+
+   axios({
                 method: 'post',
                 data: formData,
-                headers:{'Content-Type':'multipart/form-data'},
                 transformRequest: [function(){
                     return formData;
                 }],
-                url: 'http://120.40.187.174:8702/Api/ManagerFile/UpLoadFile',
+             headers:{'Content-Type':'multipart/form-data','Authorization':token},
+              
+                //url: '/api/SysAccount/UpLoadFile',
+               // url: 'http://120.40.187.174:8702/Api/ManagerFile/UpLoadFile',
+ //url: 'http://localhost:3165/Api/ManagerFile/UpLoadFile',
+
+               //url:'http://120.40.187.174:8702/Api/ManagerFile/UpLoadFile'
+               url:G_BASEURL+'/ManagerFile/UpLoadFile'
             })
+      
             .then(res => {
                 res = res.data;
                  context.emit("closeFileUploadModal");
     fileList.value=[];
-              
+              formData1 = new FormData();
+              formData=new FormData();
             });
       }
       

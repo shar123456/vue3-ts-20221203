@@ -696,10 +696,10 @@ order:3,
         }
 
       if (collapsed.value) {
-        titleTxt.value = "star";
+        titleTxt.value = "Motic";
         titleTxt1.value = "titleTxt11";
       } else {
-        titleTxt.value = "STAR 智能科技";
+        titleTxt.value = "Motic 麦克奥迪";
         titleTxt1.value = "titleTxt12";
       }
     });
@@ -772,7 +772,7 @@ function IsPC() {
       if (collapsed.value) {
         menuShow.value="";
         setTimeout(() => {
-          titleTxt.value = "STAR 智能科技";
+          titleTxt.value = "Motic 麦克奥迪";
         }, 500);
 
         titleTxt1.value = "titleTxt12";
@@ -785,7 +785,7 @@ function IsPC() {
       {
  menuShow.value="none";
       }
-        titleTxt.value = "star";
+        titleTxt.value = "Motic";
         titleTxt1.value = "titleTxt11";
       }
 
@@ -885,7 +885,7 @@ visibleSearchMenu,modalTitleSearchMenu,CloseSearchMenu,onOpenChange
 .titleTxt11 {
   color: #fff !important;
   /* color: green !important;; */
-  font-size: 15px !important;
+  font-size: 12px !important;
 }
 .titleTxt12 {
   transition: all 3s linear;

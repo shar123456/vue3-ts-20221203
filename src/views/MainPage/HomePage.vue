@@ -177,7 +177,7 @@
               color: #83757e;
             "
           >
-            设备号ED0001
+            华东地区销售汇总
           </div>
               </a-col>
                 <a-col class="col"   style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 6 }">
@@ -192,7 +192,7 @@
               color: #83757e;
             "
           >
-            设备号ED0002
+            华南地区销售汇总
           </div>
               </a-col>
                <a-col class="col"   style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 6 }">
@@ -207,7 +207,7 @@
               color: #83757e;
             "
           >
-            设备号ED0003
+            东北地区销售汇总
           </div>
               </a-col>
                <a-col class="col"   style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 6 }">
@@ -222,7 +222,7 @@
               color: #83757e;
             "
           >
-            设备号ED0004
+           华北地区销售汇总
           </div>
               </a-col>
         </a-row>
@@ -388,7 +388,7 @@ let pinA=document?.getElementById("pinA");
         legend: {
           show: true,
           itemGap: 12,
-          data: ["产能", "剩余"],
+          data: ["实际", "剩余"],
         },
 
         series: [
@@ -411,7 +411,7 @@ let pinA=document?.getElementById("pinA");
             data: [
               {
                 value: point,
-                name: "产能",
+                name: "实际",
                 itemStyle: {
                   normal: {
                     color: {
@@ -505,7 +505,7 @@ let pinA=document?.getElementById("pinA");
         legend: {
           show: true,
           itemGap: 12,
-          data: ["产能", "剩余"],
+          data: ["实际", "剩余"],
         },
 
         series: [
@@ -528,7 +528,7 @@ let pinA=document?.getElementById("pinA");
             data: [
               {
                 value: point,
-                name: "产能",
+                name: "实际",
                 itemStyle: {
                   normal: {
                     color: {
@@ -603,7 +603,7 @@ showPinCChart = echarts.init(
         legend: {
           show: true,
           itemGap: 12,
-          data: ["产能", "剩余"],
+          data: ["实际", "剩余"],
         },
 
         series: [
@@ -626,7 +626,7 @@ showPinCChart = echarts.init(
             data: [
               {
                 value: point,
-                name: "产能",
+                name: "实际",
                 itemStyle: {
                   normal: {
                     color: {
@@ -700,7 +700,7 @@ showPinCChart = echarts.init(
         legend: {
           show: true,
           itemGap: 12,
-          data: ["产能", "剩余"],
+          data: ["实际", "剩余"],
         },
 
         series: [
@@ -723,7 +723,7 @@ showPinCChart = echarts.init(
             data: [
               {
                 value: point,
-                name: "产能",
+                name: "实际",
                 itemStyle: {
                   normal: {
                     color: {
@@ -837,7 +837,7 @@ ProductEfficiencyChart = echarts.init(
 
       ProductEfficiencyOption = {
         title: {
-          text: "设备产能利用率",
+          text: "销售达成率",
           textStyle: {
             align: "center",
             color: "black",

@@ -14,6 +14,7 @@
   <div id="DataList">
     <a-table
       bordered
+        @resizeColumn="handleResizeColumn"
       :rowClassName="(index:number) => (index % 2 == 1 ? 'table-striped' : null)"
       id="yy"
       :loading="loading"
@@ -843,7 +844,9 @@ visibleConfigExport,
       showConfigExport,
       CloseConfigExportMoadl,
 
-
+ handleResizeColumn: (w:any, col:any) => {
+        col.width = w;
+      },
 
 
     };

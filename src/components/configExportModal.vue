@@ -1,11 +1,12 @@
 <template>
-    <div>
+    <div  id="ConfigModalT">
  <a-modal
     cancelText="关闭"
      okText="确认"
+    
     wrapClassName="ExportExcel"
     v-model:visible="visibleConfigGrid"
-    width="1000px"
+    class="ExportExceConfig"
     :title="titleConfigGrid"
      :ok-button-props="{ style:{display:''} }"
     @Cancel="onCancel"
@@ -133,7 +134,9 @@ state.spinning = !state.spinning;
 </script>
 
 <style  >
+
 .modalEditRow {
+  
   border: 0px solid red;
   display: flex;
   align-items: center;
@@ -160,5 +163,8 @@ state.spinning = !state.spinning;
 .configCol{
   border:2px solid #f0f0f0;height:40px;text-align:center;line-height:40px;color:black;
     font-size:14px
+}
+.ExportExceConfig {
+    overflow: auto;max-width: 1200px!important;width: 1200px!important;
 }
 </style>

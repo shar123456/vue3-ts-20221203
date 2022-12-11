@@ -15,6 +15,11 @@ enum messageEnum{
 "请求异常"=901,
 
 }
+
+
+let baseURLT=process.env.NODE_ENV === 'production' ? 'http://120.40.187.174:8702/Api/' : '/DevApi';
+
+
 const instance = axios.create({
    // baseURL: '/api/',
     //baseURL:process.env.VUE_APP_BASE_URL,
@@ -23,8 +28,9 @@ const instance = axios.create({
     //baseURL:'http://192.168.8.11:8086/Api/',
     //baseURL:'http://http://localhost:8701/Api/',
     //baseURL:'http://localhost:3165/Api/',
-   // baseURL:'http://120.40.187.174:8702/Api/',
-    baseURL:'/DevApi',
+    //baseURL:'http://120.40.187.174:8702/Api/',
+    //baseURL:'/DevApi',
+    baseURL:baseURLT,
     timeout: 15000
 })
 

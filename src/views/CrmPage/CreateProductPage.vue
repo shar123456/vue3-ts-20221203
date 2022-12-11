@@ -41,7 +41,7 @@
 
             <a-form-item label="产品代码" name="productCode">
               <a-input
-              :disabled="IsDisabled"
+              :disabled="IsDisabledproductCode"
                
                 v-model:value="EditData.productCode"
                 placeholder="请输入产品代码"
@@ -67,6 +67,7 @@
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
             <a-form-item label="产品类别" name="productCategory">
               <a-select
+               :disabled="IsDisabled"
                 v-model:value="EditData.productCategory"
                 style="width: 100%"
                 placeholder="请选择产品类别"
@@ -98,7 +99,7 @@
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
             <a-form-item label="需求数量" name="requidQty">
-              <a-input
+              <a-input-number style="width:100%"
                 :disabled="IsDisabled"
                 v-model:value="EditData.requidQty"
                 placeholder="请输入需求数量"
@@ -108,7 +109,7 @@
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
             <a-form-item label="单价" name="unitPrice">
-              <a-input
+              <a-input-number style="width:100%"
                 :disabled="IsDisabled"
                 v-model:value="EditData.unitPrice"
                 placeholder="请输入单价"
@@ -212,7 +213,7 @@
             <a-form-item label="重量单位" name="weightUnit">
               <a-input
                 :disabled="IsDisabled"
-                v-model:value="EditData.volumeSize"
+                v-model:value="EditData.weightUnit"
                 placeholder="请输入重量单位"
               />
             </a-form-item>
@@ -313,6 +314,7 @@ export default defineComponent({
       IsShowContinueAdd: false,
        title: "新建产品",
       submitDesc: "提交",
+      IsDisabledproductCode: false,
     });
     const layout = {
       labelCol: { span: 3 },
@@ -366,7 +368,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
       if (pageType != undefined && pageType == "edit") {
         state.title = "编辑产品";
         state.submitDesc = "更新";
-        
+         state.IsDisabledproductCode=true;
         GetProductById({ Id: Id }).then((res: any) => {
                   if (res.isSuccess) {
                    
@@ -450,7 +452,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
      state.IsDisabled=true;
     state.IsShowSubmit=false;
        state.IsShowContinueAdd=true;
-   
+      state.IsDisabledproductCode=true;
            } else {
              message.error("添加失败.");
            }
@@ -526,6 +528,8 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
   
     const continueAdd=()=>{
        state.IsDisabled=false;
+        state.IsDisabledproductCode=false;
+       
         state.IsShowSubmit=true;
     state.IsShowContinueAdd=false;
     DataEntityState.EditData.id="";

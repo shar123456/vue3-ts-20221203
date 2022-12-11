@@ -1,5 +1,5 @@
 export interface Ilogin{
-    user:string, password:string
+    user:string, password:string,loginType:string
 }
 
 export interface IFormRegisterState {
