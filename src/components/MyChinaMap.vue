@@ -160,7 +160,7 @@ visualMap: {
                     if(myMapChart!=undefined){
                         myMapChart?.resize();
           }
-                }, 2000)
+                }, 100)
 
                 myMapChart.on('click', function (params: any) {
                     //alert("map")

@@ -163,6 +163,83 @@
   </a-row>
  </div> -->
  
+
+
+        <a-row type="flex" justify="center"  >
+
+
+          <a-col class="col" style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 17 }">
+            <div class="HP-Up-Left"   style="width: 100%;height: 450px;" >
+            <MyChinaMap :saleMapData="saleMap" />
+            
+            </div> 
+          </a-col>
+          <a-col class="col" style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 7 }">
+            <div class="HP-Up-Right" style="width: 100%; height: 450px;" >
+            
+            
+              <div class="boxall" style="height:450px">
+        <div class="alltitle">销量排行榜</div>
+	<div class="navboxall">
+		  <table class="table1" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <th scope="col">排名</th>
+      <th scope="col">省份</th>
+      <th scope="col">销售额</th>
+      <th scope="col">增长率</th>
+    </tr>
+    <tr>
+		<td><span>1</span></td>
+      <td>北京市</td>
+      <td>2114万<br></td>
+      <td>100%<br></td>
+    </tr>
+    <tr>
+		<td><span>2</span></td>
+      <td>四川省</td>
+      <td>1123万</td>
+      <td>69%</td>
+    </tr>
+    
+    <tr>
+		<td><span>3</span></td>
+      <td>湖北省</td>
+      <td>953万</td>
+      <td>43%</td>
+    </tr>
+    <tr>
+		<td><span>4</span></td>
+      <td>山东省</td>
+      <td>674.6万</td>
+      <td>33%</td>
+    </tr>
+	  <tr>
+		  <td><span>5</span></td>
+      <td>辽宁省</td>
+      <td>323万</td>
+      <td>28%</td>
+    </tr>
+	
+  </tbody>
+</table>
+		  </div>
+      </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            </div> 
+          </a-col>
+        </a-row>
  <a-row type="flex" justify="center">
           <a-col class="col" style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 6 }">
             <div style="width: 100%; height: 350px;" id="pinA"></div>
@@ -225,83 +302,6 @@
           </div>
               </a-col>
         </a-row>
-
-        <a-row type="flex" justify="center"  >
-
-
-          <a-col class="col" style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 17 }">
-            <div class="HP-Up-Left"   style="width: 100%;height: 450px;" >
-            <MyChinaMap :saleMapData="saleMap" />
-            
-            </div> 
-          </a-col>
-          <a-col class="col" style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 7 }">
-            <div class="HP-Up-Right" style="width: 100%; height: 450px;" >
-            
-            
-              <div class="boxall" style="height:300px">
-        <div class="alltitle">标题样式</div>
-	<div class="navboxall">
-		  <table class="table1" width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tbody>
-    <tr>
-      <th scope="col">排名</th>
-      <th scope="col">公司</th>
-      <th scope="col">数量</th>
-      <th scope="col">增长率</th>
-    </tr>
-    <tr>
-		<td><span>1</span></td>
-      <td>腾讯科技</td>
-      <td>114万<br></td>
-      <td>100%<br></td>
-    </tr>
-    <tr>
-		<td><span>2</span></td>
-      <td>百度公司</td>
-      <td>923823万</td>
-      <td>21%</td>
-    </tr>
-    
-    <tr>
-		<td><span>3</span></td>
-      <td>新浪</td>
-      <td>1240253万</td>
-      <td>12%</td>
-    </tr>
-    <tr>
-		<td><span>4</span></td>
-      <td>网易</td>
-      <td>1.2亿</td>
-      <td>39%</td>
-    </tr>
-	  <tr>
-		  <td><span>5</span></td>
-      <td>雅虎</td>
-      <td>13423万</td>
-      <td>9%</td>
-    </tr>
-	
-  </tbody>
-</table>
-		  </div>
-      </div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            </div> 
-          </a-col>
-        </a-row>
-
   </div>
 
   <New-Message-Tip   :ExaminationTotals="ExaminationTotal" />

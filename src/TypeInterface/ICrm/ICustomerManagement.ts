@@ -1,13 +1,12 @@
 import {dateFormat} from '../../utility/commonFunc'
 
-interface IClueInfo {
+interface ICustomerInfo {
     id: string;
+    customerCode:string; //客户编号
     clueCode:string; //线索编号
-    clueOwner: string;  //线索所有者
-    name:string;//姓名
-
-    position:string;//职位
-    company:string;//公司
+    customername:string;//客户姓名
+    stockCode:string;//股票代码
+    
     industry:string;//行业
     annualIncome:Number;//年收入
    employeeQty:Number;//员工数量
@@ -15,22 +14,23 @@ interface IClueInfo {
 
     currency: string;//货币
      
-     mobilePhone:string;//手机号
+     
      phone:string;//电话
      fax:string;//传真
      email:string;//电邮
      emailNoDisturb:boolean;//邮件免打扰
      SecondEmail:string;//第二电邮
 
-
-     contactShiftMark:boolean;
-     customerShiftMark:boolean;
-     businessShiftMark:boolean;
+     sicCode: string;//SIC代码
+     
      webSite:string;//网站
-     clueSource:string;//线索来源
-     clueState:string;//线索状态
+
+
+
+     customerSource:string;//客户来源
+     customerState:string;//客户状态
      rate:string;//评级
-     clueAuditState:string;//线索审核状态
+     
 address:string;//地址
 province:string;//省份
 city:string;//城市
@@ -42,29 +42,29 @@ createrStr: string;//创建人
     TmStamp:string[];
   }
 
-  interface IClueQueryInfo {
-    clueCode: string;
-    name: string;
-    mobilePhone: string;
+  interface ICustomerQueryInfo {
+    customerCode: string;
+    customername: string;
+    industry: string;
     
-    rate:string;
+    phone:string;
 }
 
-const ClueColumns = [
+const CustomerColumns = [
   
-  {  oldTitle: '线索编号',title: '线索编号',width:150, dataIndex: 'clueCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
-    { oldTitle: '线索所有者', title: '线索所有者',width:180, dataIndex: 'clueOwner', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
-    {  oldTitle: '姓名',title: '姓名',width:150, dataIndex: 'name', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
+  {  oldTitle: '客户编号',title: '客户编号',width:150, dataIndex: 'customerCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
+    { oldTitle: '客户姓名', title: '客户姓名',width:180, dataIndex: 'customername', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
+    {  oldTitle: '股票代码',title: '股票代码',width:150, dataIndex: 'stockCode', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
    
     
-    {  oldTitle: '职位',title: '职位',width:150,  dataIndex: 'position', isUse: true,configOrder: 4  ,resizable: true,ellipsis: true,},
-    
-    {  oldTitle: '公司',title: '公司',width:50,  dataIndex: 'company', isUse: true,configOrder: 5 ,resizable: true,ellipsis: true,},
+
     {  oldTitle: '员工数量',title: '员工数量',width:60,  dataIndex: 'employeeQty', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
     {  oldTitle: '行业',title: '行业',width:80,  dataIndex: 'industry', isUse: true,configOrder: 7  ,resizable: true,ellipsis: true,},
     {  oldTitle: '年收入',title: '年收入',width:100,  dataIndex: 'annualIncome', isUse: true,configOrder: 8  ,resizable: true,ellipsis: true,},
     {  oldTitle: '货币',title: '货币',width:60,  dataIndex: 'currency', isUse: true,configOrder: 9 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '手机号',title: '手机号',width:80,  dataIndex: 'mobilePhone', isUse: true,configOrder: 10  ,resizable: true,ellipsis: true,},
+
+
+
     {  oldTitle: '电话',title: '电话',width:80,  dataIndex: 'phone', isUse: true,configOrder: 11  ,resizable: true,ellipsis: true,},
     {  oldTitle: '传真',title: '传真',width:60,  dataIndex: 'fax', isUse: true,configOrder: 12  ,resizable: true,ellipsis: true,},
     {  oldTitle: '电邮',title: '电邮',width:80,  dataIndex: 'email', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
@@ -74,16 +74,16 @@ const ClueColumns = [
     {  oldTitle: '网站',title: '网站',width:60,  dataIndex: 'webSite', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
     
    
-    {  oldTitle: '联系人转换标识',title: '联系人转换标识',width:60,  dataIndex: 'contactShiftMark', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '客户转换标识',title: '客户人转换标识',width:60,  dataIndex: 'customerShiftMark', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '商机转换标识',title: '商机转换标识',width:60,  dataIndex: 'businessShiftMark', isUse: true,configOrder: 19 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '线索来源',title: '线索来源',width:60,  dataIndex: 'clueSource', isUse: true,configOrder: 20 ,resizable: true,ellipsis: true,},
-    
-    {  oldTitle: '线索状态',title: '线索状态',width:60,  dataIndex: 'clueState', isUse: true,configOrder: 21 ,resizable: true,ellipsis: true,},
-    
+
+
+    {  oldTitle: '客户来源',title: '客户来源',width:60,  dataIndex: 'customerSource', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '线索编号',title: '线索编号',width:60,  dataIndex: 'clueCode', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
+
+    {  oldTitle: '客户状态',title: '客户状态',width:60,  dataIndex: 'customerState', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
+  
     {  oldTitle: '评级',title: '评级',width:60,  dataIndex: 'rate', slots: { customRender: 'rate' },isUse: true,configOrder: 22 ,resizable: true,ellipsis: true,},
     
-    {  oldTitle: '线索审核状态',title: '线索审核状态',width:60,  dataIndex: 'clueAuditState', isUse: true,configOrder: 23 ,resizable: true,ellipsis: true,},
+ 
     
     {  oldTitle: '地址',title: '地址',width:60,  dataIndex: 'address', isUse: true,configOrder: 24 ,resizable: true,ellipsis: true,},
     
@@ -101,21 +101,21 @@ const ClueColumns = [
 
 
 
-const ClueDatas=[
+const CustomerDatas=[
     {
         id:"TT2205280001",
        
-        clueCode: "MD1586587",
+        customerCode: "MD1586587",
 
-        clueOwner: "D669985",
-        name: "济南通合制造",
-        position: "电子",
-        company: "暂无",
+        customername: "D669985",
+        stockCode: "济南通合制造",
+        industry: "电子",
+        currency: "暂无",
         employeeQty: 12,
       createTimeStr:"2022-06-23 12:36:52",
       key: "0001",
     }]
-    class ClueEntity{
+    class CustomerEntity{
         BtnConfigInfo:any={
           RefreshBtn:true,
           ClearQueryBtn:true,
@@ -130,22 +130,22 @@ const ClueDatas=[
         }
 
 
-        EditData:IClueInfo={
+        EditData:ICustomerInfo={
           id: "",
           clueCode:"", //线索编号
-          clueOwner:"",  //线索所有者
-          name:"",//姓名
+          customerCode:"",  //线索所有者
+          customername:"",//姓名
       
-          position:"",//职位
-          company:"",//公司
+          stockCode:"",//职位
+          
           industry:"",//行业
           annualIncome:0,//年收入
          employeeQty:0,//员工数量
-      
+         sicCode:"",
       
           currency: "",//货币
            
-           mobilePhone:"",//手机号
+         
            phone:"",//电话
            fax:"",//传真
            email:"",//电邮
@@ -153,16 +153,14 @@ const ClueDatas=[
            SecondEmail:"",//第二电邮
            webSite:"",//网站
 
-           contactShiftMark:false,
-           customerShiftMark:false,
-           businessShiftMark:false,
+         
 
 
 
-           clueSource:"",//线索来源
-           clueState:"",//线索状态
+           customerSource:"",//线索来源
+           customerState:"",//线索状态
            rate:"未选择",//评级
-           clueAuditState:"",//线索审核状态
+      
       address:"",//地址
       province:"",//省份
       city:"",//城市
@@ -188,44 +186,43 @@ const ClueDatas=[
 
         QueryConditionInfo:any={
            
-          clueCode: "",
-          name: "",
+          customerCode: "",
+          customername: "",
         
-          mobilePhone: "",
+          industry: "",
         
-          rate: "未选择",
+          phone:"",
           }
           QueryConditionInfoConfig:any={
-            clueCode:{
-              name:"线索编号",
+            customerCode:{
+              name:"客户编号",
               type:"text"
             },
             
-            name:{
-              name:"姓名",
+            customername:{
+              name:"客户姓名",
               type:"text"
             },
-            mobilePhone:{
-              name:"手机号",
+            industry:{
+              name:"行业",
               type:"text"
             },
-            rate:{
-              name:"评级",
-              type:"select",
-              optionValueArray:["未选择","Level1","Level2","Level3","Level4"]
+            phone:{
+              name:"电话",
+              type:"text"
             },
            
           }
 
          
          
-        DataList:Array<IClueInfo>=[];
+        DataList:Array<ICustomerInfo>=[];
         
         ListColumns:any=[];
         ListGridColumns:any=[];
         selectedRowKeys:string[]= [];
-        selectedRows:IClueInfo[]= [];
-        ClueDatas:any=ClueDatas;
+        selectedRows:ICustomerInfo[]= [];
+        ClueDatas:any=CustomerDatas;
         ExportColumns:any=[];
 
       
@@ -255,4 +252,4 @@ const ClueDatas=[
 
    
    
-    export {IClueInfo,ClueColumns,ClueEntity,ExportColumns}
+    export {ICustomerInfo,CustomerColumns,CustomerEntity,ExportColumns}

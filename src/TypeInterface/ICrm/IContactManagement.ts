@@ -1,20 +1,13 @@
 import {dateFormat} from '../../utility/commonFunc'
 
-interface IClueInfo {
+interface IContactInfo {
     id: string;
-    clueCode:string; //线索编号
-    clueOwner: string;  //线索所有者
+    contactCode:string; //联系人编号
+   
+   
     name:string;//姓名
 
-    position:string;//职位
-    company:string;//公司
-    industry:string;//行业
-    annualIncome:Number;//年收入
-   employeeQty:Number;//员工数量
-
-
-    currency: string;//货币
-     
+   
      mobilePhone:string;//手机号
      phone:string;//电话
      fax:string;//传真
@@ -23,14 +16,13 @@ interface IClueInfo {
      SecondEmail:string;//第二电邮
 
 
-     contactShiftMark:boolean;
-     customerShiftMark:boolean;
-     businessShiftMark:boolean;
-     webSite:string;//网站
-     clueSource:string;//线索来源
-     clueState:string;//线索状态
-     rate:string;//评级
-     clueAuditState:string;//线索审核状态
+     position:string;//职位
+     dept:string;//部门
+     assistant:string;//助理
+     assistantPhone:string;//助理电话
+     contactSource:string;//联系人来源
+     clueCode:string; //线索编号
+     contactState:string;//联系人状态
 address:string;//地址
 province:string;//省份
 city:string;//城市
@@ -42,48 +34,38 @@ createrStr: string;//创建人
     TmStamp:string[];
   }
 
-  interface IClueQueryInfo {
-    clueCode: string;
+  interface IContactQueryInfo {
+    contactCode: string;
     name: string;
     mobilePhone: string;
     
-    rate:string;
+    contactSource:string;
 }
 
-const ClueColumns = [
+const ContactColumns = [
   
-  {  oldTitle: '线索编号',title: '线索编号',width:150, dataIndex: 'clueCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
-    { oldTitle: '线索所有者', title: '线索所有者',width:180, dataIndex: 'clueOwner', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
-    {  oldTitle: '姓名',title: '姓名',width:150, dataIndex: 'name', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
-   
-    
-    {  oldTitle: '职位',title: '职位',width:150,  dataIndex: 'position', isUse: true,configOrder: 4  ,resizable: true,ellipsis: true,},
-    
-    {  oldTitle: '公司',title: '公司',width:50,  dataIndex: 'company', isUse: true,configOrder: 5 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '员工数量',title: '员工数量',width:60,  dataIndex: 'employeeQty', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '行业',title: '行业',width:80,  dataIndex: 'industry', isUse: true,configOrder: 7  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '年收入',title: '年收入',width:100,  dataIndex: 'annualIncome', isUse: true,configOrder: 8  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '货币',title: '货币',width:60,  dataIndex: 'currency', isUse: true,configOrder: 9 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '手机号',title: '手机号',width:80,  dataIndex: 'mobilePhone', isUse: true,configOrder: 10  ,resizable: true,ellipsis: true,},
+  {  oldTitle: '联系人编号',title: '联系人编号',width:150, dataIndex: 'contactCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
+    { oldTitle: '姓名', title: '姓名',width:180, dataIndex: 'name', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
+    {  oldTitle: '手机号',title: '手机号',width:80,  dataIndex: 'mobilePhone', isUse: true,configOrder: 11  ,resizable: true,ellipsis: true,},
     {  oldTitle: '电话',title: '电话',width:80,  dataIndex: 'phone', isUse: true,configOrder: 11  ,resizable: true,ellipsis: true,},
     {  oldTitle: '传真',title: '传真',width:60,  dataIndex: 'fax', isUse: true,configOrder: 12  ,resizable: true,ellipsis: true,},
     {  oldTitle: '电邮',title: '电邮',width:80,  dataIndex: 'email', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
     {  oldTitle: '第二电邮',title: '第二电邮',width:60,  dataIndex: 'SecondEmail', isUse: true,configOrder: 14 ,resizable: true,ellipsis: true,},
     {  oldTitle: '邮件免打扰',title: '邮件免打扰',width:60,  dataIndex: 'emailNoDisturb', isUse: true,configOrder: 15 ,resizable: true,ellipsis: true,},
     
-    {  oldTitle: '网站',title: '网站',width:60,  dataIndex: 'webSite', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '职位',title: '职位',width:60,  dataIndex: 'position', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '部门',title: '部门',width:60,  dataIndex: 'dept', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '助理',title: '助理',width:60,  dataIndex: 'assistant', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '助理电话',title: '助理电话',width:60,  dataIndex: 'assistantPhone', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
+
+    {  oldTitle: '联系人来源',title: '联系人来源',width:60,  dataIndex: 'contactSource', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '线索编号',title: '线索编号',width:60,  dataIndex: 'clueCode', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
+
+    {  oldTitle: 'contactState',title: 'contactState',width:60,  dataIndex: 'contactState', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
+  
+ 
     
-   
-    {  oldTitle: '联系人转换标识',title: '联系人转换标识',width:60,  dataIndex: 'contactShiftMark', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '客户转换标识',title: '客户人转换标识',width:60,  dataIndex: 'customerShiftMark', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '商机转换标识',title: '商机转换标识',width:60,  dataIndex: 'businessShiftMark', isUse: true,configOrder: 19 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '线索来源',title: '线索来源',width:60,  dataIndex: 'clueSource', isUse: true,configOrder: 20 ,resizable: true,ellipsis: true,},
-    
-    {  oldTitle: '线索状态',title: '线索状态',width:60,  dataIndex: 'clueState', isUse: true,configOrder: 21 ,resizable: true,ellipsis: true,},
-    
-    {  oldTitle: '评级',title: '评级',width:60,  dataIndex: 'rate', slots: { customRender: 'rate' },isUse: true,configOrder: 22 ,resizable: true,ellipsis: true,},
-    
-    {  oldTitle: '线索审核状态',title: '线索审核状态',width:60,  dataIndex: 'clueAuditState', isUse: true,configOrder: 23 ,resizable: true,ellipsis: true,},
+ 
     
     {  oldTitle: '地址',title: '地址',width:60,  dataIndex: 'address', isUse: true,configOrder: 24 ,resizable: true,ellipsis: true,},
     
@@ -101,21 +83,21 @@ const ClueColumns = [
 
 
 
-const ClueDatas=[
+const ContactDatas=[
     {
         id:"TT2205280001",
        
-        clueCode: "MD1586587",
+        contactCode: "MD1586587",
 
-        clueOwner: "D669985",
-        name: "济南通合制造",
-        position: "电子",
-        company: "暂无",
-        employeeQty: 12,
+        name: "D669985",
+        mobilePhone: "济南通合制造",
+        phone: "电子",
+        fax: "暂无",
+        email: 12,
       createTimeStr:"2022-06-23 12:36:52",
       key: "0001",
     }]
-    class ClueEntity{
+    class ContactEntity{
         BtnConfigInfo:any={
           RefreshBtn:true,
           ClearQueryBtn:true,
@@ -130,39 +112,29 @@ const ClueDatas=[
         }
 
 
-        EditData:IClueInfo={
+        EditData:IContactInfo={
           id: "",
           clueCode:"", //线索编号
-          clueOwner:"",  //线索所有者
+          contactCode:"",  //线索所有者
           name:"",//姓名
       
-          position:"",//职位
-          company:"",//公司
-          industry:"",//行业
-          annualIncome:0,//年收入
-         employeeQty:0,//员工数量
-      
-      
-          currency: "",//货币
-           
-           mobilePhone:"",//手机号
+          
+          mobilePhone:"",//电话
            phone:"",//电话
            fax:"",//传真
            email:"",//电邮
            emailNoDisturb:false,//邮件免打扰
            SecondEmail:"",//第二电邮
-           webSite:"",//网站
-
-           contactShiftMark:false,
-           customerShiftMark:false,
-           businessShiftMark:false,
-
+           position:"",//网站
+           dept:"",//网站
+           assistant:"",//网站
+           assistantPhone:"",//网站
 
 
-           clueSource:"",//线索来源
-           clueState:"",//线索状态
-           rate:"未选择",//评级
-           clueAuditState:"",//线索审核状态
+           contactSource:"",//线索来源
+           contactState:"",//线索状态
+     
+      
       address:"",//地址
       province:"",//省份
       city:"",//城市
@@ -188,16 +160,16 @@ const ClueDatas=[
 
         QueryConditionInfo:any={
            
-          clueCode: "",
+          contactCode: "",
           name: "",
         
           mobilePhone: "",
         
-          rate: "未选择",
+          contactSource:"未选择",
           }
           QueryConditionInfoConfig:any={
-            clueCode:{
-              name:"线索编号",
+            contactCode:{
+              name:"联系人编号",
               type:"text"
             },
             
@@ -209,23 +181,23 @@ const ClueDatas=[
               name:"手机号",
               type:"text"
             },
-            rate:{
-              name:"评级",
+            contactSource:{
+              name:"联系人来源",
               type:"select",
-              optionValueArray:["未选择","Level1","Level2","Level3","Level4"]
+              optionValueArray:["未选择","线索转化","手动","批量导入"]
             },
            
           }
 
          
          
-        DataList:Array<IClueInfo>=[];
+        DataList:Array<IContactInfo>=[];
         
         ListColumns:any=[];
         ListGridColumns:any=[];
         selectedRowKeys:string[]= [];
-        selectedRows:IClueInfo[]= [];
-        ClueDatas:any=ClueDatas;
+        selectedRows:IContactInfo[]= [];
+        ClueDatas:any=ContactDatas;
         ExportColumns:any=[];
 
       
@@ -255,4 +227,4 @@ const ClueDatas=[
 
    
    
-    export {IClueInfo,ClueColumns,ClueEntity,ExportColumns}
+    export {IContactInfo,ContactColumns,ContactEntity,ExportColumns}
