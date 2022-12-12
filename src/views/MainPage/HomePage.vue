@@ -119,8 +119,7 @@
 
 <a-row type="flex" justify="center"  >
           <a-col class="col"  style="height: 350px;"   :xs="{ span: 24 }" :lg="{ span: 17 }">
-    <div class="HP-Up-Left"   style="width: 100%;
-  height: 350px;"   id="chinaChart"></div> 
+    <div class="HP-Up-Left"   style="width: 100%;height: 350px;"   id="chinaChart"></div> 
 
  </a-col>
  <a-col class="col" style="height: 350px;"  :xs="{ span: 24 }" :lg="{ span: 7 }">
@@ -227,8 +226,81 @@
               </a-col>
         </a-row>
 
+        <a-row type="flex" justify="center"  >
 
 
+          <a-col class="col" style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 17 }">
+            <div class="HP-Up-Left"   style="width: 100%;height: 450px;" >
+            <MyChinaMap :saleMapData="saleMap" />
+            
+            </div> 
+          </a-col>
+          <a-col class="col" style="height: 450px;"  :xs="{ span: 24 }" :lg="{ span: 7 }">
+            <div class="HP-Up-Right" style="width: 100%; height: 450px;" >
+            
+            
+              <div class="boxall" style="height:300px">
+        <div class="alltitle">标题样式</div>
+	<div class="navboxall">
+		  <table class="table1" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <th scope="col">排名</th>
+      <th scope="col">公司</th>
+      <th scope="col">数量</th>
+      <th scope="col">增长率</th>
+    </tr>
+    <tr>
+		<td><span>1</span></td>
+      <td>腾讯科技</td>
+      <td>114万<br></td>
+      <td>100%<br></td>
+    </tr>
+    <tr>
+		<td><span>2</span></td>
+      <td>百度公司</td>
+      <td>923823万</td>
+      <td>21%</td>
+    </tr>
+    
+    <tr>
+		<td><span>3</span></td>
+      <td>新浪</td>
+      <td>1240253万</td>
+      <td>12%</td>
+    </tr>
+    <tr>
+		<td><span>4</span></td>
+      <td>网易</td>
+      <td>1.2亿</td>
+      <td>39%</td>
+    </tr>
+	  <tr>
+		  <td><span>5</span></td>
+      <td>雅虎</td>
+      <td>13423万</td>
+      <td>9%</td>
+    </tr>
+	
+  </tbody>
+</table>
+		  </div>
+      </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            </div> 
+          </a-col>
+        </a-row>
 
   </div>
 
@@ -256,7 +328,7 @@ import {
   IWorkScheduleInfo,
 } from "../../TypeInterface/IWorkScheduleInterface";
 import * as echarts from "echarts";
-
+import MyChinaMap from "@/components/MyChinaMap.vue";
 
 import {
   GetExaminationTotal,
@@ -265,14 +337,16 @@ import {
 
 export default defineComponent({
   components: {
-    NewMessageTip,
+    NewMessageTip,MyChinaMap
   },
   setup() {
     const state = reactive({
       count: 0,
       ScheduleEmptyMark: false,
-      ExaminationTotal:0
+      ExaminationTotal:0,
+   
     });
+    let saleMap=ref<any>([]);
     const router = useRouter();
     let DataEntityState = reactive(new WorkScheduleEntity());
     const store = useStore();
@@ -296,6 +370,11 @@ export default defineComponent({
     let showPinDChart: any = undefined;
       let ProductEfficiencyOption: any = undefined;
     onMounted(async () => {
+
+      saleMap.value=[1111,22334];
+
+
+
       DataEntityState.QueryConditionInfo.useStatus = "启用";
       let res = await GetCurrentMonthWorkSchedule({
         current: 1,
@@ -1063,7 +1142,7 @@ ProductEfficiencyChart = echarts.init(
       ...toRefs(state),
       ...toRefs(DataEntityState),
       ShowSchedule,
-      gotoDetail,
+      gotoDetail,saleMap
     };
   },
 });
@@ -1176,4 +1255,44 @@ ProductEfficiencyChart = echarts.init(
 .ant-badge-status-text {
   color: blue !important;
 }
+
+
+
+
+
+
+
+
+.boxall{ padding:15px;  background: rgba(0,0,0,.0); position: relative; margin-bottom:15px;; z-index: 10;}
+.alltitle{ font-size:18px; color:black; position: relative; padding-left: 12px;margin-bottom: 10px;}
+.alltitle:before{ width: 5px; height: 20px; top:2px; position: absolute; content: ""; background: #49bcf7; border-radius:20px; left: 0; }
+
+.navboxall{height: calc(100% - 30px);}
+.num,.zhibiao{height: 100%; width: 50%;}
+.zb1,.zb2,.zb3{float: left; width: 33.3333%; height: 100%;}
+#zb1,#zb2,#zb3{height: calc(100% - 30px); }
+.zhibiao span{ padding-top: 20px; display: block; text-align: center; color: black; font-size: 16px;}
+.num{padding-right: 20px;}
+.numbt{ font-size: 24px; color:black ; padding-top:14px;}
+.numbt span{font-size: 18px; padding-left: 10px;color: black; }
+.numtxt{ color: #fef000; font-size: 80px; font-family: arial; border-top: 1px solid rgba(255,255,255,.1);border-bottom: 1px solid rgba(255,255,255,.1); padding: 10px 0; margin: 18px 0; font-weight: bold; letter-spacing: 2px;}
+
+.table1 th{border-bottom: 1px solid rgba(255,255,255,.2); font-size: 16px; color:black; font-weight: normal; padding:0 0 10px 0;}
+.table1 td{ font-size: 16px; color:black; padding: 15px 0 0 0; }
+.table1 span{ width: 24px; height: 24px; border-radius: 3px; display: block; background: #878787; color: black; line-height: 24px; text-align: center;}
+
+.table1 tr:nth-child(2) span{ background: #ed405d}
+.table1 tr:nth-child(3) span{ background: #f78c44}
+.table1 tr:nth-child(4) span{ background: #49bcf7}
+
+
+
+
+
+
+
+
+
+
+
 </style>
