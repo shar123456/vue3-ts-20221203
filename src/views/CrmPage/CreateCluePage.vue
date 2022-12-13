@@ -98,11 +98,11 @@
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-            <a-form-item label="公司" name="company">
+            <a-form-item label="公司" name="firm">
               <a-input
             
                
-                v-model:value="EditData.company"
+                v-model:value="EditData.firm"
                 placeholder="请输入公司"
               />
             </a-form-item>
@@ -716,7 +716,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
      DataEntityState.EditData.name="";
      DataEntityState.EditData.position= "";
     
-     DataEntityState.EditData.company="";
+     DataEntityState.EditData.firm="";
    
      DataEntityState.EditData.industry="";
      DataEntityState.EditData.annualIncome=0;
@@ -790,7 +790,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
      DataEntityState.EditData.name="";
      DataEntityState.EditData.position= "";
     
-     DataEntityState.EditData.company="";
+     DataEntityState.EditData.firm="";
    
      DataEntityState.EditData.industry="";
      DataEntityState.EditData.annualIncome=0;

@@ -7,7 +7,7 @@ interface IClueInfo {
     name:string;//姓名
 
     position:string;//职位
-    company:string;//公司
+    firm:string;//公司
     industry:string;//行业
     annualIncome:Number;//年收入
    employeeQty:Number;//员工数量
@@ -59,7 +59,7 @@ const ClueColumns = [
     
     {  oldTitle: '职位',title: '职位',width:110,  dataIndex: 'position', isUse: true,configOrder: 4  ,resizable: true,ellipsis: true,},
     
-    {  oldTitle: '公司',title: '公司',width:150,  dataIndex: 'company', isUse: true,configOrder: 5 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '公司',title: '公司',width:150,  dataIndex: 'firm', isUse: true,configOrder: 5 ,resizable: true,ellipsis: true,},
     {  oldTitle: '员工数量',title: '员工数量',width:100,  dataIndex: 'employeeQty', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
     {  oldTitle: '行业',title: '行业',width:120,  dataIndex: 'industry', isUse: true,configOrder: 7  ,resizable: true,ellipsis: true,},
     {  oldTitle: '年收入',title: '年收入',width:80,  dataIndex: 'annualIncome', isUse: true,configOrder: 8  ,resizable: true,ellipsis: true,},
@@ -141,7 +141,7 @@ const ClueDatas=[
           name:"",//姓名
       
           position:"",//职位
-          company:"",//公司
+          firm:"",//公司
           industry:"",//行业
           annualIncome:0,//年收入
          employeeQty:0,//员工数量
