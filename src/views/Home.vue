@@ -1,5 +1,5 @@
 <template>
-  <a-layout id="Main">
+  <a-layout id="Main" style="">
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible  :style="{ overflow: 'auto', height: '100vh',display:menuShow }">
       <div class="logo">
         <span :class="titleTxt1">{{ titleTxt }}</span>
@@ -264,7 +264,7 @@
     <a-layout>
       <a-layout-header
         class="headerLayout"
-        style="background: #fff; padding: 0"
+        style="background: #fff; padding: 0;border-top: 0px solid #e5e6e9;box-sizing: border-box;"
       >
         <a-row>
           <a-col :xs="6" :sm="0" :md="2" :lg="2" :xl="2">

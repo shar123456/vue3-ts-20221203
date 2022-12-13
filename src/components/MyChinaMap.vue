@@ -72,7 +72,7 @@ export default defineComponent({
                 
             },
 
-                    roam: true, //是否允许缩放，拖拽
+                    roam: false, //是否允许缩放，拖拽
                     zoom: 1.5, //初始化大小
                     // //缩放大小限制
                     scaleLimit: {

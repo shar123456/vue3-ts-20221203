@@ -126,7 +126,8 @@ const CustomerDatas=[
           CreateBtn:true,
           BatchDeleteBtn:true,
 
-
+          ClueShiftBtn:false,
+          ImportExcel:true,
         }
 
 

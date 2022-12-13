@@ -8,7 +8,7 @@
   @ExportExcel="ExportExcelBtn"
       @ConfigExport="ShowConfigExportBtn"
        @ShowConfigGrid="ShowConfigGridBtn"
-
+       
 
 
     
@@ -16,7 +16,7 @@
   >
   </Common-Query-Header-CRM>
 
-  <div id="ProductManaDataList">
+  <div id="CustomerManaDataList">
     <a-table
       bordered
       @resizeColumn="handleResizeColumn"
@@ -34,81 +34,140 @@
       :pagination="false"
     >
     
-      <template #productCategory="{ text: productCategory }">
+      <template #rate="{ text: rate }">
         <span>
-          <a-tag :color="productCategory != '未选择' ? '#AECF4B' :'#AECF4B' ">
-            {{ productCategory }}
+          <a-tag :color="rate != '未选择' ? '#AECF4B' :'#AECF4B' ">
+            {{ rate }}
           </a-tag>
         </span>
       </template>
 
+      <template #bodyCell="{ column, record }">
+      <template v-if="column.dataIndex === 'contactShiftMark'">
+        <span>
+          <a-tag
+           
+          :color="record.contactShiftMark==true ? 'geekblue' :'volcano' ">
+          
+            {{ record.contactShiftMark==true?"已转换":"未转换" }}
+          </a-tag>
+        </span>
+      </template>
+      <template v-if="column.dataIndex === 'customerShiftMark'">
+        <span>
+          <a-tag
+           
+          :color="record.customerShiftMark==true ? 'geekblue' :'volcano' ">
+          
+            {{ record.customerShiftMark==true?"已转换":"未转换" }}
+          </a-tag>
+        </span>
+      </template>
+      <template v-if="column.dataIndex === 'businessShiftMark'">
+        <span>
+          <a-tag
+           
+          :color="record.businessShiftMark==true ? 'geekblue' :'volcano' ">
+          
+            {{ record.businessShiftMark==true?"已转换":"未转换" }}
+          </a-tag>
+        </span>
+      </template>
+    </template>
 
-      <template #action="{ record }">
-       <a  @click="EditBth(record.id)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-             background-color:#3c8dbc;
-            border-radius: 4px;
-          "
-         
-          title="编辑"
-          ><EditOutlined  mark="delete"
-        />&nbsp;</a>
+
+
+
+
+
+    <template #action="{ record }">
+
+<a  @click="CancelClueShift(record)"
+  style="
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border:1px solid #dedede;
+     padding-top:1px;
+       padding-bottom:3px;
+     padding-left:7px;
+       padding-right:7px;
+     background-color:#3c8dbc;
+    border-radius: 4px;
+  "
+ 
+  title="线索转换"
+  ><InteractionOutlined  mark="delete"
+/>&nbsp;</a>
+
+
+
+
+<a  @click="EditBth(record.id)"
+  style="
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border:1px solid #dedede;
+     padding-top:1px;
+       padding-bottom:3px;
+     padding-left:7px;
+       padding-right:7px;
+     background-color:#3c8dbc;
+    border-radius: 4px;
+  "
+ 
+  title="编辑"
+  ><EditOutlined  mark="delete"
+/>&nbsp;</a>
 
 <a  @click="CopyBtn(record.id)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-             background-color:#3c8dbc;
-            border-radius: 4px;
-          "
-         
-          title="复制"
-          ><CopyFilled  mark="delete"
-        />&nbsp;</a>
-
-
-       
-
-
-         <a  @click="DeleteBth(record.id,record.productCode)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:3px;
-            background-color:#dd4b39 ;
-            border-radius: 4px;
-          "
-         
-          title="删除"
-          ><CloseOutlined  mark="delete"
-        />&nbsp;</a>
-
-          
-        
+  style="
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border:1px solid #dedede;
+     padding-top:1px;
+       padding-bottom:3px;
+     padding-left:7px;
+       padding-right:7px;
+     background-color:#3c8dbc;
+    border-radius: 4px;
+  "
+ 
+  title="复制"
+  ><CopyFilled  mark="delete"
+/>&nbsp;</a>
 
 
 
-     
-      </template>
+
+
+ <a  @click="DeleteBth(record.id,record.productCode)"
+  style="
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border:1px solid #dedede;
+     padding-top:1px;
+       padding-bottom:3px;
+     padding-left:7px;
+       padding-right:3px;
+    background-color:#dd4b39 ;
+    border-radius: 4px;
+  "
+ 
+  title="删除"
+  ><CloseOutlined  mark="delete"
+/>&nbsp;</a>
+
+  
+
+
+
+
+
+</template>
 
 
 
@@ -138,7 +197,7 @@
     :visibleModelConfigGrid="visibleModelConfigGrid"
     :modalTitleConfigGrid="modalTitleConfigGrid"
     :ListColumns="DataEntityState.ListColumns"
-    configType="ProductManagement"
+    configType="CustomerManagement"
     @CloseConfigGridMoadl="CloseConfigGridMoadl"
     @refreshBtn="RefreshBtn"
   />
@@ -146,9 +205,14 @@
     :visibleModelConfigGrid="visibleConfigExport"
     :modalTitleConfigGrid="modalTitleConfigExport"
     :ListColumns="DataEntityState.ExportColumns"
-    configType="ProductManagement"
+    configType="CustomerManagement"
     @CloseConfigGridMoadl="CloseConfigExportMoadl"
   />
+
+
+
+
+  
 </template>
 
 <script lang="ts">
@@ -165,12 +229,12 @@ import { message, Modal } from "ant-design-vue";
 import {
   
   DeleteFilled,EditOutlined,
-  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined,CopyFilled
+  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined,CopyFilled,InteractionOutlined
   
 } from "@ant-design/icons-vue";
 import {
-  ProductEntity,ProductColumns,ExportColumns
-} from "../../TypeInterface/ICrm/IProductManagement";
+  CustomerEntity,CustomerColumns,ExportColumns
+} from "../../TypeInterface/ICrm/ICustomerManagement";
 import CommonQueryHeaderCRM from "../../components/CommonQueryHeaderCRM.vue";
 import {
   GetLoginRecordColumn,
@@ -183,7 +247,7 @@ import {
 
 
 import {
-  GetProductManagementDatas,AddProduct,UpdateProduct,DeleteById,BatchDelete,BatchExport,CopyDataById
+  GetProductManagementDatas,AddProduct,UpdateProduct,DeleteById,BatchDelete,BatchExport,CopyDataById,
 }
  from "../../Request/CrmRequest/ProductManagementRequest";
 
@@ -191,10 +255,14 @@ import { deepClone } from "../../utility/commonFunc";
 import{useRouter} from 'vue-router'
 import configGridModal from "../../components/configGridModal.vue";
 import configExportModal from "../../components/configExportModal.vue";
+
+import ClueShiftModal from "../../components/ClueShiftModal.vue";
+
+
 export default defineComponent({
   components: {
-configGridModal,configExportModal,
-    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,BellOutlined,CopyFilled
+configGridModal,configExportModal,ClueShiftModal,
+    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,BellOutlined,CopyFilled,InteractionOutlined
 
   },
   setup() {
@@ -202,9 +270,9 @@ configGridModal,configExportModal,
       count: 0,
     });
   const router=useRouter();
-    const DataEntityState = reactive(new ProductEntity());
+    const DataEntityState = reactive(new CustomerEntity());
  
-    let  NewDataEntityState=new ProductEntity();
+    let  NewDataEntityState=new CustomerEntity();
     
     
 
@@ -285,11 +353,11 @@ configGridModal,configExportModal,
 let loading = ref<boolean>(false);
 onMounted(async () => {
       //获取表格列及处理表格列
-      let columnList = await GetLoginRecordColumn({ pageName: "ProductManagement" });
+      let columnList = await GetLoginRecordColumn({ pageName: "CustomerManagement" });
       console.log("ProductManagementColumn1",columnList)
 if(columnList==undefined||columnList.length==0)
 {
-  columnList=deepClone(ProductColumns)
+  columnList=deepClone(CustomerColumns)
 }
       console.log("ProductManagementColumn2",columnList)
 
@@ -307,10 +375,6 @@ if(columnList==undefined||columnList.length==0)
           // columnList[j].width = 190;
           // columnList[j].dataIndex = "action";
         }
-
-
-
-
       }
       DataEntityState.ListGridColumns = columnList;
 
@@ -333,7 +397,7 @@ if(columnList==undefined||columnList.length==0)
 
       
 let ExportColumnsList = await GetExpColumnsConfig({
-        pageName: "ProductManagement",
+        pageName: "CustomerManagement",
       });
 
      // console.log("ExportColumnsList", ExportColumnsList);
@@ -351,29 +415,29 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
 
       //获用户数据
-      loading.value = true;
-      let UserDatasList = await GetProductManagementDatas({
-        current: 1,
-        pageSize: pageSize.value,
-        ...DataEntityState.QueryConditionInfo,
-      });
-      loading.value = false;
+      // loading.value = true;
+      // let UserDatasList = await GetProductManagementDatas({
+      //   current: 1,
+      //   pageSize: pageSize.value,
+      //   ...DataEntityState.QueryConditionInfo,
+      // });
+      // loading.value = false;
 
-      console.log("amount", UserDatasList);
-      if (UserDatasList.isSuccess) {
-        DataEntityState.DataList = UserDatasList.datas;
-        totalCount.value = UserDatasList.totalCount;
-        current1.value = 1;
-      }
+      // console.log("amount", UserDatasList);
+      // if (UserDatasList.isSuccess) {
+      //   DataEntityState.DataList = UserDatasList.datas;
+      //   totalCount.value = UserDatasList.totalCount;
+      //   current1.value = 1;
+      // }
       
       //测试
-      // for(var s=0;s<11;s++)
-      // {
-      //   DataEntityState.DataList.push(DataEntityState.ProductDatas[0]);
-      // }
-       
-      //    totalCount.value = DataEntityState.DataList.length;
-      //  current1.value = 1;
+      for(var s=0;s<11;s++)
+      {
+        DataEntityState.DataList.push(DataEntityState.ClueDatas[0]);
+      }
+       console.log(DataEntityState.DataList);
+         totalCount.value = DataEntityState.DataList.length;
+       current1.value = 1;
 
     });
     /***数据初始化****************/
@@ -426,7 +490,7 @@ const SearchBtn = async (payload: any) => {
       console.log("ClearQueryBtn");
     };
  const CreateBtn = (payload: any) => {
-      router.push({ path: "/Home/CreateProductPage", query: {pageType:"add"} });
+      router.push({ path: "/Home/CreateCustomerPage", query: {pageType:"add"} });
     };
 
     
@@ -512,9 +576,19 @@ const CopyBtn = (item: any) => {
 
 const EditBth = (item: any) => {
 console.log("EditBth",item)
-router.push({ path: "/Home/CreateProductPage", query: {pageType:"edit",id: item} });
+router.push({ path: "/Home/CreateCustomerPage", query: {pageType:"edit",id: item} });
 
 };
+
+const CancelClueShift = (item: any) => {
+
+
+};
+
+
+
+
+
 
  const BatchDeleteBtn = (payload: any) => {
       let keys: string[] = [];
@@ -704,7 +778,7 @@ let visibleModelConfigGrid = ref<boolean>(false);
     
       if(columnList==undefined)
 {
-  columnList=deepClone(ProductColumns)
+  columnList=deepClone(CustomerColumns)
 }
 
       DataEntityState.ListColumns = deepClone(columnList);
@@ -798,7 +872,7 @@ onSelectChange,
       BatchDeleteBtn,
       EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
 
-      CreateBtn,
+      CreateBtn,CancelClueShift,
 
       handleResizeColumn: (w:any, col:any) => {
         col.width = w;
@@ -814,7 +888,7 @@ onSelectChange,
 </script>
 
 <style >
-#ProductManaDataList {
+#CustomerManaDataList {
    /* height: calc(100vh - 206x);  */
   border: 0px solid red;
   box-sizing: border-box;
@@ -830,8 +904,8 @@ onSelectChange,
   align-items: center;
 }
 
-#ProductManaDataList .ant-table-thead > tr > th,
-#ProductManaDataList .ant-table-tbody > tr > td {
+#CustomerManaDataList .ant-table-thead > tr > th,
+#CustomerManaDataList .ant-table-tbody > tr > td {
   padding: 9px 9px;
 }
 .table-striped td {

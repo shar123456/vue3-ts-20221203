@@ -59,28 +59,32 @@
                
                
                
-                 <a-button type="primary" :style="stateBtn.CreateBtn" @click="CreateBtn"> <template #icon><plus-outlined  /></template>
-        新增 </a-button>&nbsp;
-                <a-button type="primary" :style="stateBtn.ConfigExport"  @click="configExport"> <template #icon><LayoutOutlined /></template>导出配置</a-button>&nbsp;
-         <a-button type="primary" :style="stateBtn.ExportExcel" @click="exportExcel"> <template #icon><download-outlined /></template>导出</a-button>&nbsp;
-       <a-button  type="primary" :style="stateBtn.ConfigGridBtn" @click="configGridBtn">   <template #icon><ToolOutlined /></template>配置列表</a-button>&nbsp;
+                 <a-button type="primary" style="margin-left: 4px;margin-top: 4px;" :style="stateBtn.CreateBtn" @click="CreateBtn"> <template #icon><plus-outlined  /></template>
+        新增 </a-button>
+        <a-button type="primary" style="margin-left: 4px;margin-top: 4px;background-color: #9F68E6; border-color: #9F68E6" :style="stateBtn.ClueShiftBtn" @click="ClueShiftBtn"> <template #icon><interaction-outlined  /></template>
+        线索批量转换 </a-button>
+
+                <a-button type="primary" style="margin-left: 4px;margin-top: 4px;" :style="stateBtn.ConfigExport"  @click="configExport"> <template #icon><LayoutOutlined /></template>导出配置</a-button>
+         <a-button type="primary" style="margin-left: 4px;margin-top: 4px;" :style="stateBtn.ExportExcel" @click="exportExcel"> <template #icon><download-outlined /></template>导出</a-button>
+         <a-button type="primary" @click="importExcel" :style="stateBtn.ImportExcel"  style="margin-left: 4px;margin-top: 4px;"> <template #icon><cloud-upload-outlined /></template>导入</a-button>
+       <a-button  type="primary" style="margin-left: 4px;margin-top: 4px;"  :style="stateBtn.ConfigGridBtn" @click="configGridBtn">   <template #icon><ToolOutlined /></template>配置列表</a-button>
                
      
-      <a-button :style="stateBtn.BatchDeleteBtn"     style="background-color: #dd4b39; border-color: #dd4b39" type="primary"   @click="batchDeleteBtn">   <template #icon><delete-outlined /></template>批量删除</a-button>&nbsp;
+      <a-button :style="stateBtn.BatchDeleteBtn"     style="margin-left: 4px;margin-top: 4px;background-color: #dd4b39; border-color: #dd4b39" type="primary"   @click="batchDeleteBtn">   <template #icon><delete-outlined /></template>批量删除</a-button>
                
                
-                <a-button type="primary" :style="stateBtn.RefreshBtn" @click="refreshBtn"> <template #icon>
+                <a-button type="primary" style="margin-left: 4px;margin-top: 4px;" :style="stateBtn.RefreshBtn" @click="refreshBtn"> <template #icon>
                     <redo-outlined />
-                  </template>刷新</a-button>&nbsp;
-                <a-button type="primary"     style="background-color: goldenrod; border-color: goldenrod" :style="stateBtn.ClearQueryBtn" @click="ClearQueryBtn"><template #icon>
+                  </template>刷新</a-button>
+                <a-button type="primary"     style="margin-left: 4px;margin-top: 4px;background-color: goldenrod; border-color: goldenrod" :style="stateBtn.ClearQueryBtn" @click="ClearQueryBtn"><template #icon>
                     <clear-outlined />
-                  </template>清空筛选</a-button>&nbsp;
-                <a-button type="primary" :style="stateBtn.SearchBtn" @click="SearchBtn">
+                  </template>清空筛选</a-button>
+                <a-button type="primary" style="margin-left: 4px;margin-top: 4px;margin-right: 4px;" :style="stateBtn.SearchBtn" @click="SearchBtn">
                   <template #icon>
                     <SearchOutlined />
                   </template>
                   搜索
-                </a-button>&nbsp;
+                </a-button>
               </div>
             </a-col>
 
@@ -119,12 +123,14 @@
 <script lang="ts">
 import { reactive, toRefs, defineComponent, ref, onMounted } from "vue";
 
-import { LayoutOutlined,ProfileOutlined,SearchOutlined,PlusOutlined, DeleteOutlined,BarChartOutlined,RedoOutlined,ClearOutlined,AppstoreAddOutlined,DownloadOutlined,CloudUploadOutlined} from "@ant-design/icons-vue";
+import { LayoutOutlined,ProfileOutlined,SearchOutlined,PlusOutlined, 
+  DeleteOutlined,BarChartOutlined,RedoOutlined,ClearOutlined,
+  AppstoreAddOutlined,DownloadOutlined,CloudUploadOutlined,InteractionOutlined} from "@ant-design/icons-vue";
 import { dateFormat } from '../utility/commonFunc'
 export default defineComponent({
   components: {
         SearchOutlined,PlusOutlined,DeleteOutlined,BarChartOutlined,RedoOutlined,
-    ClearOutlined,AppstoreAddOutlined,DownloadOutlined,CloudUploadOutlined,ProfileOutlined,LayoutOutlined
+    ClearOutlined,AppstoreAddOutlined,DownloadOutlined,CloudUploadOutlined,ProfileOutlined,LayoutOutlined,InteractionOutlined
     
   },
   props: { StateEntity: Object, },
@@ -141,7 +147,11 @@ ConfigExport:{display:'none'},
 ExportExcel:{display:'none'},
 ConfigGridBtn:{display:'none'},
 CreateBtn:{display:'none'},
-BatchDeleteBtn:{display:'none'}
+BatchDeleteBtn:{display:'none'},
+ClueShiftBtn:{display:'none'},
+
+ImportExcel:{display:'none'}
+
 
     });
 
@@ -248,6 +258,12 @@ BatchDeleteBtn:{display:'none'}
 
 
 
+    const ClueShiftBtn = () => {
+
+context.emit("ShowClueShiftBtn");
+   }
+
+
 
 
 
@@ -260,7 +276,7 @@ BatchDeleteBtn:{display:'none'}
       SearchBtn,
       CreateBtn,
       ClearQueryBtn,
-      exportExcel, batchDeleteBtn, refreshBtn, importExcel, configGridBtn, fileUploadBtn,configExport,
+      exportExcel, batchDeleteBtn, refreshBtn, importExcel, configGridBtn, fileUploadBtn,configExport,ClueShiftBtn,
       stateBtn
     };
   },

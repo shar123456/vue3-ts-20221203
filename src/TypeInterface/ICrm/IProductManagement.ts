@@ -91,8 +91,9 @@ const ProductDatas=[
           ConfigGridBtn:true,
           CreateBtn:true,
           BatchDeleteBtn:true,
-
-
+          ClueShiftBtn:false,
+          ImportExcel:false,
+          
         }
 
 
