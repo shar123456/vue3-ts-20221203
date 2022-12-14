@@ -26,7 +26,7 @@
             >&nbsp;
              
              <a-button  style="background-color: #CAB872; border-color: #CAB872" type="primary"   v-show="IsShowContinueAdd" @click="continueAdd">继续创建</a-button>  &nbsp;
-            <a-button  @click="goBackBtn">返回线索列表</a-button></a-col
+            <a-button  @click="goBackBtn">返回客户列表</a-button></a-col
           >
         </a-row>
         <a-row style="height: 15px"></a-row>
@@ -39,23 +39,23 @@
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-            <a-form-item label="线索编号" name="clueCode">
+            <a-form-item label="客户编号" name="customerCode">
               <a-input
-              ::disabled="IsDisabledClueCode"
+              ::disabled="IsDisabledCustomerCode"
                
-                v-model:value="EditData.clueCode"
-                placeholder="请输入线索编号"
+                v-model:value="EditData.customerCode"
+                placeholder="请输入客户编号"
               />
             </a-form-item>
             
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="线索所有者" name="clueOwner">
+            <a-form-item label="客户姓名" name="customername">
               <a-input
               :disabled="IsDisabled"
-                v-model:value="EditData.clueOwner"
-                placeholder="请输入线索所有者"
+                v-model:value="EditData.customername"
+                placeholder="请输入客户姓名"
               />
             </a-form-item>
           </a-col>
@@ -66,63 +66,32 @@
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-            <a-form-item label="姓名" name="name">
-              <a-input
-            
-               
-                v-model:value="EditData.name"
-                placeholder="请输入姓名"
-              />
-            </a-form-item>
-            
-          </a-col>
-          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="职位" name="position">
-              <a-input
-              :disabled="IsDisabled"
-                v-model:value="EditData.position"
-                placeholder="请输入职位"
-              />
-            </a-form-item>
-          </a-col>
-        </a-row>
-
-
-
-        <a-row style="height: 0px"></a-row>
-
-
-
-
-        <a-row type="flex" justify="center">
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-
-            <a-form-item label="公司" name="firm">
-              <a-input
-            
-               
-                v-model:value="EditData.firm"
-                placeholder="请输入公司"
-              />
-            </a-form-item>
-            
-          </a-col>
-          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
             <a-form-item label="行业" name="industry">
               <a-input
-              :disabled="IsDisabled"
+            
+               
                 v-model:value="EditData.industry"
                 placeholder="请输入行业"
               />
             </a-form-item>
+            
+          </a-col>
+          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
+          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
+            <a-form-item label="股票代码" name="stockCode">
+              <a-input
+              :disabled="IsDisabled"
+                v-model:value="EditData.stockCode"
+                placeholder="请输入股票代码"
+              />
+            </a-form-item>
           </a-col>
         </a-row>
 
 
 
         <a-row style="height: 0px"></a-row>
+
 
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
@@ -166,6 +135,9 @@
 
 
 
+
+
+
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
@@ -181,11 +153,11 @@
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="手机号" name="mobilePhone">
+            <a-form-item label="SIC码" name="sicCode">
               <a-input
               :disabled="IsDisabled"
-                v-model:value="EditData.mobilePhone"
-                placeholder="请输入手机号"
+                v-model:value="EditData.sicCode"
+                placeholder="请输入SIC码"
               />
             </a-form-item>
           </a-col>
@@ -301,12 +273,12 @@
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
            
-            <a-form-item label="线索状态" name="clueState">
+            <a-form-item label="客户状态" name="customerState">
               <a-select
                :disabled="IsDisabled"
-                v-model:value="EditData.clueState"
+                v-model:value="EditData.customerState"
                 style="width: 100%"
-                placeholder="请选择线索状态"
+                placeholder="请选择客户状态"
               >
                 <a-select-option value="未选择">未选择</a-select-option>
                 <a-select-option value="启用"
@@ -362,20 +334,13 @@
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
             
 
-            <a-form-item label="审核状态" name="clueAuditState">
-              <a-select
-               :disabled="IsDisabled"
-                v-model:value="EditData.clueAuditState"
-                style="width: 100%"
-                placeholder="请选择线索审核状态"
-              >
-                <a-select-option value="未审核">未审核</a-select-option>
-                <a-select-option value="通过"
-                  >通过</a-select-option
-                >
-                <a-select-option value="驳回">驳回</a-select-option>
+            <a-form-item label="第二电邮" name="secondEmail">
+              <a-input
+            
                
-              </a-select>
+                v-model:value="EditData.secondEmail"
+                placeholder="请输入第二电邮"
+              />
             </a-form-item>
 
 
@@ -509,7 +474,7 @@
 import { reactive, toRefs, defineComponent, onMounted, ref } from "vue";
 import { UploadOutlined } from "@ant-design/icons-vue";
 import { useRouter, useRoute } from "vue-router";
-import { ClueEntity } from "../../TypeInterface/ICrm/IClueManagement";
+import { CustomerEntity } from "../../TypeInterface/ICrm/ICustomerManagement";
 import SearchDataModal2 from "../../components/SearchDataModal2.vue";
 import { GetUsers } from "../../Request/userRequest";
 import { SearchUserColumns ,SearchFlowColumns} from "../../TypeInterface/ISearchDataModalInterface";
@@ -518,8 +483,8 @@ import { SearchUserColumns ,SearchFlowColumns} from "../../TypeInterface/ISearch
   ExaminationFlowEntity,ExaminationFlowColumns
 } from "../../TypeInterface/IExaminationInterface";
 import {
-  AddClue,UpdateClue,GetClueById
-} from "../../Request/CrmRequest/ClueManagementRequest";
+  AddProduct,UpdateProduct,GetProductById
+} from "../../Request/CrmRequest/ProductManagementRequest";
  import { useStore } from "vuex";
  import { message, Modal } from "ant-design-vue";
 
@@ -534,21 +499,21 @@ export default defineComponent({
       IsDisabled: false,
       IsShowSubmit: true,
       IsShowContinueAdd: false,
-       title: "新建线索",
+       title: "新建客户",
       submitDesc: "提交",
-      IsDisabledClueCode: false,
+      IsDisabledCustomerCode: false,
     });
     const layout = {
       labelCol: { span: 3 },
       wrapperCol: { span: 30 },
     };
        const goBackBtn = () => {
-      router.push({ path: "/Home/ClueManagementPage", query: {} });
+      router.push({ path: "/Home/CustomerManagementPage", query: {} });
     };
     const route = useRoute();
     const router = useRouter();
       const store = useStore();
-    let DataEntityState = reactive(new ClueEntity());
+    let DataEntityState = reactive(new CustomerEntity());
 
     let visibleSearchModal = ref<boolean>(false);
     let modalTitleSearchModal = ref<string>("");
@@ -583,15 +548,15 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
       let pageType = route.query.pageType;
       let Id = route.query.id;
       if ((pageType != undefined && pageType == "add")||pageType==undefined) {
-        state.title = "新建线索";
+        state.title = "新建客户";
         state.submitDesc = "提交";
          
       }
       if (pageType != undefined && pageType == "edit") {
-        state.title = "编辑线索";
+        state.title = "编辑客户";
         state.submitDesc = "更新";
-         state.IsDisabledClueCode=true;
-        GetClueById({ Id: Id }).then((res: any) => {
+         state.IsDisabledCustomerCode=true;
+        GetProductById({ Id: Id }).then((res: any) => {
                   if (res.isSuccess) {
                    
                  DataEntityState.EditData=res.datas;
@@ -623,9 +588,9 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
 
    
 
-    let validateclueState = async (rule: any, value: any) => {
+    let validateCustomerState = async (rule: any, value: any) => {
       if (value === "未选择") {
-        return Promise.reject("请选择线索状态");
+        return Promise.reject("请选择客户状态");
       }
 
       return Promise.resolve();
@@ -637,10 +602,10 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
 
 
     const rules = {
-      name: [
+      customername: [
         {
           required: true,
-          message: "请输入姓名",
+          message: "请输入客户姓名",
           trigger: "blur",
         },
         {
@@ -651,10 +616,10 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
         },
       ],
       
-      clueState: [
+      CustomerState: [
         {
           required: true,
-          validator: validateclueState,
+          validator: validateCustomerState,
         },
       ],
       rate: [
@@ -673,7 +638,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
   
       if ((pageType != undefined && pageType == "add")||pageType==undefined) {
     
-        AddClue(values).then((res: any) => {
+        AddProduct(values).then((res: any) => {
            console.log(res);
            if (res.isSuccess) {
            
@@ -686,7 +651,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
      state.IsDisabled=true;
     state.IsShowSubmit=false;
        state.IsShowContinueAdd=true;
-      state.IsDisabledClueCode=true;
+      state.IsDisabledCustomerCode=true;
            } else {
              message.error("添加失败.");
            }
@@ -702,7 +667,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
    
    
          //DataEntityState.EditData.startTimeStr= dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(values.startTimeStr),0),"YYYY-MM-DD HH:mm:ss");
-   UpdateClue(DataEntityState.EditData).then((res: any) => {
+   UpdateProduct(DataEntityState.EditData).then((res: any) => {
            console.log(res);
            if (res.isSuccess) {
            
@@ -712,35 +677,30 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
              {
               DataEntityState.EditData.id="";
      DataEntityState.EditData.clueCode= "";
-     DataEntityState.EditData.clueOwner= "";
-     DataEntityState.EditData.name="";
-     DataEntityState.EditData.position= "";
+     DataEntityState.EditData.customerCode= "";
+     DataEntityState.EditData.customername="";
+     DataEntityState.EditData.stockCode= "";
     
-     DataEntityState.EditData.firm="";
-   
      DataEntityState.EditData.industry="";
+  
      DataEntityState.EditData.annualIncome=0;
      DataEntityState.EditData.employeeQty=0;
      DataEntityState.EditData.currency="";
-     DataEntityState.EditData.mobilePhone="";
+     DataEntityState.EditData.sicCode="";
      
      DataEntityState.EditData.phone="";
      DataEntityState.EditData.fax="";
      DataEntityState.EditData.email="";
      DataEntityState.EditData.emailNoDisturb="否"
-    
-
-
-     
+  
      DataEntityState.EditData.secondEmail="",
      DataEntityState.EditData.webSite="",
-     DataEntityState.EditData.contactShiftMark=false,
-     DataEntityState.EditData.customerShiftMark=false,
-     DataEntityState.EditData.businessShiftMark=false,
-     DataEntityState.EditData.clueSource="",
-     DataEntityState.EditData.clueState="启用",
+
+ 
+     DataEntityState.EditData.customerSource="",
+     DataEntityState.EditData.customerState="启用",
      DataEntityState.EditData.rate="Level1",
-     DataEntityState.EditData.clueAuditState="未审核",
+
      DataEntityState.EditData.address="",
      DataEntityState.EditData.province="",
      DataEntityState.EditData.city="",
@@ -752,7 +712,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
              }
              
    
-     router.push({ path: "/Home/ClueManagementPage", query: {} });
+     router.push({ path: "/Home/ProductManagementPage", query: {} });
    
    
    
@@ -777,7 +737,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
   
     const continueAdd=()=>{
        state.IsDisabled=false;
-        state.IsDisabledClueCode=false;
+        state.IsDisabledCustomerCode=false;
        
         state.IsShowSubmit=true;
     state.IsShowContinueAdd=false;
@@ -786,35 +746,30 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
              {
               DataEntityState.EditData.id="";
      DataEntityState.EditData.clueCode= "";
-     DataEntityState.EditData.clueOwner= "";
-     DataEntityState.EditData.name="";
-     DataEntityState.EditData.position= "";
+     DataEntityState.EditData.customerCode= "";
+     DataEntityState.EditData.customername="";
+     DataEntityState.EditData.stockCode= "";
     
-     DataEntityState.EditData.firm="";
-   
      DataEntityState.EditData.industry="";
+  
      DataEntityState.EditData.annualIncome=0;
      DataEntityState.EditData.employeeQty=0;
      DataEntityState.EditData.currency="";
-     DataEntityState.EditData.mobilePhone="";
+     DataEntityState.EditData.sicCode="";
      
      DataEntityState.EditData.phone="";
      DataEntityState.EditData.fax="";
      DataEntityState.EditData.email="";
-     DataEntityState.EditData.emailNoDisturb="否" 
-    
-
-
-     
+     DataEntityState.EditData.emailNoDisturb="否"
+  
      DataEntityState.EditData.secondEmail="",
      DataEntityState.EditData.webSite="",
-     DataEntityState.EditData.contactShiftMark=false,
-     DataEntityState.EditData.customerShiftMark=false,
-     DataEntityState.EditData.businessShiftMark=false,
-     DataEntityState.EditData.clueSource="",
-     DataEntityState.EditData.clueState="启用",
+
+ 
+     DataEntityState.EditData.customerSource="",
+     DataEntityState.EditData.customerState="启用",
      DataEntityState.EditData.rate="Level1",
-     DataEntityState.EditData.clueAuditState="未审核",
+
      DataEntityState.EditData.address="",
      DataEntityState.EditData.province="",
      DataEntityState.EditData.city="",

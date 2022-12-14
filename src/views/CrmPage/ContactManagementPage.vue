@@ -8,7 +8,7 @@
   @ExportExcel="ExportExcelBtn"
       @ConfigExport="ShowConfigExportBtn"
        @ShowConfigGrid="ShowConfigGridBtn"
-       @ShowClueShiftBtn="ShowClueShiftBtn"
+       
 
 
     
@@ -16,7 +16,7 @@
   >
   </Common-Query-Header-CRM>
 
-  <div id="ClueManaDataList">
+  <div id="ContactManaDataList">
     <a-table
       bordered
       @resizeColumn="handleResizeColumn"
@@ -43,36 +43,27 @@
       </template>
 
       <template #bodyCell="{ column, record }">
-      <template v-if="column.dataIndex === 'contactShiftMark'">
+      <template v-if="column.dataIndex === 'customerSource'">
         <span>
           <a-tag
            
-          :color="record.contactShiftMark==true ? 'geekblue' :'volcano' ">
+          :color="(record.customerSource=='手动'||record.customerSource=='导入') ? 'geekblue' :'volcano' ">
           
-            {{ record.contactShiftMark==true?"已转换":"未转换" }}
+            {{ record.customerSource}}
           </a-tag>
         </span>
       </template>
-      <template v-if="column.dataIndex === 'customerShiftMark'">
+      <template v-if="column.dataIndex === 'customerState'">
         <span>
           <a-tag
            
-          :color="record.customerShiftMark==true ? 'geekblue' :'volcano' ">
+          :color="record.customerState=='启用' ? 'geekblue' :'volcano' ">
           
-            {{ record.customerShiftMark==true?"已转换":"未转换" }}
+            {{ record.customerState}}
           </a-tag>
         </span>
       </template>
-      <template v-if="column.dataIndex === 'businessShiftMark'">
-        <span>
-          <a-tag
-           
-          :color="record.businessShiftMark==true ? 'geekblue' :'volcano' ">
-          
-            {{ record.businessShiftMark==true?"已转换":"未转换" }}
-          </a-tag>
-        </span>
-      </template>
+     
     </template>
 
 
@@ -80,94 +71,97 @@
 
 
 
-      <template #action="{ record }">
+    <template #action="{ record }">
 
-        <a  @click="ShowClueShiftRow(record)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-             background-color:#3c8dbc;
-            border-radius: 4px;
-          "
-         
-          title="线索转换"
-          ><InteractionOutlined  mark="delete"
-        />&nbsp;</a>
+      <a  @click="CancelClueShift(record)" v-if="record.customerSource === '线索转换'"
+
+style="
+  
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border:1px solid #dedede;
+   padding-top:1px;
+     padding-bottom:3px;
+   padding-left:7px;
+     padding-right:7px;
+     background-color:#ce6189;
+  border-radius: 4px;
+"
+
+title="撤销"
+><UndoOutlined   mark="delete"
+/>&nbsp;</a>
 
 
 
 
-       <a  @click="EditBth(record.id)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-             background-color:#3c8dbc;
-            border-radius: 4px;
-          "
-         
-          title="编辑"
-          ><EditOutlined  mark="delete"
-        />&nbsp;</a>
+<a  @click="EditBth(record.id)"
+  style="
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border:1px solid #dedede;
+     padding-top:1px;
+       padding-bottom:3px;
+     padding-left:7px;
+       padding-right:7px;
+     background-color:#3c8dbc;
+    border-radius: 4px;
+  "
+ 
+  title="编辑"
+  ><EditOutlined  mark="delete"
+/>&nbsp;</a>
 
 <a  @click="CopyBtn(record.id)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-             background-color:#3c8dbc;
-            border-radius: 4px;
-          "
-         
-          title="复制"
-          ><CopyFilled  mark="delete"
-        />&nbsp;</a>
-
-
-       
-
-
-         <a  @click="DeleteBth(record.id,record.productCode)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:3px;
-            background-color:#dd4b39 ;
-            border-radius: 4px;
-          "
-         
-          title="删除"
-          ><CloseOutlined  mark="delete"
-        />&nbsp;</a>
-
-          
-        
+  style="
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border:1px solid #dedede;
+     padding-top:1px;
+       padding-bottom:3px;
+     padding-left:7px;
+       padding-right:7px;
+     background-color:#3c8dbc;
+    border-radius: 4px;
+  "
+ 
+  title="复制"
+  ><CopyFilled  mark="delete"
+/>&nbsp;</a>
 
 
 
-     
-      </template>
+
+
+<a  @click="DeleteBth(record.id,record.productCode)"
+ v-if="record.customerSource != '线索转换'"
+  style="
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border:1px solid #dedede;
+     padding-top:1px;
+       padding-bottom:3px;
+     padding-left:7px;
+       padding-right:3px;
+    background-color:#dd4b39 ;
+    border-radius: 4px;
+  "
+ 
+  title="删除"
+  ><CloseOutlined  mark="delete"
+/>&nbsp;</a>
+
+  
+
+
+
+
+
+</template>
 
 
 
@@ -197,7 +191,7 @@
     :visibleModelConfigGrid="visibleModelConfigGrid"
     :modalTitleConfigGrid="modalTitleConfigGrid"
     :ListColumns="DataEntityState.ListColumns"
-    configType="ClueManagement"
+    configType="ContactManagement"
     @CloseConfigGridMoadl="CloseConfigGridMoadl"
     @refreshBtn="RefreshBtn"
   />
@@ -205,18 +199,10 @@
     :visibleModelConfigGrid="visibleConfigExport"
     :modalTitleConfigGrid="modalTitleConfigExport"
     :ListColumns="DataEntityState.ExportColumns"
-    configType="ClueManagement"
+    configType="ContactManagement"
     @CloseConfigGridMoadl="CloseConfigExportMoadl"
   />
 
-  <ClueShiftModal
-    :visibleModelConfigGrid="visibleConfigClueShift"
-    :modalTitleConfigGrid="modalTitleConfigClueShift"
-    :Data=DataEntityState.EditData
-    :SelectkeysData=DataEntityState.Selectkeys
-    configType="ClueManagement"
-    @CloseConfigGridMoadl="CloseClueShiftMoadl"
-  />
 
 
 
@@ -237,12 +223,12 @@ import { message, Modal } from "ant-design-vue";
 import {
   
   DeleteFilled,EditOutlined,
-  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined,CopyFilled,InteractionOutlined
+  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined,CopyFilled,InteractionOutlined,UndoOutlined
   
 } from "@ant-design/icons-vue";
 import {
-  ClueEntity,ClueColumns,ExportColumns
-} from "../../TypeInterface/ICrm/IClueManagement";
+  ContactEntity,ContactColumns,ExportColumns
+} from "../../TypeInterface/ICrm/IContactManagement";
 import CommonQueryHeaderCRM from "../../components/CommonQueryHeaderCRM.vue";
 import {
   GetLoginRecordColumn,
@@ -255,9 +241,9 @@ import {
 
 
 import {
-  GetClueManagementDatas,AddClue,UpdateClue,DeleteById,BatchDelete,BatchExport,CopyDataById,
+  GetProductManagementDatas,AddProduct,UpdateProduct,DeleteById,BatchDelete,BatchExport,CopyDataById,
 }
- from "../../Request/CrmRequest/ClueManagementRequest";
+ from "../../Request/CrmRequest/ProductManagementRequest";
 
 import { deepClone } from "../../utility/commonFunc";
 import{useRouter} from 'vue-router'
@@ -270,7 +256,8 @@ import ClueShiftModal from "../../components/ClueShiftModal.vue";
 export default defineComponent({
   components: {
 configGridModal,configExportModal,ClueShiftModal,
-    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,BellOutlined,CopyFilled,InteractionOutlined
+    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,
+    BellOutlined,CopyFilled,InteractionOutlined,UndoOutlined
 
   },
   setup() {
@@ -278,9 +265,9 @@ configGridModal,configExportModal,ClueShiftModal,
       count: 0,
     });
   const router=useRouter();
-    const DataEntityState = reactive(new ClueEntity());
+    const DataEntityState = reactive(new ContactEntity());
  
-    let  NewDataEntityState=new ClueEntity();
+    let  NewDataEntityState=new ContactEntity();
     
     
 
@@ -303,7 +290,7 @@ configGridModal,configExportModal,ClueShiftModal,
 
       const onShowSizeChange = (current: number, pageSize: number) => {
       loading.value = true;
-      GetClueManagementDatas({
+      GetProductManagementDatas({
         current: current,
         pageSize: pageSize,
         ...DataEntityState.QueryConditionInfo,
@@ -320,7 +307,7 @@ configGridModal,configExportModal,ClueShiftModal,
     });
     watch(current1, () => {
       loading.value = true;
-      GetClueManagementDatas({
+      GetProductManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -334,7 +321,7 @@ configGridModal,configExportModal,ClueShiftModal,
     });
     watch(refreshMark, () => {
       loading.value = true;
-      GetClueManagementDatas({
+      GetProductManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -361,11 +348,11 @@ configGridModal,configExportModal,ClueShiftModal,
 let loading = ref<boolean>(false);
 onMounted(async () => {
       //获取表格列及处理表格列
-      let columnList = await GetLoginRecordColumn({ pageName: "ClueManagement" });
+      let columnList = await GetLoginRecordColumn({ pageName: "ContactManagement" });
       console.log("ProductManagementColumn1",columnList)
 if(columnList==undefined||columnList.length==0)
 {
-  columnList=deepClone(ClueColumns)
+  columnList=deepClone(ContactColumns)
 }
       console.log("ProductManagementColumn2",columnList)
 
@@ -405,7 +392,7 @@ if(columnList==undefined||columnList.length==0)
 
       
 let ExportColumnsList = await GetExpColumnsConfig({
-        pageName: "ClueManagement",
+        pageName: "ContactManagement",
       });
 
      // console.log("ExportColumnsList", ExportColumnsList);
@@ -423,29 +410,29 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
 
       //获用户数据
-      loading.value = true;
-      let UserDatasList = await GetClueManagementDatas({
-        current: 1,
-        pageSize: pageSize.value,
-        ...DataEntityState.QueryConditionInfo,
-      });
-      loading.value = false;
+      // loading.value = true;
+      // let UserDatasList = await GetProductManagementDatas({
+      //   current: 1,
+      //   pageSize: pageSize.value,
+      //   ...DataEntityState.QueryConditionInfo,
+      // });
+      // loading.value = false;
 
-      //console.log("amount", UserDatasList);
-      if (UserDatasList.isSuccess) {
-        DataEntityState.DataList = UserDatasList.datas;
-        totalCount.value = UserDatasList.totalCount;
-        current1.value = 1;
-      }
+      // console.log("amount", UserDatasList);
+      // if (UserDatasList.isSuccess) {
+      //   DataEntityState.DataList = UserDatasList.datas;
+      //   totalCount.value = UserDatasList.totalCount;
+      //   current1.value = 1;
+      // }
       
       //测试
-      // for(var s=0;s<11;s++)
-      // {
-      //   DataEntityState.DataList.push(DataEntityState.ClueDatas[0]);
-      // }
-      //  console.log(DataEntityState.DataList);
-      //    totalCount.value = DataEntityState.DataList.length;
-      //  current1.value = 1;
+      for(var s=0;s<11;s++)
+      {
+        DataEntityState.DataList.push(DataEntityState.ClueDatas[0]);
+      }
+       console.log(DataEntityState.DataList);
+         totalCount.value = DataEntityState.DataList.length;
+       current1.value = 1;
 
     });
     /***数据初始化****************/
@@ -477,7 +464,7 @@ let ExportColumnsList = await GetExpColumnsConfig({
 const SearchBtn = async (payload: any) => {
       loading.value = true;
 
-      let UserDatasList1 = await GetClueManagementDatas({
+      let UserDatasList1 = await GetProductManagementDatas({
         current: 1,
         pageSize: pageSize.value,
         ...payload,
@@ -498,7 +485,7 @@ const SearchBtn = async (payload: any) => {
       console.log("ClearQueryBtn");
     };
  const CreateBtn = (payload: any) => {
-      router.push({ path: "/Home/CreateCluePage", query: {pageType:"add"} });
+      router.push({ path: "/Home/CreateContactPage", query: {pageType:"add"} });
     };
 
     
@@ -519,7 +506,7 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
      }
 }
 
-GetClueManagementDatas({
+GetProductManagementDatas({
      current: current1.value,
      pageSize: pageSize.value,
      ...DataEntityState.QueryConditionInfo,
@@ -584,53 +571,31 @@ const CopyBtn = (item: any) => {
 
 const EditBth = (item: any) => {
 console.log("EditBth",item)
-router.push({ path: "/Home/CreateCluePage", query: {pageType:"edit",id: item} });
+router.push({ path: "/Home/CreateContactPage", query: {pageType:"edit",id: item} });
 
 };
-let visibleConfigClueShift = ref<boolean>(false);
-    let modalTitleConfigClueShift = ref<string>("");
-const ShowClueShiftBtn = (item: any) => {
-console.log("ClueShiftBth",item)
 
-DataEntityState.EditData=undefined;
+const CancelClueShift = (item: any) => {
 
-let keys: string[] = [];
-      for (let i in DataEntityState.selectedRowKeys) {
-        keys[i] = DataEntityState.selectedRowKeys[i];
-      }
-     
-      if (keys.length == 0) {
-       
-        Modal.warning({
-        title: '消息提示',
-        content: '请先勾选，需要转换的线索.',
+  Modal.confirm({
+        title: "您确定要执行撤销操作吗?",
+        icon: createVNode(ExclamationCircleOutlined),
+        content: `联系人姓名：${item.name} `,
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        okButtonProps: {
+          
+        },
+        onOk() {
+         
+         
+        },
+        onCancel() {
+          message.error("已取消.");
+        },
       });
-        return false;
-      }
-      DataEntityState.Selectkeys=keys;
-
-
-//console.log(1111)
-visibleConfigClueShift.value = true;
-modalTitleConfigClueShift.value = "【线索转换】批量操作";
-
-
 };
-const ShowClueShiftRow = (item: any) => {
-console.log("ClueShiftBth",item)
-DataEntityState.Selectkeys=[];
-DataEntityState.EditData=item;
-
-//console.log(1111)
-visibleConfigClueShift.value = true;
-modalTitleConfigClueShift.value = "【线索转换】线索编号："+item.clueCode;
-
-
-};
-
-const CloseClueShiftMoadl = () => {
-  visibleConfigClueShift.value = false;
-    };
 
 
 
@@ -788,7 +753,7 @@ let visibleConfigExport = ref<boolean>(false);
       visibleConfigExport.value = false;
 
       let ExportColumnsList = await GetExpColumnsConfig({
-        pageName: "ClueManagement",
+        pageName: "ProductManagement",
       });
 
   
@@ -821,11 +786,11 @@ let visibleModelConfigGrid = ref<boolean>(false);
 
  const UpdateConfigGrid = async () => {
       //获取表格列及处理表格列
-      let columnList = await GetLoginRecordColumn({ pageName: "ClueManagement" });
+      let columnList = await GetLoginRecordColumn({ pageName: "ContactManagement" });
     
       if(columnList==undefined)
 {
-  columnList=deepClone(ClueColumns)
+  columnList=deepClone(ContactColumns)
 }
 
       DataEntityState.ListColumns = deepClone(columnList);
@@ -882,7 +847,7 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
 
 
 
-      GetClueManagementDatas({
+      GetProductManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -919,7 +884,7 @@ onSelectChange,
       BatchDeleteBtn,
       EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
 
-      CreateBtn,ShowClueShiftBtn,visibleConfigClueShift,modalTitleConfigClueShift,CloseClueShiftMoadl,ShowClueShiftRow,
+      CreateBtn,CancelClueShift,
 
       handleResizeColumn: (w:any, col:any) => {
         col.width = w;
@@ -935,7 +900,7 @@ onSelectChange,
 </script>
 
 <style >
-#ClueManaDataList {
+#ContactManaDataList {
    /* height: calc(100vh - 206x);  */
   border: 0px solid red;
   box-sizing: border-box;
@@ -951,8 +916,8 @@ onSelectChange,
   align-items: center;
 }
 
-#ClueManaDataList .ant-table-thead > tr > th,
-#ClueManaDataList .ant-table-tbody > tr > td {
+#ContactManaDataList .ant-table-thead > tr > th,
+#ContactManaDataList .ant-table-tbody > tr > td {
   padding: 9px 9px;
 }
 .table-striped td {

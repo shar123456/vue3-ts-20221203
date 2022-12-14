@@ -9,6 +9,9 @@ interface  IMenuInfo {
       menuParentId: string;
       menuIcon:string;
       menuKey:string;
+      menuAreaName?:string;
+
+      
       children?: IMenuInfo[];
   }
   interface IMenuQueryInfo {
@@ -33,7 +36,8 @@ class MenuDataEntity{
       hasSub: "false",
         menuParentId:"",
         menuIcon:"",
-        menuKey:""
+        menuKey:"",
+        menuAreaName:""
 }
     DataList:Array<IMenuInfo>=[];
     

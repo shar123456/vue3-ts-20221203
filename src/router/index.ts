@@ -417,8 +417,8 @@ router.beforeEach((to: any, from: any, next: any) => {
                         name: menuPage,
                         meta: { rName: "/" + element.menuTitle + "/" + elementSub2.menuTitle, Sub: element.menuKey },
                         // component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
-                        component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuTitle==="CRM"?"CrmPage":"MainPage"}/${menuPage}.vue`)
-
+                       // component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuTitle==="CRM"?"CrmPage":"MainPage"}/${menuPage}.vue`)
+                       component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuAreaName}/${menuPage}.vue`)
 
                       })
 

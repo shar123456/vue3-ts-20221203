@@ -7,13 +7,13 @@ interface IContactInfo {
    
     name:string;//姓名
 
-   
+
      mobilePhone:string;//手机号
      phone:string;//电话
      fax:string;//传真
      email:string;//电邮
-     emailNoDisturb:boolean;//邮件免打扰
-     SecondEmail:string;//第二电邮
+     emailNoDisturb:string;//邮件免打扰
+     secondEmail:string;//第二电邮
 
 
      position:string;//职位
@@ -46,36 +46,38 @@ const ContactColumns = [
   
   {  oldTitle: '联系人编号',title: '联系人编号',width:150, dataIndex: 'contactCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
     { oldTitle: '姓名', title: '姓名',width:180, dataIndex: 'name', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
-    {  oldTitle: '手机号',title: '手机号',width:80,  dataIndex: 'mobilePhone', isUse: true,configOrder: 11  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '电话',title: '电话',width:80,  dataIndex: 'phone', isUse: true,configOrder: 11  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '传真',title: '传真',width:60,  dataIndex: 'fax', isUse: true,configOrder: 12  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '电邮',title: '电邮',width:80,  dataIndex: 'email', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '第二电邮',title: '第二电邮',width:60,  dataIndex: 'SecondEmail', isUse: true,configOrder: 14 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '邮件免打扰',title: '邮件免打扰',width:60,  dataIndex: 'emailNoDisturb', isUse: true,configOrder: 15 ,resizable: true,ellipsis: true,},
-    
-    {  oldTitle: '职位',title: '职位',width:60,  dataIndex: 'position', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '部门',title: '部门',width:60,  dataIndex: 'dept', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '助理',title: '助理',width:60,  dataIndex: 'assistant', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '助理电话',title: '助理电话',width:60,  dataIndex: 'assistantPhone', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
+   
 
-    {  oldTitle: '联系人来源',title: '联系人来源',width:60,  dataIndex: 'contactSource', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '线索编号',title: '线索编号',width:60,  dataIndex: 'clueCode', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '手机号',title: '手机号',width:120,  dataIndex: 'mobilePhone', isUse: true,configOrder: 11  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '电话',title: '电话',width:110,  dataIndex: 'phone', isUse: true,configOrder: 11  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '传真',title: '传真',width:110,  dataIndex: 'fax', isUse: true,configOrder: 12  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '电邮',title: '电邮',width:130,  dataIndex: 'email', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
+    // {  oldTitle: '第二电邮',title: '第二电邮',width:130,  dataIndex: 'secondEmail', isUse: true,configOrder: 14 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '邮件免打扰',title: '邮件免打扰',width:110,  dataIndex: 'emailNoDisturb', isUse: true,configOrder: 15 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '联系人来源',title: '联系人来源',width:100,  dataIndex: 'contactSource', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '职位',title: '职位',width:100,  dataIndex: 'position', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '部门',title: '部门',width:80,  dataIndex: 'dept', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '助理',title: '助理',width:100,  dataIndex: 'assistant', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '助理电话',title: '助理电话',width:130,  dataIndex: 'assistantPhone', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
 
-    {  oldTitle: 'contactState',title: 'contactState',width:60,  dataIndex: 'contactState', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
+   
+    {  oldTitle: '线索编号',title: '线索编号',width:100,  dataIndex: 'clueCode', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
+
+    {  oldTitle: '联系人状态',title: '联系人状态',width:110,  dataIndex: 'contactState', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
   
  
     
  
     
-    {  oldTitle: '地址',title: '地址',width:60,  dataIndex: 'address', isUse: true,configOrder: 24 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '地址',title: '地址',width:160,  dataIndex: 'address', isUse: true,configOrder: 24 ,resizable: true,ellipsis: true,},
     
-    {  oldTitle: '省份',title: '省份',width:60,  dataIndex: 'province', isUse: true,configOrder: 25 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '城市',title: '城市',width:60,  dataIndex: 'city', isUse: true,configOrder: 26 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '邮政编码',title: '邮政编码',width:60,  dataIndex: 'postalCode', isUse: true,configOrder: 27 ,resizable: true,ellipsis: true,},
- ,
-    {  oldTitle: '创建人',title: '创建人',width:60,  dataIndex: 'createrStr', isUse: true,configOrder: 28 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '创建时间',title: '创建时间',width:60,  dataIndex: 'createTimeStr', isUse: true,configOrder: 29 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '备注',title: '备注',width:60,  dataIndex: 'remark', isUse: true,configOrder: 30,resizable: true,ellipsis: true,},
+    {  oldTitle: '省份',title: '省份',width:100,  dataIndex: 'province', isUse: true,configOrder: 25 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '城市',title: '城市',width:100,  dataIndex: 'city', isUse: true,configOrder: 26 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '邮政编码',title: '邮政编码',width:110,  dataIndex: 'postalCode', isUse: true,configOrder: 27 ,resizable: true,ellipsis: true,},
+ 
+    {  oldTitle: '创建人',title: '创建人',width:100,  dataIndex: 'createrStr', isUse: true,configOrder: 28 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '创建时间',title: '创建时间',width:160,  dataIndex: 'createTimeStr', isUse: true,configOrder: 29 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '备注',title: '备注',width:160,  dataIndex: 'remark', isUse: true,configOrder: 30,resizable: true,ellipsis: true,},
     {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:123, slots: { customRender: 'action' } ,isUse: true,configOrder: 31,fixed: 'right', },
 
   ];
@@ -123,8 +125,8 @@ const ContactDatas=[
            phone:"",//电话
            fax:"",//传真
            email:"",//电邮
-           emailNoDisturb:false,//邮件免打扰
-           SecondEmail:"",//第二电邮
+           emailNoDisturb:"否",//邮件免打扰
+           secondEmail:"",//第二电邮
            position:"",//网站
            dept:"",//网站
            assistant:"",//网站
@@ -132,7 +134,7 @@ const ContactDatas=[
 
 
            contactSource:"",//线索来源
-           contactState:"",//线索状态
+           contactState:"启用",//线索状态
      
       
       address:"",//地址

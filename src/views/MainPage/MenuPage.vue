@@ -213,6 +213,7 @@ const columns = [
     slots: { customRender: "name2" },isUse: true
   },
   { title: "菜单父级Id", dataIndex: "menuParentId", key: "createdAt2",isUse: true },
+  { title: "域名", dataIndex: "menuAreaName", key: "createdAt2",isUse: true },
   {
     title: "操作",
     width: 100,

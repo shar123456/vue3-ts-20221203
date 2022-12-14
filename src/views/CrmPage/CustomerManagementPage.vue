@@ -43,36 +43,27 @@
       </template>
 
       <template #bodyCell="{ column, record }">
-      <template v-if="column.dataIndex === 'contactShiftMark'">
+      <template v-if="column.dataIndex === 'customerSource'">
         <span>
           <a-tag
            
-          :color="record.contactShiftMark==true ? 'geekblue' :'volcano' ">
+          :color="(record.customerSource=='手动'||record.customerSource=='导入') ? 'geekblue' :'volcano' ">
           
-            {{ record.contactShiftMark==true?"已转换":"未转换" }}
+            {{ record.customerSource}}
           </a-tag>
         </span>
       </template>
-      <template v-if="column.dataIndex === 'customerShiftMark'">
+      <template v-if="column.dataIndex === 'customerState'">
         <span>
           <a-tag
            
-          :color="record.customerShiftMark==true ? 'geekblue' :'volcano' ">
+          :color="record.customerState=='启用' ? 'geekblue' :'volcano' ">
           
-            {{ record.customerShiftMark==true?"已转换":"未转换" }}
+            {{ record.customerState}}
           </a-tag>
         </span>
       </template>
-      <template v-if="column.dataIndex === 'businessShiftMark'">
-        <span>
-          <a-tag
-           
-          :color="record.businessShiftMark==true ? 'geekblue' :'volcano' ">
-          
-            {{ record.businessShiftMark==true?"已转换":"未转换" }}
-          </a-tag>
-        </span>
-      </template>
+     
     </template>
 
 
@@ -82,22 +73,24 @@
 
     <template #action="{ record }">
 
-<a  @click="CancelClueShift(record)"
-  style="
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    border:1px solid #dedede;
-     padding-top:1px;
-       padding-bottom:3px;
-     padding-left:7px;
-       padding-right:7px;
-     background-color:#3c8dbc;
-    border-radius: 4px;
-  "
- 
-  title="线索转换"
-  ><InteractionOutlined  mark="delete"
+      <a  @click="CancelClueShift(record)" v-if="record.customerSource === '线索转换'"
+
+style="
+  
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border:1px solid #dedede;
+   padding-top:1px;
+     padding-bottom:3px;
+   padding-left:7px;
+     padding-right:7px;
+     background-color:#ce6189;
+  border-radius: 4px;
+"
+
+title="撤销"
+><UndoOutlined   mark="delete"
 />&nbsp;</a>
 
 
@@ -143,7 +136,8 @@
 
 
 
- <a  @click="DeleteBth(record.id,record.productCode)"
+<a  @click="DeleteBth(record.id,record.productCode)"
+ v-if="record.customerSource != '线索转换'"
   style="
     color: #fff;
     font-size: 14px;
@@ -229,7 +223,7 @@ import { message, Modal } from "ant-design-vue";
 import {
   
   DeleteFilled,EditOutlined,
-  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined,CopyFilled,InteractionOutlined
+  ExclamationCircleOutlined,SearchOutlined,CloseOutlined,BellOutlined,CopyFilled,InteractionOutlined,UndoOutlined
   
 } from "@ant-design/icons-vue";
 import {
@@ -262,7 +256,8 @@ import ClueShiftModal from "../../components/ClueShiftModal.vue";
 export default defineComponent({
   components: {
 configGridModal,configExportModal,ClueShiftModal,
-    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,BellOutlined,CopyFilled,InteractionOutlined
+    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,
+    BellOutlined,CopyFilled,InteractionOutlined,UndoOutlined
 
   },
   setup() {
@@ -582,7 +577,24 @@ router.push({ path: "/Home/CreateCustomerPage", query: {pageType:"edit",id: item
 
 const CancelClueShift = (item: any) => {
 
-
+  Modal.confirm({
+        title: "您确定要执行撤销操作吗?",
+        icon: createVNode(ExclamationCircleOutlined),
+        content: `客户姓名：${item.customername} `,
+        okText: "Yes",
+        okType: "danger",
+        cancelText: "No",
+        okButtonProps: {
+          
+        },
+        onOk() {
+         
+         
+        },
+        onCancel() {
+          message.error("已取消.");
+        },
+      });
 };
 
 

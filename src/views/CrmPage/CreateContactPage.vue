@@ -26,7 +26,7 @@
             >&nbsp;
              
              <a-button  style="background-color: #CAB872; border-color: #CAB872" type="primary"   v-show="IsShowContinueAdd" @click="continueAdd">继续创建</a-button>  &nbsp;
-            <a-button  @click="goBackBtn">返回线索列表</a-button></a-col
+            <a-button  @click="goBackBtn">返回联系人列表</a-button></a-col
           >
         </a-row>
         <a-row style="height: 15px"></a-row>
@@ -39,82 +39,50 @@
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-            <a-form-item label="线索编号" name="clueCode">
+            <a-form-item label="联系人编号" name="contactCode">
               <a-input
-              ::disabled="IsDisabledClueCode"
+              ::disabled="IsDisabledContactCode"
                
-                v-model:value="EditData.clueCode"
-                placeholder="请输入线索编号"
+                v-model:value="EditData.contactCode"
+                placeholder="请输入联系人编号"
               />
             </a-form-item>
             
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="线索所有者" name="clueOwner">
-              <a-input
-              :disabled="IsDisabled"
-                v-model:value="EditData.clueOwner"
-                placeholder="请输入线索所有者"
-              />
-            </a-form-item>
-          </a-col>
-        </a-row>
-
-        <a-row style="height: 0px"></a-row>
-
-        <a-row type="flex" justify="center">
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-
             <a-form-item label="姓名" name="name">
               <a-input
-            
-               
+              :disabled="IsDisabled"
                 v-model:value="EditData.name"
                 placeholder="请输入姓名"
               />
             </a-form-item>
-            
           </a-col>
-          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
+        </a-row>
+
+        <a-row style="height: 0px"></a-row>
+
+        <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
+
             <a-form-item label="职位" name="position">
               <a-input
-              :disabled="IsDisabled"
+            
+               
                 v-model:value="EditData.position"
                 placeholder="请输入职位"
               />
             </a-form-item>
-          </a-col>
-        </a-row>
-
-
-
-        <a-row style="height: 0px"></a-row>
-
-
-
-
-        <a-row type="flex" justify="center">
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-
-            <a-form-item label="公司" name="firm">
-              <a-input
-            
-               
-                v-model:value="EditData.firm"
-                placeholder="请输入公司"
-              />
-            </a-form-item>
             
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="行业" name="industry">
+            <a-form-item label="部门" name="dept">
               <a-input
               :disabled="IsDisabled"
-                v-model:value="EditData.industry"
-                placeholder="请输入行业"
+                v-model:value="EditData.dept"
+                placeholder="请输入部门"
               />
             </a-form-item>
           </a-col>
@@ -124,77 +92,14 @@
 
         <a-row style="height: 0px"></a-row>
 
-        <a-row type="flex" justify="center">
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-            
-
-            <a-form-item label="年收入" name="annualIncome">
-              <a-input-number style="width:100%"
-                :disabled="IsDisabled"
-                v-model:value="EditData.annualIncome"
-                placeholder="请输入年收入"
-              />
-            </a-form-item>
-
-
-
-            
-          </a-col>
-          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            
-
-            <a-form-item label="员工数量" name="employeeQty">
-              <a-input-number style="width:100%"
-                :disabled="IsDisabled"
-                v-model:value="EditData.employeeQty"
-                placeholder="请输入员工数量"
-              />
-            </a-form-item>
+     
 
 
 
 
-          </a-col>
-        </a-row>
 
-
-
-        <a-row style="height: 0px"></a-row>
-
-
-
-
-        <a-row type="flex" justify="center">
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-
-            <a-form-item label="货币" name="currency">
-              <a-input
-            
-               
-                v-model:value="EditData.currency"
-                placeholder="请输入货币"
-              />
-            </a-form-item>
-            
-          </a-col>
-          <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
-          <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="手机号" name="mobilePhone">
-              <a-input
-              :disabled="IsDisabled"
-                v-model:value="EditData.mobilePhone"
-                placeholder="请输入手机号"
-              />
-            </a-form-item>
-          </a-col>
-        </a-row>
-
-
-
-        <a-row style="height: 0px"></a-row>
-
+       
 
 
 
@@ -287,26 +192,31 @@
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-            <a-form-item label="网站" name="webSite">
+
+            <a-form-item label="手机号" name="mobilePhone">
               <a-input
             
                
-                v-model:value="EditData.webSite"
-                placeholder="请输入网站"
+                v-model:value="EditData.mobilePhone"
+                placeholder="请输入手机号"
               />
             </a-form-item>
+
+
+
+            
             
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
            
-            <a-form-item label="线索状态" name="clueState">
+            <a-form-item label="联系人状态" name="contactState">
               <a-select
                :disabled="IsDisabled"
-                v-model:value="EditData.clueState"
+                v-model:value="EditData.contactState"
                 style="width: 100%"
-                placeholder="请选择线索状态"
+                placeholder="请选择联系人状态"
               >
                 <a-select-option value="未选择">未选择</a-select-option>
                 <a-select-option value="启用"
@@ -333,23 +243,13 @@
            
 
 
-            <a-form-item label="评级" name="rate">
-              <a-select
-               :disabled="IsDisabled"
-                v-model:value="EditData.rate"
-                style="width: 100%"
-                placeholder="请选择评级"
-              >
-                <a-select-option value="未选择">未选择</a-select-option>
-                <a-select-option value="Level1"
-                  >Level1</a-select-option
-                >
-                <a-select-option value="Level2">Level2</a-select-option>
-                <a-select-option value="Level3">Level3</a-select-option>
-                <a-select-option value="Level4">Level4</a-select-option>
+            <a-form-item label="助理" name="assistant">
+              <a-input
             
                
-              </a-select>
+                v-model:value="EditData.assistant"
+                placeholder="请输入助理"
+              />
             </a-form-item>
 
 
@@ -362,20 +262,13 @@
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
             
 
-            <a-form-item label="审核状态" name="clueAuditState">
-              <a-select
-               :disabled="IsDisabled"
-                v-model:value="EditData.clueAuditState"
-                style="width: 100%"
-                placeholder="请选择线索审核状态"
-              >
-                <a-select-option value="未审核">未审核</a-select-option>
-                <a-select-option value="通过"
-                  >通过</a-select-option
-                >
-                <a-select-option value="驳回">驳回</a-select-option>
+            <a-form-item label="助理电话" name="assistantPhone">
+              <a-input
+            
                
-              </a-select>
+                v-model:value="EditData.assistantPhone"
+                placeholder="请输入助理电话"
+              />
             </a-form-item>
 
 
@@ -509,7 +402,7 @@
 import { reactive, toRefs, defineComponent, onMounted, ref } from "vue";
 import { UploadOutlined } from "@ant-design/icons-vue";
 import { useRouter, useRoute } from "vue-router";
-import { ClueEntity } from "../../TypeInterface/ICrm/IClueManagement";
+import { ContactEntity } from "../../TypeInterface/ICrm/IContactManagement";
 import SearchDataModal2 from "../../components/SearchDataModal2.vue";
 import { GetUsers } from "../../Request/userRequest";
 import { SearchUserColumns ,SearchFlowColumns} from "../../TypeInterface/ISearchDataModalInterface";
@@ -518,8 +411,8 @@ import { SearchUserColumns ,SearchFlowColumns} from "../../TypeInterface/ISearch
   ExaminationFlowEntity,ExaminationFlowColumns
 } from "../../TypeInterface/IExaminationInterface";
 import {
-  AddClue,UpdateClue,GetClueById
-} from "../../Request/CrmRequest/ClueManagementRequest";
+  AddProduct,UpdateProduct,GetProductById
+} from "../../Request/CrmRequest/ProductManagementRequest";
  import { useStore } from "vuex";
  import { message, Modal } from "ant-design-vue";
 
@@ -534,21 +427,21 @@ export default defineComponent({
       IsDisabled: false,
       IsShowSubmit: true,
       IsShowContinueAdd: false,
-       title: "新建线索",
+       title: "新建联系人",
       submitDesc: "提交",
-      IsDisabledClueCode: false,
+      IsDisabledContactCode: false,
     });
     const layout = {
       labelCol: { span: 3 },
       wrapperCol: { span: 30 },
     };
        const goBackBtn = () => {
-      router.push({ path: "/Home/ClueManagementPage", query: {} });
+      router.push({ path: "/Home/ContactManagementPage", query: {} });
     };
     const route = useRoute();
     const router = useRouter();
       const store = useStore();
-    let DataEntityState = reactive(new ClueEntity());
+    let DataEntityState = reactive(new ContactEntity());
 
     let visibleSearchModal = ref<boolean>(false);
     let modalTitleSearchModal = ref<string>("");
@@ -583,15 +476,15 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
       let pageType = route.query.pageType;
       let Id = route.query.id;
       if ((pageType != undefined && pageType == "add")||pageType==undefined) {
-        state.title = "新建线索";
+        state.title = "新建联系人";
         state.submitDesc = "提交";
          
       }
       if (pageType != undefined && pageType == "edit") {
-        state.title = "编辑线索";
+        state.title = "编辑联系人";
         state.submitDesc = "更新";
-         state.IsDisabledClueCode=true;
-        GetClueById({ Id: Id }).then((res: any) => {
+         state.IsDisabledContactCode=true;
+        GetProductById({ Id: Id }).then((res: any) => {
                   if (res.isSuccess) {
                    
                  DataEntityState.EditData=res.datas;
@@ -613,19 +506,12 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
 
     
 
-    let validaterate = async (rule: any, value: any) => {
-      if (value === "未选择") {
-        return Promise.reject("请选择评级");
-      }
-
-      return Promise.resolve();
-    };
-
+ 
    
 
-    let validateclueState = async (rule: any, value: any) => {
+    let validateContactState = async (rule: any, value: any) => {
       if (value === "未选择") {
-        return Promise.reject("请选择线索状态");
+        return Promise.reject("请选择联系人状态");
       }
 
       return Promise.resolve();
@@ -651,18 +537,13 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
         },
       ],
       
-      clueState: [
-        {
-          required: true,
-          validator: validateclueState,
-        },
-      ],
-      rate: [
-        {
-          required: true,
-          validator: validaterate,
-        },
-      ],
+      // contactState: [
+      //   {
+      //     required: true,
+      //     validator: validateContactState,
+      //   },
+      // ],
+     
     };
     const handleFinish = async (values: any) => {
       console.log(values);
@@ -673,7 +554,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
   
       if ((pageType != undefined && pageType == "add")||pageType==undefined) {
     
-        AddClue(values).then((res: any) => {
+        AddProduct(values).then((res: any) => {
            console.log(res);
            if (res.isSuccess) {
            
@@ -686,7 +567,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
      state.IsDisabled=true;
     state.IsShowSubmit=false;
        state.IsShowContinueAdd=true;
-      state.IsDisabledClueCode=true;
+      state.IsDisabledContactCode=true;
            } else {
              message.error("添加失败.");
            }
@@ -702,7 +583,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
    
    
          //DataEntityState.EditData.startTimeStr= dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(values.startTimeStr),0),"YYYY-MM-DD HH:mm:ss");
-   UpdateClue(DataEntityState.EditData).then((res: any) => {
+   UpdateProduct(DataEntityState.EditData).then((res: any) => {
            console.log(res);
            if (res.isSuccess) {
            
@@ -712,35 +593,26 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
              {
               DataEntityState.EditData.id="";
      DataEntityState.EditData.clueCode= "";
-     DataEntityState.EditData.clueOwner= "";
+     DataEntityState.EditData.contactCode= "";
      DataEntityState.EditData.name="";
-     DataEntityState.EditData.position= "";
+     DataEntityState.EditData.mobilePhone= "";
     
-     DataEntityState.EditData.firm="";
-   
-     DataEntityState.EditData.industry="";
-     DataEntityState.EditData.annualIncome=0;
-     DataEntityState.EditData.employeeQty=0;
-     DataEntityState.EditData.currency="";
-     DataEntityState.EditData.mobilePhone="";
-     
      DataEntityState.EditData.phone="";
+  
      DataEntityState.EditData.fax="";
      DataEntityState.EditData.email="";
-     DataEntityState.EditData.emailNoDisturb="否"
-    
+     DataEntityState.EditData.emailNoDisturb="否";
+     DataEntityState.EditData.secondEmail="";
+     DataEntityState.EditData.dept="";
+     DataEntityState.EditData.position="";
+     DataEntityState.EditData.assistant="";
+     DataEntityState.EditData.assistantPhone="";
+   
+ 
+     DataEntityState.EditData.contactSource="",
+     DataEntityState.EditData.contactState="启用",
+ 
 
-
-     
-     DataEntityState.EditData.secondEmail="",
-     DataEntityState.EditData.webSite="",
-     DataEntityState.EditData.contactShiftMark=false,
-     DataEntityState.EditData.customerShiftMark=false,
-     DataEntityState.EditData.businessShiftMark=false,
-     DataEntityState.EditData.clueSource="",
-     DataEntityState.EditData.clueState="启用",
-     DataEntityState.EditData.rate="Level1",
-     DataEntityState.EditData.clueAuditState="未审核",
      DataEntityState.EditData.address="",
      DataEntityState.EditData.province="",
      DataEntityState.EditData.city="",
@@ -752,7 +624,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
              }
              
    
-     router.push({ path: "/Home/ClueManagementPage", query: {} });
+     router.push({ path: "/Home/ProductManagementPage", query: {} });
    
    
    
@@ -777,7 +649,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
   
     const continueAdd=()=>{
        state.IsDisabled=false;
-        state.IsDisabledClueCode=false;
+        state.IsDisabledContactCode=false;
        
         state.IsShowSubmit=true;
     state.IsShowContinueAdd=false;
@@ -786,35 +658,26 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
              {
               DataEntityState.EditData.id="";
      DataEntityState.EditData.clueCode= "";
-     DataEntityState.EditData.clueOwner= "";
+     DataEntityState.EditData.contactCode= "";
      DataEntityState.EditData.name="";
-     DataEntityState.EditData.position= "";
+     DataEntityState.EditData.mobilePhone= "";
     
-     DataEntityState.EditData.firm="";
-   
-     DataEntityState.EditData.industry="";
-     DataEntityState.EditData.annualIncome=0;
-     DataEntityState.EditData.employeeQty=0;
-     DataEntityState.EditData.currency="";
-     DataEntityState.EditData.mobilePhone="";
-     
      DataEntityState.EditData.phone="";
+  
      DataEntityState.EditData.fax="";
      DataEntityState.EditData.email="";
-     DataEntityState.EditData.emailNoDisturb="否" 
-    
+     DataEntityState.EditData.emailNoDisturb="否";
+     DataEntityState.EditData.secondEmail="";
+     DataEntityState.EditData.dept="";
+     DataEntityState.EditData.position="";
+     DataEntityState.EditData.assistant="";
+     DataEntityState.EditData.assistantPhone="";
+   
+ 
+     DataEntityState.EditData.contactSource="",
+     DataEntityState.EditData.contactState="启用",
+ 
 
-
-     
-     DataEntityState.EditData.secondEmail="",
-     DataEntityState.EditData.webSite="",
-     DataEntityState.EditData.contactShiftMark=false,
-     DataEntityState.EditData.customerShiftMark=false,
-     DataEntityState.EditData.businessShiftMark=false,
-     DataEntityState.EditData.clueSource="",
-     DataEntityState.EditData.clueState="启用",
-     DataEntityState.EditData.rate="Level1",
-     DataEntityState.EditData.clueAuditState="未审核",
      DataEntityState.EditData.address="",
      DataEntityState.EditData.province="",
      DataEntityState.EditData.city="",
