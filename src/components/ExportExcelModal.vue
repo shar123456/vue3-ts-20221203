@@ -59,7 +59,7 @@ import {
 } from "../Request/GlobelConfig";
 
 export default defineComponent({
-      props: { UserData: UserDataEntity,
+      props: { UserData: UserDataEntity,urlData:String,
        visibleExportExcel:Boolean,modalExportExcelTitles: String,},
        components: {
     InboxOutlined,
@@ -71,7 +71,7 @@ export default defineComponent({
           let visibleExportExcel = ref<boolean>(props.visibleExportExcel);
           let modalTitleeExportExcel = ref<string|undefined>(props.modalExportExcelTitles);
            const EditData:IUserInfo=props.UserData?.EditData as IUserInfo;
-          
+           let urlDataT = ref<string|undefined>(props.urlData);
 
 
 
@@ -105,7 +105,7 @@ const isfile = file.type === 'application/vnd.openxmlformats-officedocument.spre
       return false;
     };
 
-    const handleUpload = () => {
+    const handleUpload = () => {console.log("urlDataT",urlDataT);
       const formData = new FormData();
       fileList.value.forEach((file: ['fileList'][number]) => {
          console.log(file);
@@ -129,15 +129,18 @@ const isfile = file.type === 'application/vnd.openxmlformats-officedocument.spre
                 //url: '/api/SysAccount/UpLoadFile',
                // url: 'http://120.40.187.174:8702/Api/SysAccount/UpLoadFile',
  //url: 'http://localhost:3165/Api/SysAccount/UpLoadFile',
- url:G_BASEURL+'/SysAccount/UpLoadFile'
-               
+ //url:G_BASEURL+'/SysAccount/UpLoadFile'
+             url:G_BASEURL+urlDataT.value 
                
             })
-            .then(res => {
-                res = res.data;
+            .then((res:any )=> {
+               
                  uploading.value = false;
                  fileList.value=[];
-                  message.success(`导入成功`);
+                  //message.success(`导入成功`);
+                  console.log("导入MSG",res);
+message.success(res.data.msg)
+                  
                    context.emit("closeExportExcelMoadl");
             });
     }

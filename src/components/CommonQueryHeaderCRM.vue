@@ -243,7 +243,7 @@ ImportExcel:{display:'none'}
 
     const importExcel = () => {
 
-      context.emit("importExcel");
+      context.emit("ImportExcel");
     }
 
 

@@ -175,6 +175,7 @@
     @closeExportExcelMoadl="closeExportExcelMoadl"
     @UpdateInfoBtn="UpdateInfoBtn"
     @CreateInfoBtn="CreateInfoBtn"
+      urlData="/SysAccount/UpLoadFile"
   />
 
   <SettingModal

@@ -9,7 +9,7 @@
       @ConfigExport="ShowConfigExportBtn"
        @ShowConfigGrid="ShowConfigGridBtn"
        @ShowClueShiftBtn="ShowClueShiftBtn"
-
+   @ImportExcel="ImportExcelBtn"
 
     
     :StateEntity="NewDataEntityState"
@@ -143,7 +143,7 @@
        
 
 
-         <a  @click="DeleteBth(record.id,record.productCode)"
+         <a  @click="DeleteBth(record.id,record.clueCode)"
           style="
             color: #fff;
             font-size: 14px;
@@ -218,7 +218,15 @@
     @CloseConfigGridMoadl="CloseClueShiftMoadl"
   />
 
-
+ <ExportExcelModal
+    :visibleExportExcel="visibleExportExcel"
+    :modalExportExcelTitles="modalExportExcelTitle"
+    :UserData="UserDataEntityState"
+    @closeExportExcelMoadl="closeExportExcelMoadl"
+    @UpdateInfoBtn="UpdateInfoBtn"
+    @CreateInfoBtn="CreateInfoBtn"
+    urlData="/ClueManagement/UpLoadFile"
+  />
 
   
 </template>
@@ -252,7 +260,7 @@ import {
     GetExpColumnsConfig,
 } from "../../Request/userRequest";
 
-
+import ExportExcelModal from "../../components/ExportExcelModal.vue";
 
 import {
   GetClueManagementDatas,AddClue,UpdateClue,DeleteById,BatchDelete,BatchExport,CopyDataById,
@@ -270,7 +278,7 @@ import ClueShiftModal from "../../components/ClueShiftModal.vue";
 export default defineComponent({
   components: {
 configGridModal,configExportModal,ClueShiftModal,
-    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,BellOutlined,CopyFilled,InteractionOutlined
+    DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,BellOutlined,CopyFilled,InteractionOutlined,ExportExcelModal
 
   },
   setup() {
@@ -463,10 +471,19 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
 
 
+ let visibleExportExcel = ref<boolean>(false);
+  let modalExportExcelTitle = ref<string>("");
 
+ const ImportExcelBtn = () => {
+      console.log("visibleExportExcel");
+      visibleExportExcel.value = true;
+      modalExportExcelTitle.value = "文件导入";
+    };
 
-
-
+    const closeExportExcelMoadl = () => {
+      visibleExportExcel.value = false;
+      refreshMark.value = new Date().getTime().toString();
+    };
 
 
 
@@ -537,12 +554,12 @@ GetClueManagementDatas({
 
 
 
-const DeleteBth = (item: any,productCode:any) => {
+const DeleteBth = (item: any,clueCode:any) => {
 
 Modal.confirm({
               title: "您确定要删除这条记录吗?",
               icon: createVNode(ExclamationCircleOutlined),
-              content: `产品编号：${productCode}`,
+              content: `线索编号：${clueCode}`,
               okText: "Yes",
               okType: "danger",
               cancelText: "No",
@@ -920,6 +937,7 @@ onSelectChange,
       EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
 
       CreateBtn,ShowClueShiftBtn,visibleConfigClueShift,modalTitleConfigClueShift,CloseClueShiftMoadl,ShowClueShiftRow,
+      ImportExcelBtn,closeExportExcelMoadl,visibleExportExcel,modalExportExcelTitle,
 
       handleResizeColumn: (w:any, col:any) => {
         col.width = w;
