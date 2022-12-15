@@ -11,7 +11,7 @@
         ref="formRef"
         :model="EditData"
         :rules="rules"
-        @finish="handleFinish"
+   
         v-bind="layout"
       >
 
@@ -20,7 +20,7 @@
       <a-row style="height: 2px"></a-row>
   <a-row type="flex" justify="start">
           <a-col class="col" :span="24" style="text-align:left">
-            <a-button v-show="IsShowSubmit" type="primary" html-type="submit" >{{
+            <a-button v-show="IsShowSubmit" type="primary"     @click="handleFinishBtn"  >{{
               submitDesc
             }}</a-button
             >&nbsp;
@@ -465,6 +465,28 @@
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
            
+            <a-form-item label="所属区域" name="belongArea">
+              <a-select
+               :disabled="IsDisabled"
+                v-model:value="EditData.belongArea"
+                style="width: 100%"
+                placeholder="请选择线所属区域"
+              >
+                <a-select-option value="未选择">未选择</a-select-option>
+                <a-select-option value="华中"
+                  >华中</a-select-option
+                >
+                <a-select-option value="华北">华北</a-select-option>
+                <a-select-option value="华东">华东</a-select-option>
+                <a-select-option value="华南">华南</a-select-option>
+                <a-select-option value="西北">西北</a-select-option>
+                <a-select-option value="西南">西南</a-select-option>
+                <a-select-option value="东北">东北</a-select-option>
+               
+              </a-select>
+            </a-form-item>
+
+
           </a-col>
         </a-row>
 
@@ -664,7 +686,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
         },
       ],
     };
-    const handleFinish = async (values: any) => {
+    const handleFinishBtn = async (values: any) => {
       console.log(values);
      state.spinning = !state.spinning;
       let pageType = route.query.pageType; 
@@ -673,12 +695,12 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
   
       if ((pageType != undefined && pageType == "add")||pageType==undefined) {
     
-        AddClue(values).then((res: any) => {
+        AddClue(DataEntityState.EditData).then((res: any) => {
            console.log(res);
            if (res.isSuccess) {
            
              message.success(res.msg);
-   
+            
    
     
    
@@ -748,6 +770,8 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
      DataEntityState.EditData.remark="",
      DataEntityState.EditData.createTimeStr= dateFormat("YYYY-mm-dd HH:MM:SS",new Date(),0);
      DataEntityState.EditData.key= "";
+     DataEntityState.EditData.belongArea= "未选择";
+     
      DataEntityState.EditData.TmStamp=[];
              }
              
@@ -802,7 +826,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
      DataEntityState.EditData.fax="";
      DataEntityState.EditData.email="";
      DataEntityState.EditData.emailNoDisturb="否" 
-    
+     DataEntityState.EditData.belongArea= "未选择";
 
 
      
@@ -838,7 +862,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
       ...toRefs(state),
       ...toRefs(DataEntityState),
       rules,
-      handleFinish,goBackBtn,
+      handleFinishBtn,goBackBtn,
       layout,
      
       visibleSearchModal,

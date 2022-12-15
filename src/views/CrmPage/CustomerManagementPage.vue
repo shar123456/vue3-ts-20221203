@@ -36,7 +36,7 @@
     
       <template #rate="{ text: rate }">
         <span>
-          <a-tag :color="rate != '未选择' ? '#AECF4B' :'#AECF4B' ">
+          <a-tag :color="rate != '未选择' ? 'geekblue' :'#b0b0b0' ">
             {{ rate }}
           </a-tag>
         </span>
@@ -47,7 +47,7 @@
         <span>
           <a-tag
            
-          :color="(record.customerSource=='手动'||record.customerSource=='导入') ? 'geekblue' :'volcano' ">
+          :color="(record.customerSource=='手动'||record.customerSource=='导入') ? 'geekblue' :'green' ">
           
             {{ record.customerSource}}
           </a-tag>
@@ -73,7 +73,7 @@
 
     <template #action="{ record }">
 
-      <a  @click="CancelClueShift(record)" v-if="record.customerSource === '线索转换'"
+      <a  @click="CancelCustomerShift(record)" v-if="record.customerSource === '线索转换'"
 
 style="
   
@@ -136,7 +136,7 @@ title="撤销"
 
 
 
-<a  @click="DeleteBth(record.id,record.productCode)"
+<a  @click="DeleteBth(record.id,record.customerCode)"
  v-if="record.customerSource != '线索转换'"
   style="
     color: #fff;
@@ -241,9 +241,9 @@ import {
 
 
 import {
-  GetProductManagementDatas,AddProduct,UpdateProduct,DeleteById,BatchDelete,BatchExport,CopyDataById,
+  GetCustomerManagementDatas,AddCustomer,UpdateCustomer,DeleteById,BatchDelete,BatchExport,CopyDataById,
 }
- from "../../Request/CrmRequest/ProductManagementRequest";
+ from "../../Request/CrmRequest/CustomerManagementRequest";
 
 import { deepClone } from "../../utility/commonFunc";
 import{useRouter} from 'vue-router'
@@ -290,7 +290,7 @@ configGridModal,configExportModal,ClueShiftModal,
 
       const onShowSizeChange = (current: number, pageSize: number) => {
       loading.value = true;
-      GetProductManagementDatas({
+      GetCustomerManagementDatas({
         current: current,
         pageSize: pageSize,
         ...DataEntityState.QueryConditionInfo,
@@ -307,7 +307,7 @@ configGridModal,configExportModal,ClueShiftModal,
     });
     watch(current1, () => {
       loading.value = true;
-      GetProductManagementDatas({
+      GetCustomerManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -321,7 +321,7 @@ configGridModal,configExportModal,ClueShiftModal,
     });
     watch(refreshMark, () => {
       loading.value = true;
-      GetProductManagementDatas({
+      GetCustomerManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -410,29 +410,29 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
 
       //获用户数据
-      // loading.value = true;
-      // let UserDatasList = await GetProductManagementDatas({
-      //   current: 1,
-      //   pageSize: pageSize.value,
-      //   ...DataEntityState.QueryConditionInfo,
-      // });
-      // loading.value = false;
+      loading.value = true;
+      let UserDatasList = await GetCustomerManagementDatas({
+        current: 1,
+        pageSize: pageSize.value,
+        ...DataEntityState.QueryConditionInfo,
+      });
+      loading.value = false;
 
-      // console.log("amount", UserDatasList);
-      // if (UserDatasList.isSuccess) {
-      //   DataEntityState.DataList = UserDatasList.datas;
-      //   totalCount.value = UserDatasList.totalCount;
-      //   current1.value = 1;
-      // }
+      console.log("amount", UserDatasList);
+      if (UserDatasList.isSuccess) {
+        DataEntityState.DataList = UserDatasList.datas;
+        totalCount.value = UserDatasList.totalCount;
+        current1.value = 1;
+      }
       
       //测试
-      for(var s=0;s<11;s++)
-      {
-        DataEntityState.DataList.push(DataEntityState.ClueDatas[0]);
-      }
-       console.log(DataEntityState.DataList);
-         totalCount.value = DataEntityState.DataList.length;
-       current1.value = 1;
+      // for(var s=0;s<11;s++)
+      // {
+      //   DataEntityState.DataList.push(DataEntityState.ClueDatas[0]);
+      // }
+      //  console.log(DataEntityState.DataList);
+      //    totalCount.value = DataEntityState.DataList.length;
+      //  current1.value = 1;
 
     });
     /***数据初始化****************/
@@ -464,7 +464,7 @@ let ExportColumnsList = await GetExpColumnsConfig({
 const SearchBtn = async (payload: any) => {
       loading.value = true;
 
-      let UserDatasList1 = await GetProductManagementDatas({
+      let UserDatasList1 = await GetCustomerManagementDatas({
         current: 1,
         pageSize: pageSize.value,
         ...payload,
@@ -506,7 +506,7 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
      }
 }
 
-GetProductManagementDatas({
+GetCustomerManagementDatas({
      current: current1.value,
      pageSize: pageSize.value,
      ...DataEntityState.QueryConditionInfo,
@@ -529,7 +529,7 @@ const DeleteBth = (item: any,productCode:any) => {
 Modal.confirm({
               title: "您确定要删除这条记录吗?",
               icon: createVNode(ExclamationCircleOutlined),
-              content: `产品编号：${productCode}`,
+              content: `客户编号：${productCode}`,
               okText: "Yes",
               okType: "danger",
               cancelText: "No",
@@ -575,7 +575,7 @@ router.push({ path: "/Home/CreateCustomerPage", query: {pageType:"edit",id: item
 
 };
 
-const CancelClueShift = (item: any) => {
+const CancelCustomerShift = (item: any) => {
 
   Modal.confirm({
         title: "您确定要执行撤销操作吗?",
@@ -753,7 +753,7 @@ let visibleConfigExport = ref<boolean>(false);
       visibleConfigExport.value = false;
 
       let ExportColumnsList = await GetExpColumnsConfig({
-        pageName: "ProductManagement",
+        pageName: "CustomerManagement",
       });
 
   
@@ -786,9 +786,9 @@ let visibleModelConfigGrid = ref<boolean>(false);
 
  const UpdateConfigGrid = async () => {
       //获取表格列及处理表格列
-      let columnList = await GetLoginRecordColumn({ pageName: "ProductManagement" });
-    
-      if(columnList==undefined)
+      let columnList = await GetLoginRecordColumn({ pageName: "CustomerManagement" });
+ 
+      if(columnList==undefined||columnList.length<=0)
 {
   columnList=deepClone(CustomerColumns)
 }
@@ -801,6 +801,11 @@ let visibleModelConfigGrid = ref<boolean>(false);
         console.log(j + "=" + columnList[j]);
         if (columnList[j]["isUse"] == false) {
           columnList.splice(j, 1);
+        }
+        if (columnList[j].title == "操作") {
+          columnList[j].fixed = "right";
+          // columnList[j].width = 190;
+          // columnList[j].dataIndex = "action";
         }
       }
 
@@ -821,7 +826,7 @@ let visibleModelConfigGrid = ref<boolean>(false);
 
 
 const RefreshBtn = async (payload: any) => {
-   
+  
  UpdateConfigGrid();
       loading.value = true;
     //   DataEntityState.QueryConditionInfo = {
@@ -847,7 +852,7 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
 
 
 
-      GetProductManagementDatas({
+      GetCustomerManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -884,7 +889,7 @@ onSelectChange,
       BatchDeleteBtn,
       EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
 
-      CreateBtn,CancelClueShift,
+      CreateBtn,CancelCustomerShift,
 
       handleResizeColumn: (w:any, col:any) => {
         col.width = w;

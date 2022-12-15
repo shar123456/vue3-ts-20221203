@@ -702,7 +702,7 @@ let visibleModelConfigGrid = ref<boolean>(false);
       //获取表格列及处理表格列
       let columnList = await GetLoginRecordColumn({ pageName: "ProductManagement" });
     
-      if(columnList==undefined)
+      if(columnList==undefined||columnList.length<=0)
 {
   columnList=deepClone(ProductColumns)
 }

@@ -36,18 +36,25 @@
     
       <template #rate="{ text: rate }">
         <span>
-          <a-tag :color="rate != '未选择' ? '#AECF4B' :'#AECF4B' ">
+          <a-tag :color="rate != '未选择' ? 'geekblue' :'#dedede' ">
             {{ rate }}
           </a-tag>
         </span>
       </template>
+
+
+
+
+
+
+
 
       <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'contactShiftMark'">
         <span>
           <a-tag
            
-          :color="record.contactShiftMark==true ? 'geekblue' :'volcano' ">
+          :color="record.contactShiftMark==true ? 'green' :'#b0b0b0' ">
           
             {{ record.contactShiftMark==true?"已转换":"未转换" }}
           </a-tag>
@@ -57,7 +64,7 @@
         <span>
           <a-tag
            
-          :color="record.customerShiftMark==true ? 'geekblue' :'volcano' ">
+          :color="record.customerShiftMark==true ? 'green' :'#b0b0b0' ">
           
             {{ record.customerShiftMark==true?"已转换":"未转换" }}
           </a-tag>
@@ -67,9 +74,52 @@
         <span>
           <a-tag
            
-          :color="record.businessShiftMark==true ? 'geekblue' :'volcano' ">
+          :color="record.businessShiftMark==true ? 'green' :'#b0b0b0' ">
           
             {{ record.businessShiftMark==true?"已转换":"未转换" }}
+          </a-tag>
+        </span>
+      </template>
+
+      <template v-if="column.dataIndex === 'clueState'">
+        <span>
+          <a-tag
+           
+          :color="record.clueState=='启用' ? 'geekblue' :'volcano' ">
+          
+            {{ record.clueState}}
+          </a-tag>
+        </span>
+      </template>
+
+      <template v-if="column.dataIndex === 'clueAuditState'">
+        <span>
+          <a-tag
+           
+          :color="record.clueAuditState=='未审核' ? '#b0b0b0' :record.clueAuditState=='通过'?'geekblue':'volcano' ">
+          
+            {{ record.clueAuditState}}
+          </a-tag>
+        </span>
+      </template>
+
+      <template v-if="column.dataIndex === 'belongArea'">
+        <span>
+          <a-tag
+           
+          :color="record.belongArea=='未选择' ? '#b0b0b0' :'geekblue' ">
+          
+            {{ record.belongArea}}
+          </a-tag>
+        </span>
+      </template>
+      <template v-if="column.dataIndex === 'clueSource'">
+        <span>
+          <a-tag
+           
+          :color="(record.clueSource=='手动'||record.clueSource=='导入') ? 'geekblue' :'green' ">
+          
+            {{ record.clueSource}}
           </a-tag>
         </span>
       </template>
@@ -80,94 +130,94 @@
 
 
 
-      <template #action="{ record }">
+<template #action="{ record }">
 
-        <a  @click="ShowClueShiftRow(record)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-             background-color:#3c8dbc;
-            border-radius: 4px;
-          "
-         
-          title="线索转换"
-          ><InteractionOutlined  mark="delete"
-        />&nbsp;</a>
-
-
+  <a  @click="ShowClueShiftRow(record)"
+    style="
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      border:1px solid #dedede;
+       padding-top:1px;
+         padding-bottom:3px;
+       padding-left:7px;
+         padding-right:7px;
+       background-color:#3c8dbc;
+      border-radius: 4px;
+    "
+   
+    title="线索转换"
+    ><InteractionOutlined  mark="delete"
+  />&nbsp;</a>
 
 
-       <a  @click="EditBth(record.id)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-             background-color:#3c8dbc;
-            border-radius: 4px;
-          "
-         
-          title="编辑"
-          ><EditOutlined  mark="delete"
-        />&nbsp;</a>
+
+
+  <a  @click="EditBth(record.id)"
+    style="
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      border:1px solid #dedede;
+       padding-top:1px;
+         padding-bottom:3px;
+       padding-left:7px;
+         padding-right:7px;
+       background-color:#3c8dbc;
+      border-radius: 4px;
+    "
+   
+    title="编辑"
+    ><EditOutlined  mark="delete"
+  />&nbsp;</a>
 
 <a  @click="CopyBtn(record.id)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:7px;
-             background-color:#3c8dbc;
-            border-radius: 4px;
-          "
-         
-          title="复制"
-          ><CopyFilled  mark="delete"
-        />&nbsp;</a>
+    style="
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      border:1px solid #dedede;
+       padding-top:1px;
+         padding-bottom:3px;
+       padding-left:7px;
+         padding-right:7px;
+       background-color:#3c8dbc;
+      border-radius: 4px;
+    "
+   
+    title="复制"
+    ><CopyFilled  mark="delete"
+  />&nbsp;</a>
 
 
-       
+ 
 
 
-         <a  @click="DeleteBth(record.id,record.clueCode)"
-          style="
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            border:1px solid #dedede;
-             padding-top:1px;
-               padding-bottom:3px;
-             padding-left:7px;
-               padding-right:3px;
-            background-color:#dd4b39 ;
-            border-radius: 4px;
-          "
-         
-          title="删除"
-          ><CloseOutlined  mark="delete"
-        />&nbsp;</a>
+   <a  @click="DeleteBth(record.id,record.clueCode)"
+    style="
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      border:1px solid #dedede;
+       padding-top:1px;
+         padding-bottom:3px;
+       padding-left:7px;
+         padding-right:3px;
+      background-color:#dd4b39 ;
+      border-radius: 4px;
+    "
+   
+    title="删除"
+    ><CloseOutlined  mark="delete"
+  />&nbsp;</a>
 
-          
-        
+    
+  
 
 
 
-     
-      </template>
+
+</template>
 
 
 
@@ -840,7 +890,7 @@ let visibleModelConfigGrid = ref<boolean>(false);
       //获取表格列及处理表格列
       let columnList = await GetLoginRecordColumn({ pageName: "ClueManagement" });
     
-      if(columnList==undefined)
+      if(columnList==undefined||columnList.length<=0)
 {
   columnList=deepClone(ClueColumns)
 }
@@ -853,6 +903,11 @@ let visibleModelConfigGrid = ref<boolean>(false);
         console.log(j + "=" + columnList[j]);
         if (columnList[j]["isUse"] == false) {
           columnList.splice(j, 1);
+        }
+        if (columnList[j].title == "操作") {
+          columnList[j].fixed = "right";
+          // columnList[j].width = 190;
+          // columnList[j].dataIndex = "action";
         }
       }
 

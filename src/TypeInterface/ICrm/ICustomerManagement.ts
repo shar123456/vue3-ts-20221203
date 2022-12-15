@@ -52,11 +52,11 @@ createrStr: string;//创建人
 
 const CustomerColumns = [
   
-  {  oldTitle: '客户编号',title: '客户编号',width:150, dataIndex: 'customerCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
+  {  oldTitle: '客户编号',title: '客户编号',width:110, dataIndex: 'customerCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
     { oldTitle: '客户姓名', title: '客户姓名',width:180, dataIndex: 'customername', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
     {  oldTitle: '股票代码',title: '股票代码',width:110, dataIndex: 'stockCode', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
    
-    
+    {  oldTitle: '客户来源',title: '客户来源',width:110,  dataIndex: 'customerSource', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
 
     {  oldTitle: '员工数量',title: '员工数量',width:100,  dataIndex: 'employeeQty', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
     {  oldTitle: '行业',title: '行业',width:120,  dataIndex: 'industry', isUse: true,configOrder: 7  ,resizable: true,ellipsis: true,},
@@ -76,7 +76,7 @@ const CustomerColumns = [
    
 
 
-    {  oldTitle: '客户来源',title: '客户来源',width:110,  dataIndex: 'customerSource', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
+   
     {  oldTitle: '线索编号',title: '线索编号',width:110,  dataIndex: 'clueCode', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
 
     {  oldTitle: '客户状态',title: '客户状态',width:110,  dataIndex: 'customerState', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
@@ -160,8 +160,8 @@ const CustomerDatas=[
 
 
            customerSource:"",//线索来源
-           customerState:"",//线索状态
-           rate:"未选择",//评级
+           customerState:"启用",//线索状态
+           rate:"Level1",//评级
       
       address:"",//地址
       province:"",//省份

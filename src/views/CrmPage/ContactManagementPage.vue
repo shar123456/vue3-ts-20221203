@@ -34,36 +34,45 @@
       :pagination="false"
     >
     
-      <template #rate="{ text: rate }">
-        <span>
-          <a-tag :color="rate != '未选择' ? '#AECF4B' :'#AECF4B' ">
-            {{ rate }}
-          </a-tag>
-        </span>
-      </template>
+     
 
       <template #bodyCell="{ column, record }">
-      <template v-if="column.dataIndex === 'customerSource'">
+      <template v-if="column.dataIndex === 'contactSource'">
         <span>
           <a-tag
            
-          :color="(record.customerSource=='手动'||record.customerSource=='导入') ? 'geekblue' :'volcano' ">
+          :color="(record.contactSource=='手动'||record.contactSource=='导入') ? 'geekblue' :'green' ">
           
-            {{ record.customerSource}}
+            {{ record.contactSource}}
           </a-tag>
         </span>
       </template>
-      <template v-if="column.dataIndex === 'customerState'">
+      <template v-if="column.dataIndex === 'contactState'">
         <span>
           <a-tag
            
-          :color="record.customerState=='启用' ? 'geekblue' :'volcano' ">
+          :color="record.contactState=='启用' ? 'geekblue' :'volcano' ">
           
-            {{ record.customerState}}
+            {{ record.contactState}}
           </a-tag>
         </span>
       </template>
      
+
+      <template v-if="column.dataIndex === 'clueCode'">
+        <span>
+          <a-tag
+           
+          :color="record.clueCode!='' ? 'green' :'#b0b0b0' ">
+          
+            {{ record.clueCode}}
+          </a-tag>
+        </span>
+      </template>
+
+
+
+
     </template>
 
 
@@ -136,7 +145,7 @@ title="撤销"
 
 
 
-<a  @click="DeleteBth(record.id,record.productCode)"
+<a  @click="DeleteBth(record.id,record.contactCode)"
  v-if="record.customerSource != '线索转换'"
   style="
     color: #fff;
@@ -241,9 +250,9 @@ import {
 
 
 import {
-  GetProductManagementDatas,AddProduct,UpdateProduct,DeleteById,BatchDelete,BatchExport,CopyDataById,
+  GetContactManagementDatas,AddContact,UpdateContact,DeleteById,BatchDelete,BatchExport,CopyDataById,
 }
- from "../../Request/CrmRequest/ProductManagementRequest";
+ from "../../Request/CrmRequest/ContactManagementRequest";
 
 import { deepClone } from "../../utility/commonFunc";
 import{useRouter} from 'vue-router'
@@ -290,7 +299,7 @@ configGridModal,configExportModal,ClueShiftModal,
 
       const onShowSizeChange = (current: number, pageSize: number) => {
       loading.value = true;
-      GetProductManagementDatas({
+      GetContactManagementDatas({
         current: current,
         pageSize: pageSize,
         ...DataEntityState.QueryConditionInfo,
@@ -307,7 +316,7 @@ configGridModal,configExportModal,ClueShiftModal,
     });
     watch(current1, () => {
       loading.value = true;
-      GetProductManagementDatas({
+      GetContactManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -321,7 +330,7 @@ configGridModal,configExportModal,ClueShiftModal,
     });
     watch(refreshMark, () => {
       loading.value = true;
-      GetProductManagementDatas({
+      GetContactManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -349,12 +358,12 @@ let loading = ref<boolean>(false);
 onMounted(async () => {
       //获取表格列及处理表格列
       let columnList = await GetLoginRecordColumn({ pageName: "ContactManagement" });
-      console.log("ProductManagementColumn1",columnList)
+      //console.log("ProductManagementColumn1",columnList)
 if(columnList==undefined||columnList.length==0)
 {
   columnList=deepClone(ContactColumns)
 }
-      console.log("ProductManagementColumn2",columnList)
+     // console.log("ProductManagementColumn2",columnList)
 
       DataEntityState.ListColumns = deepClone(columnList);
 
@@ -410,29 +419,29 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
 
       //获用户数据
-      // loading.value = true;
-      // let UserDatasList = await GetProductManagementDatas({
-      //   current: 1,
-      //   pageSize: pageSize.value,
-      //   ...DataEntityState.QueryConditionInfo,
-      // });
-      // loading.value = false;
+      loading.value = true;
+      let UserDatasList = await GetContactManagementDatas({
+        current: 1,
+        pageSize: pageSize.value,
+        ...DataEntityState.QueryConditionInfo,
+      });
+      loading.value = false;
 
-      // console.log("amount", UserDatasList);
-      // if (UserDatasList.isSuccess) {
-      //   DataEntityState.DataList = UserDatasList.datas;
-      //   totalCount.value = UserDatasList.totalCount;
-      //   current1.value = 1;
-      // }
+      console.log("amount", UserDatasList);
+      if (UserDatasList.isSuccess) {
+        DataEntityState.DataList = UserDatasList.datas;
+        totalCount.value = UserDatasList.totalCount;
+        current1.value = 1;
+      }
       
       //测试
-      for(var s=0;s<11;s++)
-      {
-        DataEntityState.DataList.push(DataEntityState.ClueDatas[0]);
-      }
-       console.log(DataEntityState.DataList);
-         totalCount.value = DataEntityState.DataList.length;
-       current1.value = 1;
+      // for(var s=0;s<11;s++)
+      // {
+      //   DataEntityState.DataList.push(DataEntityState.ClueDatas[0]);
+      // }
+      //  console.log(DataEntityState.DataList);
+      //    totalCount.value = DataEntityState.DataList.length;
+      //  current1.value = 1;
 
     });
     /***数据初始化****************/
@@ -464,7 +473,7 @@ let ExportColumnsList = await GetExpColumnsConfig({
 const SearchBtn = async (payload: any) => {
       loading.value = true;
 
-      let UserDatasList1 = await GetProductManagementDatas({
+      let UserDatasList1 = await GetContactManagementDatas({
         current: 1,
         pageSize: pageSize.value,
         ...payload,
@@ -506,7 +515,7 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
      }
 }
 
-GetProductManagementDatas({
+GetContactManagementDatas({
      current: current1.value,
      pageSize: pageSize.value,
      ...DataEntityState.QueryConditionInfo,
@@ -529,7 +538,7 @@ const DeleteBth = (item: any,productCode:any) => {
 Modal.confirm({
               title: "您确定要删除这条记录吗?",
               icon: createVNode(ExclamationCircleOutlined),
-              content: `产品编号：${productCode}`,
+              content: `联系人编号：${productCode}`,
               okText: "Yes",
               okType: "danger",
               cancelText: "No",
@@ -575,7 +584,7 @@ router.push({ path: "/Home/CreateContactPage", query: {pageType:"edit",id: item}
 
 };
 
-const CancelClueShift = (item: any) => {
+const CancelContactShift = (item: any) => {
 
   Modal.confirm({
         title: "您确定要执行撤销操作吗?",
@@ -753,7 +762,7 @@ let visibleConfigExport = ref<boolean>(false);
       visibleConfigExport.value = false;
 
       let ExportColumnsList = await GetExpColumnsConfig({
-        pageName: "ProductManagement",
+        pageName: "ContactManagement",
       });
 
   
@@ -788,7 +797,7 @@ let visibleModelConfigGrid = ref<boolean>(false);
       //获取表格列及处理表格列
       let columnList = await GetLoginRecordColumn({ pageName: "ContactManagement" });
     
-      if(columnList==undefined)
+      if(columnList==undefined||columnList.length<=0)
 {
   columnList=deepClone(ContactColumns)
 }
@@ -801,6 +810,11 @@ let visibleModelConfigGrid = ref<boolean>(false);
         console.log(j + "=" + columnList[j]);
         if (columnList[j]["isUse"] == false) {
           columnList.splice(j, 1);
+        }
+        if (columnList[j].title == "操作") {
+          columnList[j].fixed = "right";
+          // columnList[j].width = 190;
+          // columnList[j].dataIndex = "action";
         }
       }
 
@@ -847,7 +861,7 @@ if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
 
 
 
-      GetProductManagementDatas({
+      GetContactManagementDatas({
         current: current1.value,
         pageSize: pageSize.value,
         ...DataEntityState.QueryConditionInfo,
@@ -884,7 +898,7 @@ onSelectChange,
       BatchDeleteBtn,
       EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
 
-      CreateBtn,CancelClueShift,
+      CreateBtn,CancelContactShift,
 
       handleResizeColumn: (w:any, col:any) => {
         col.width = w;

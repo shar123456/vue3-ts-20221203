@@ -11,7 +11,7 @@
         ref="formRef"
         :model="EditData"
         :rules="rules"
-        @finish="handleFinish"
+     
         v-bind="layout"
       >
 
@@ -20,7 +20,7 @@
       <a-row style="height: 2px"></a-row>
   <a-row type="flex" justify="start">
           <a-col class="col" :span="24" style="text-align:left">
-            <a-button v-show="IsShowSubmit" type="primary" html-type="submit" >{{
+            <a-button v-show="IsShowSubmit" type="primary" @click="handleFinishBtn" >{{
               submitDesc
             }}</a-button
             >&nbsp;
@@ -41,7 +41,7 @@
 
             <a-form-item label="联系人编号" name="contactCode">
               <a-input
-              ::disabled="IsDisabledContactCode"
+              :disabled="IsDisabledContactCode"
                
                 v-model:value="EditData.contactCode"
                 placeholder="请输入联系人编号"
@@ -411,8 +411,8 @@ import { SearchUserColumns ,SearchFlowColumns} from "../../TypeInterface/ISearch
   ExaminationFlowEntity,ExaminationFlowColumns
 } from "../../TypeInterface/IExaminationInterface";
 import {
-  AddProduct,UpdateProduct,GetProductById
-} from "../../Request/CrmRequest/ProductManagementRequest";
+  AddContact,UpdateContact,GetContactById
+} from "../../Request/CrmRequest/ContactManagementRequest";
  import { useStore } from "vuex";
  import { message, Modal } from "ant-design-vue";
 
@@ -484,7 +484,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
         state.title = "编辑联系人";
         state.submitDesc = "更新";
          state.IsDisabledContactCode=true;
-        GetProductById({ Id: Id }).then((res: any) => {
+        GetContactById({ Id: Id }).then((res: any) => {
                   if (res.isSuccess) {
                    
                  DataEntityState.EditData=res.datas;
@@ -545,16 +545,16 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
       // ],
      
     };
-    const handleFinish = async (values: any) => {
-      console.log(values);
+    const handleFinishBtn = async (values: any) => {
+      console.log("contactvalues",values);
      state.spinning = !state.spinning;
       let pageType = route.query.pageType; 
       //console.log("pageType", pageType);
 
   
       if ((pageType != undefined && pageType == "add")||pageType==undefined) {
-    
-        AddProduct(values).then((res: any) => {
+        console.log("contactvalues11",values);
+        AddContact(DataEntityState.EditData).then((res: any) => {
            console.log(res);
            if (res.isSuccess) {
            
@@ -583,7 +583,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
    
    
          //DataEntityState.EditData.startTimeStr= dayjs(dateFormat("YYYY-mm-dd HH:MM:SS",new Date(values.startTimeStr),0),"YYYY-MM-DD HH:mm:ss");
-   UpdateProduct(DataEntityState.EditData).then((res: any) => {
+   UpdateContact(DataEntityState.EditData).then((res: any) => {
            console.log(res);
            if (res.isSuccess) {
            
@@ -624,7 +624,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
              }
              
    
-     router.push({ path: "/Home/ProductManagementPage", query: {} });
+     router.push({ path: "/Home/ContactManagementPage", query: {} });
    
    
    
@@ -701,7 +701,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
       ...toRefs(state),
       ...toRefs(DataEntityState),
       rules,
-      handleFinish,goBackBtn,
+      handleFinishBtn,goBackBtn,
       layout,
      
       visibleSearchModal,

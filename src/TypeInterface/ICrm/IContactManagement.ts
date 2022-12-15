@@ -44,16 +44,16 @@ createrStr: string;//创建人
 
 const ContactColumns = [
   
-  {  oldTitle: '联系人编号',title: '联系人编号',width:150, dataIndex: 'contactCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
-    { oldTitle: '姓名', title: '姓名',width:180, dataIndex: 'name', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
+  {  oldTitle: '联系人编号',title: '联系人编号',width:140, dataIndex: 'contactCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
+    { oldTitle: '姓名', title: '姓名',width:140, dataIndex: 'name', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
    
 
     {  oldTitle: '手机号',title: '手机号',width:120,  dataIndex: 'mobilePhone', isUse: true,configOrder: 11  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '电话',title: '电话',width:110,  dataIndex: 'phone', isUse: true,configOrder: 11  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '传真',title: '传真',width:110,  dataIndex: 'fax', isUse: true,configOrder: 12  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '电邮',title: '电邮',width:130,  dataIndex: 'email', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '电话',title: '电话',width:120,  dataIndex: 'phone', isUse: true,configOrder: 11  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '传真',title: '传真',width:120,  dataIndex: 'fax', isUse: true,configOrder: 12  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '电邮',title: '电邮',width:140,  dataIndex: 'email', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
     // {  oldTitle: '第二电邮',title: '第二电邮',width:130,  dataIndex: 'secondEmail', isUse: true,configOrder: 14 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '邮件免打扰',title: '邮件免打扰',width:110,  dataIndex: 'emailNoDisturb', isUse: true,configOrder: 15 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '邮件免打扰',title: '邮件免打扰',width:100,  dataIndex: 'emailNoDisturb', isUse: true,configOrder: 15 ,resizable: true,ellipsis: true,},
     {  oldTitle: '联系人来源',title: '联系人来源',width:100,  dataIndex: 'contactSource', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true,},
     {  oldTitle: '职位',title: '职位',width:100,  dataIndex: 'position', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
     {  oldTitle: '部门',title: '部门',width:80,  dataIndex: 'dept', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},

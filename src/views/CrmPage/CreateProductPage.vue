@@ -11,7 +11,7 @@
         ref="formRef"
         :model="EditData"
         :rules="rules"
-        @finish="handleFinish"
+      
         v-bind="layout"
       >
 
@@ -20,7 +20,7 @@
       <a-row style="height: 2px"></a-row>
   <a-row type="flex" justify="start">
           <a-col class="col" :span="24" style="text-align:left">
-            <a-button v-show="IsShowSubmit" type="primary" html-type="submit" >{{
+            <a-button v-show="IsShowSubmit" type="primary" @click="handleFinishBtn" >{{
               submitDesc
             }}</a-button
             >&nbsp;
@@ -430,7 +430,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
       ],
       
     };
-    const handleFinish = async (values: any) => {
+    const handleFinishBtn = async (values: any) => {
       console.log(values);
      state.spinning = !state.spinning;
       let pageType = route.query.pageType;
@@ -439,7 +439,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
   
       if ((pageType != undefined && pageType == "add")||pageType==undefined) {
     
-        AddProduct(values).then((res: any) => {
+        AddProduct(DataEntityState.EditData).then((res: any) => {
            console.log(res);
            if (res.isSuccess) {
            
@@ -565,7 +565,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
       ...toRefs(state),
       ...toRefs(DataEntityState),
       rules,
-      handleFinish,goBackBtn,
+      handleFinishBtn,goBackBtn,
       layout,
      
       visibleSearchModal,
