@@ -298,18 +298,18 @@
 
           <a-col :xs="0" :sm="0" :md="0" :lg="10" :xl="4">
             <div class="funbox">
-              <a href="#" title="全屏" @click="toggleFullscreen"
+              <a href="#" title="全屏" @click.prevent="toggleFullscreen"
                 ><FullscreenOutlined
               /></a>
 
 
        
-      <a href="#" @click="NewMessageBtn" title="消息"
+      <a href="#" @click.prevent="NewMessageBtn" title="消息"
                 >      <BellOutlined
               /> </a>
    
              
-              <a href="#" @click="SearchMenuBtn" title="搜索"
+              <a href="#" @click.prevent="SearchMenuBtn" title="搜索"
                 ><SearchOutlined
               /></a>
 
