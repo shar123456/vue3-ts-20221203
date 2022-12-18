@@ -403,6 +403,8 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
 /***功能按钮****************************************** */
 const SearchBtn = async (payload: any) => {
+    DataEntityState.selectedRowKeys = [];
+              DataEntityState.selectedRows = [];
       loading.value = true;
 
       let UserDatasList1 = await GetProductManagementDatas({
@@ -744,7 +746,8 @@ const RefreshBtn = async (payload: any) => {
     //     workScheduleType: "未选择",
     //       workScheduleStatus: "未选择",
     //   };
-
+  DataEntityState.selectedRowKeys = [];
+              DataEntityState.selectedRows = [];
  for(let item in  DataEntityState.QueryConditionInfo)
   {
 if(DataEntityState.QueryConditionInfoConfig[item].type=="text")

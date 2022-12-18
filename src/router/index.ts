@@ -288,26 +288,27 @@ let routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home1',
-    meta: { rName: "/首页/" },
+    meta: { rName: "/首页/" ,requiresAuth : true},
     //component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
     redirect: "/Home/HomePage"
   },
 
   {
     path: '/login',
-    name: 'login',
+    name: 'login',    meta: { requiresAuth : true },
     component: () => import(/* webpackChunkName: "about" */ '../views/Login/login.vue')
   },
   {
     path: '/Home',
     name: 'Home',
-    meta: { rName: "/首页/" },
+    meta: { rName: "/首页/",requiresAuth : true },
     component: Home,
     children: MenuArr
   },
   {
     path: '/register',
     name: 'register',
+    meta: { requiresAuth : true },
     component: () => import(/* webpackChunkName: "about" */ '../views/Login/register.vue')
   }
 ]
@@ -346,125 +347,135 @@ export function getInitRouter(): void {
 //           component: () => import(/* webpackChunkName: "about" */ '../views/MainPage/RoleListPage.vue')
 //         })
 
+function configRouter(){
 
+
+
+}
 
 
 
 router.beforeEach((to: any, from: any, next: any) => {
-  //console.log(to.path)
-  if (to.path === "/login" || to.path === "/register") {
-    // console.log("/login",to.path);
-    resetRouter();
-    next();
+
+  //if( to.matched.some( (record:any) => record.meta.requiresAuth ) )
+  {
+//console.log(to.path)
+if (to.path === "/login" || to.path === "/register") {
+  // console.log("/login",to.path);
+  resetRouter();
+  next();
+}
+else {
+  const token = localStorage.getItem("starToken");
+  //console.log(token);
+
+  if (!token) {
+    next("/login");
   }
   else {
-    const token = localStorage.getItem("starToken");
-    //console.log(token);
 
-    if (!token) {
-      next("/login");
+
+
+    //不是去首页的话，判湖store仓库中的aLLroutes是不是有值了，如果有说明己经构造过了，就跳转
+
+    if (store.state.allRoutes && store.state.allRoutes.length > 0) {
+      //console.log("store.state.allRoutes",store.state.allRoutes)
+      // routes=store.state.allRoutes
+      //  console.log("s111tore.state.allRoutes",store.state.allRoutes)
+      // router = createRouter({
+      //   history: createWebHistory(process.env.BASE_URL),
+      //   routes
+      // })
+      next();
+      //next({ ...to })
     }
     else {
+      //console.log("getInitRouter",store.state.allRoutes)
 
+      GetMenuDatas({
+        current: 1,
+        pageSize: 1000,
+        ...DataEntityState.QueryConditionInfo,
+      }).then((res: any) => {
 
+        if (res.isSuccess) {
+          //console.log("111111routerMenu",res.datas);
+          if (res.datas != undefined && res.datas != null) {
 
-      //不是去首页的话，判湖store仓库中的aLLroutes是不是有值了，如果有说明己经构造过了，就跳转
+            res.datas.forEach((element: any) => {
+              // console.log("routerMenuelement",element);
+              if (element.menuLevel == 1) {
+                if (element.hasSub == "是") {
+                  element?.children?.forEach((elementSub2: any) => {
+                    const menuPageTemp = elementSub2.menuUrl.split('/');
+                    const menuPage = menuPageTemp[menuPageTemp.length - 1]
+                   
+                    // console.log("menuPage",menuPage);
+                    // MenuArr.push(
+                    //   {
+                    //     path: menuPage,
+                    //     name: menuPage,
+                    //     meta:{rName:"/"+element.menuTitle+"/"+elementSub2.menuTitle,Sub:element.menuKey},
+                    //     component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
+                    //   }
+                    // );
 
-      if (store.state.allRoutes && store.state.allRoutes.length > 0) {
-        //console.log("store.state.allRoutes",store.state.allRoutes)
-        // routes=store.state.allRoutes
-        //  console.log("s111tore.state.allRoutes",store.state.allRoutes)
-        // router = createRouter({
-        //   history: createWebHistory(process.env.BASE_URL),
-        //   routes
-        // })
-        next();
-        //next({ ...to })
-      }
-      else {
-        //console.log("getInitRouter",store.state.allRoutes)
-
-        GetMenuDatas({
-          current: 1,
-          pageSize: 1000,
-          ...DataEntityState.QueryConditionInfo,
-        }).then((res: any) => {
-
-          if (res.isSuccess) {
-            //console.log("111111routerMenu",res.datas);
-            if (res.datas != undefined && res.datas != null) {
-
-              res.datas.forEach((element: any) => {
-                // console.log("routerMenuelement",element);
-                if (element.menuLevel == 1) {
-                  if (element.hasSub == "是") {
-                    element?.children?.forEach((elementSub2: any) => {
-                      const menuPageTemp = elementSub2.menuUrl.split('/');
-                      const menuPage = menuPageTemp[menuPageTemp.length - 1]
-                     
-                      // console.log("menuPage",menuPage);
-                      // MenuArr.push(
-                      //   {
-                      //     path: menuPage,
-                      //     name: menuPage,
-                      //     meta:{rName:"/"+element.menuTitle+"/"+elementSub2.menuTitle,Sub:element.menuKey},
-                      //     component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
-                      //   }
-                      // );
-
-                      router.addRoute('Home', {
-                        path: menuPage,
-                        name: menuPage,
-                        meta: { rName: "/" + element.menuTitle + "/" + elementSub2.menuTitle, Sub: element.menuKey },
-                        // component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
-                       // component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuTitle==="CRM"?"CrmPage":"MainPage"}/${menuPage}.vue`)
-                       component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuAreaName}/${menuPage}.vue`)
-
-                      })
-
-
+                    router.addRoute('Home', {
+                      path: menuPage,
+                      name: menuPage,
+                      meta: { rName: "/" + element.menuTitle + "/" + elementSub2.menuTitle, Sub: element.menuKey,requiresAuth : true },
+                      // component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
+                     // component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuTitle==="CRM"?"CrmPage":"MainPage"}/${menuPage}.vue`)
+                     component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuAreaName}/${menuPage}.vue`)
 
                     })
-                  }
 
 
+
+                  })
                 }
 
 
-              });
+              }
 
-              //console.log("set");
-              //将更新后的路由提交给store，后续展示中会从store中获取
-              store.commit('set_allRoutes', router.getRoutes());
-              //console.log("111埃夫特rgetInitRouter",store.state.allRoutes)
-              next({ ...to, replace: true });
 
-              //console.log("MenuArr",MenuArr);
-            }
+            });
 
+            //console.log("set");
+            //将更新后的路由提交给store，后续展示中会从store中获取
+            store.commit('set_allRoutes', router.getRoutes());
+            //console.log("111埃夫特rgetInitRouter",store.state.allRoutes)
+            next({ ...to, replace: true });
+
+            //console.log("MenuArr",MenuArr);
           }
-        });
+
+        }
+      });
 
 
-      }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      //next();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //next();
   }
+}
+  }
+
+  
 
 })
 

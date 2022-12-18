@@ -276,6 +276,7 @@
     @UpdateInfoBtn="UpdateInfoBtn"
     @CreateInfoBtn="CreateInfoBtn"
     urlData="/ClueManagement/UpLoadFile"
+      configType="ClueManagement"
   />
 
   

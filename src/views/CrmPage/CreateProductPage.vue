@@ -300,7 +300,7 @@ import {
 } from "../../Request/CrmRequest/ProductManagementRequest";
  import { useStore } from "vuex";
  import { message, Modal } from "ant-design-vue";
-
+   import type { FormInstance } from 'ant-design-vue';
    import dayjs, { Dayjs } from 'dayjs';
 export default defineComponent({
   components: { UploadOutlined,SearchDataModal2 },
@@ -430,8 +430,23 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
       ],
       
     };
+        const formRef = ref<FormInstance>();
     const handleFinishBtn = async (values: any) => {
       console.log(values);
+             var doMark=true;
+   try{
+ const values1 = await formRef.value?.validateFields();
+   }
+   catch (e:any){
+     if(e.errorFields&&e.errorFields.length>0)
+     {
+      doMark=false;
+     }
+   }
+
+ if(!doMark){
+  return;
+ }
      state.spinning = !state.spinning;
       let pageType = route.query.pageType;
       //console.log("pageType", pageType);
@@ -564,7 +579,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
     return {
       ...toRefs(state),
       ...toRefs(DataEntityState),
-      rules,
+      rules,formRef,
       handleFinishBtn,goBackBtn,
       layout,
      

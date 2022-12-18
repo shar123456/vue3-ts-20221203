@@ -36,7 +36,7 @@ remark:string;//备注
 const CommercialColumns = [
   
   {  oldTitle: '客户编号',title: '客户编号',width:110, dataIndex: 'customerCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
-    { oldTitle: '客户姓名', title: '客户姓名',width:180, dataIndex: 'customername', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
+    { oldTitle: '客户名称', title: '客户名称',width:180, dataIndex: 'customername', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
   
      {  oldTitle: '商机编号',title: '商机编号',width:110, dataIndex: 'commercialCode', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
      {  oldTitle: '商机名称',title: '商机名称',width:110, dataIndex: 'commercialName', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
@@ -113,7 +113,7 @@ const CommercialDatas=[
            
          
           contactName:"",//联系人
-          commercialState:"开启",//商机状态
+          commercialState:"启用",//商机状态
           probability:"",//概率
           commercialStage:"",//商机阶段
         
@@ -176,22 +176,22 @@ const CommercialDatas=[
 
 
       const ExportColumns = [
-        { name:"customerCode",oldTitle: '客户编号', currentTitle: '客户编号', isUse: true,configOrder: 1 },
-        { name:"customername",oldTitle: '客户姓名', currentTitle: '客户姓名', isUse: true,configOrder: 2 },
+        { name:"CustomerCode",oldTitle: '客户编号', currentTitle: '客户编号', isUse: true,configOrder: 1 },
+        { name:"Customername",oldTitle: '客户名称', currentTitle: '客户名称', isUse: true,configOrder: 2 },
       
-        { name:"commercialCode",oldTitle: '商机编号', currentTitle: '商机编号', isUse: true,configOrder: 3 },
-        { name:"commercialName",oldTitle: '商机名称', currentTitle: '商机名称', isUse: true,configOrder: 3 },
-        {name:"commercialType", oldTitle: '商机类型', currentTitle: '商机类型', isUse: true,configOrder: 4 },
-        { name:"commercialSource",oldTitle: '商机来源', currentTitle: '商机来源', isUse: true,configOrder: 5 },
-        {name:"contactName", oldTitle: '联系人', currentTitle: '联系人', isUse: true,configOrder: 6},
-        { name:"prospectionIncome",oldTitle: '预期收入', currentTitle: '预期收入', isUse: true,configOrder: 8 },
-        { name:"currency",oldTitle: '货币', currentTitle: '货币', isUse: true,configOrder: 9 },
-        { name:"amount",oldTitle: '金额', currentTitle: '金额', isUse: true,configOrder: 10 },
-        { name:"probability",oldTitle: '概率', currentTitle: '概率', isUse: true,configOrder: 11 },
-        { name:"commercialStage",oldTitle: '阶段', currentTitle: '阶段', isUse: true,configOrder:12 },
-        { name:"clueCode",oldTitle: '线索编号', currentTitle: '线索编号', isUse: true,configOrder: 13 },
-        { name:"remark",oldTitle: '备注', currentTitle: '备注', isUse: true,configOrder: 14 },
-        { name:"CreateTimeStr",oldTitle: '创建时间', currentTitle: '创建时间', isUse: false,configOrder: 15 },
+        { name:"CommercialCode",oldTitle: '商机编号', currentTitle: '商机编号', isUse: true,configOrder: 3 },
+        { name:"CommercialName",oldTitle: '商机名称', currentTitle: '商机名称', isUse: true,configOrder: 4},
+        {name:"CommercialType", oldTitle: '商机类型', currentTitle: '商机类型', isUse: true,configOrder: 5 },
+       
+        {name:"ContactName", oldTitle: '联系人', currentTitle: '联系人', isUse: true,configOrder: 6},
+        { name:"ProspectionIncome",oldTitle: '预期收入', currentTitle: '预期收入', isUse: true,configOrder:7 },
+        { name:"Currency",oldTitle: '货币', currentTitle: '货币', isUse: true,configOrder:8 },
+        { name:"Amount",oldTitle: '金额', currentTitle: '金额', isUse: true,configOrder: 9 },
+        { name:"Probability",oldTitle: '概率', currentTitle: '概率', isUse: true,configOrder: 10 },
+        { name:"CommercialStage",oldTitle: '阶段', currentTitle: '阶段', isUse: true,configOrder:11 },
+     
+        { name:"Remark",oldTitle: '备注', currentTitle: '备注', isUse: true,configOrder: 12 },
+        { name:"CreateTimeStr",oldTitle: '创建时间', currentTitle: '创建时间', isUse: true,configOrder: 13 },
     
       
       ];

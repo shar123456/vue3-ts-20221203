@@ -8,7 +8,7 @@
   @ExportExcel="ExportExcelBtn"
       @ConfigExport="ShowConfigExportBtn"
        @ShowConfigGrid="ShowConfigGridBtn"
-       
+          @ImportExcel="ImportExcelBtn"
 
 
     
@@ -204,7 +204,16 @@ title="撤销"
   />
 
 
-
+ <ExportExcelModal
+    :visibleExportExcel="visibleExportExcel"
+    :modalExportExcelTitles="modalExportExcelTitle"
+    :UserData="UserDataEntityState"
+    @closeExportExcelMoadl="closeExportExcelMoadl"
+    @UpdateInfoBtn="UpdateInfoBtn"
+    @CreateInfoBtn="CreateInfoBtn"
+    urlData="/CustomerManagement/UpLoadFile"
+      configType="CustomerManagement"
+  />
 
   
 </template>
@@ -238,7 +247,7 @@ import {
     GetExpColumnsConfig,
 } from "../../Request/userRequest";
 
-
+import ExportExcelModal from "../../components/ExportExcelModal.vue";
 
 import {
   GetCustomerManagementDatas,AddCustomer,UpdateCustomer,DeleteById,BatchDelete,BatchExport,CopyDataById,
@@ -255,7 +264,7 @@ import ClueShiftModal from "../../components/ClueShiftModal.vue";
 
 export default defineComponent({
   components: {
-configGridModal,configExportModal,ClueShiftModal,
+configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
     DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,
     BellOutlined,CopyFilled,InteractionOutlined,UndoOutlined
 
@@ -463,7 +472,8 @@ let ExportColumnsList = await GetExpColumnsConfig({
 /***功能按钮****************************************** */
 const SearchBtn = async (payload: any) => {
       loading.value = true;
-
+ DataEntityState.selectedRowKeys = [];
+              DataEntityState.selectedRows = [];
       let UserDatasList1 = await GetCustomerManagementDatas({
         current: 1,
         pageSize: pageSize.value,
@@ -712,7 +722,7 @@ const CancelCustomerShift = (item: any) => {
             //   res.headers["Content-Disposition"];
             //   console.log("contentDisposition",contentDisposition)
             //const fileName =(contentDisposition && contentDisposition.split(";")[1]).split("=")[1] ||f ||"";
-         const fileName ="产品-"+new Date().getTime();
+         const fileName ="客户-"+new Date().getTime();
             //const fileName = '统计.xlsx';
             const elink = document.createElement("a");
             elink.download = fileName;
@@ -735,6 +745,21 @@ const CancelCustomerShift = (item: any) => {
 
 
 /***导出 end************** */
+ let visibleExportExcel = ref<boolean>(false);
+  let modalExportExcelTitle = ref<string>("");
+
+ const ImportExcelBtn = () => {
+      console.log("visibleExportExcel");
+      visibleExportExcel.value = true;
+      modalExportExcelTitle.value = "文件导入";
+    };
+
+    const closeExportExcelMoadl = () => {
+      visibleExportExcel.value = false;
+      refreshMark.value = new Date().getTime().toString();
+    };
+
+
 
 
 /***导出配置 start************** */
@@ -835,7 +860,8 @@ const RefreshBtn = async (payload: any) => {
     //     workScheduleType: "未选择",
     //       workScheduleStatus: "未选择",
     //   };
-
+ DataEntityState.selectedRowKeys = [];
+              DataEntityState.selectedRows = [];
  for(let item in  DataEntityState.QueryConditionInfo)
   {
 if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
@@ -890,6 +916,7 @@ onSelectChange,
       EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
 
       CreateBtn,CancelCustomerShift,
+       ImportExcelBtn,closeExportExcelMoadl,visibleExportExcel,modalExportExcelTitle,
 
       handleResizeColumn: (w:any, col:any) => {
         col.width = w;

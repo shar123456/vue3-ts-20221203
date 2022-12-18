@@ -69,7 +69,7 @@
             <a-form-item label="行业" name="industry">
               <a-input
             
-               
+               :disabled="IsDisabled"
                 v-model:value="EditData.industry"
                 placeholder="请输入行业"
               />
@@ -144,7 +144,7 @@
             <a-form-item label="货币" name="currency">
               <a-input
             
-               
+               :disabled="IsDisabled"
                 v-model:value="EditData.currency"
                 placeholder="请输入货币"
               />
@@ -177,7 +177,7 @@
             <a-form-item label="电话" name="phone">
               <a-input
             
-               
+               :disabled="IsDisabled"
                 v-model:value="EditData.phone"
                 placeholder="请输入电话"
               />
@@ -215,7 +215,7 @@
             <a-form-item label="电邮" name="email">
               <a-input
             
-               
+               :disabled="IsDisabled"
                 v-model:value="EditData.email"
                 placeholder="请输入电邮"
               />
@@ -262,7 +262,7 @@
             <a-form-item label="网站" name="webSite">
               <a-input
             
-               
+               :disabled="IsDisabled"
                 v-model:value="EditData.webSite"
                 placeholder="请输入网站"
               />
@@ -336,7 +336,7 @@
 
             <a-form-item label="第二电邮" name="secondEmail">
               <a-input
-            
+            :disabled="IsDisabled"
                
                 v-model:value="EditData.secondEmail"
                 placeholder="请输入第二电邮"
@@ -367,7 +367,7 @@
     <a-form-item label="地址" name="address">
       <a-input
     
-       
+       :disabled="IsDisabled"
         v-model:value="EditData.address"
         placeholder="请输入地址"
       />
@@ -396,7 +396,7 @@
 
     <a-form-item label="城市" name="city">
       <a-input
-    
+    :disabled="IsDisabled"
        
         v-model:value="EditData.city"
         placeholder="请输入城市"
@@ -487,7 +487,7 @@ import {
 } from "../../Request/CrmRequest/CustomerManagementRequest";
  import { useStore } from "vuex";
  import { message, Modal } from "ant-design-vue";
-
+   import type { FormInstance } from 'ant-design-vue';
    import dayjs, { Dayjs } from 'dayjs';
 export default defineComponent({
   components: { UploadOutlined,SearchDataModal2 },
@@ -501,7 +501,7 @@ export default defineComponent({
       IsShowContinueAdd: false,
        title: "新建客户",
       submitDesc: "提交",
-      IsDisabledCustomerCode: false,
+      IsDisabledCustomerCode: true,
     });
     const layout = {
       labelCol: { span: 3 },
@@ -629,8 +629,27 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
         },
       ],
     };
+         const formRef = ref<FormInstance>();
     const handleFinishBtn = async (values: any) => {
       //console.log(values);
+
+     var doMark=true;
+   try{
+ const values1 = await formRef.value?.validateFields();
+   }
+   catch (e:any){
+     if(e.errorFields&&e.errorFields.length>0)
+     {
+      doMark=false;
+     }
+   }
+
+ if(!doMark){
+  return;
+ }
+   
+
+
      state.spinning = !state.spinning;
       let pageType = route.query.pageType; 
       //console.log("pageType", pageType);
@@ -737,7 +756,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
   
     const continueAdd=()=>{
        state.IsDisabled=false;
-        state.IsDisabledCustomerCode=false;
+         state.IsDisabledCustomerCode=true;
        
         state.IsShowSubmit=true;
     state.IsShowContinueAdd=false;
@@ -792,7 +811,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
     return {
       ...toRefs(state),
       ...toRefs(DataEntityState),
-      rules,
+      rules,formRef,
       handleFinishBtn,goBackBtn,
       layout,
      

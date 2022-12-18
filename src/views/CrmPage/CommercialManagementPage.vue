@@ -8,7 +8,7 @@
   @ExportExcel="ExportExcelBtn"
       @ConfigExport="ShowConfigExportBtn"
        @ShowConfigGrid="ShowConfigGridBtn"
-       
+         @ImportExcel="ImportExcelBtn"
 
 
     
@@ -197,7 +197,16 @@ title="撤销"
     @CloseConfigGridMoadl="CloseConfigExportMoadl"
   />
 
-
+ <ExportExcelModal
+    :visibleExportExcel="visibleExportExcel"
+    :modalExportExcelTitles="modalExportExcelTitle"
+    :UserData="UserDataEntityState"
+    @closeExportExcelMoadl="closeExportExcelMoadl"
+    @UpdateInfoBtn="UpdateInfoBtn"
+    @CreateInfoBtn="CreateInfoBtn"
+    urlData="/CommercialManagement/UpLoadFile"
+      configType="CommercialManagement"
+  />
 
 
   
@@ -232,7 +241,7 @@ import {
     GetExpColumnsConfig,
 } from "../../Request/userRequest";
 
-
+import ExportExcelModal from "../../components/ExportExcelModal.vue";
 
 import {
   GetCommercialManagementDatas,AddCommercial,UpdateCommercial,DeleteById,BatchDelete,BatchExport,CopyDataById,
@@ -249,7 +258,7 @@ import ClueShiftModal from "../../components/ClueShiftModal.vue";
 
 export default defineComponent({
   components: {
-configGridModal,configExportModal,ClueShiftModal,
+configGridModal,configExportModal,ClueShiftModal,ExportExcelModal,
     DeleteFilled,SearchOutlined,CommonQueryHeaderCRM,CloseOutlined,EditOutlined,
     BellOutlined,CopyFilled,InteractionOutlined,UndoOutlined
 
@@ -444,6 +453,19 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
 
 
+ let visibleExportExcel = ref<boolean>(false);
+  let modalExportExcelTitle = ref<string>("");
+
+ const ImportExcelBtn = () => {
+      console.log("visibleExportExcel");
+      visibleExportExcel.value = true;
+      modalExportExcelTitle.value = "文件导入";
+    };
+
+    const closeExportExcelMoadl = () => {
+      visibleExportExcel.value = false;
+      refreshMark.value = new Date().getTime().toString();
+    };
 
 
 
@@ -884,7 +906,7 @@ onSelectChange,
       EditBth,ExportExcelBtn,CopyBtn,ShowConfigExportBtn,CloseConfigExportMoadl,visibleConfigExport,modalTitleConfigExport,visibleModelConfigGrid,modalTitleConfigGrid,ShowConfigGridBtn,CloseConfigGridMoadl,
 
       CreateBtn,CancelCommercialShift,
-
+ ImportExcelBtn,closeExportExcelMoadl,visibleExportExcel,modalExportExcelTitle,
       handleResizeColumn: (w:any, col:any) => {
         col.width = w;
       },

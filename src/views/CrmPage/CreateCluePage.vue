@@ -11,7 +11,7 @@
         ref="formRef"
         :model="EditData"
         :rules="rules"
-   
+
         v-bind="layout"
       >
 
@@ -20,7 +20,7 @@
       <a-row style="height: 2px"></a-row>
   <a-row type="flex" justify="start">
           <a-col class="col" :span="24" style="text-align:left">
-            <a-button v-show="IsShowSubmit" type="primary"     @click="handleFinishBtn"  >{{
+            <a-button v-show="IsShowSubmit" type="primary"    @click="handleFinishBtn"  >{{
               submitDesc
             }}</a-button
             >&nbsp;
@@ -41,7 +41,7 @@
 
             <a-form-item label="线索编号" name="clueCode">
               <a-input
-              ::disabled="IsDisabledClueCode"
+              :disabled="IsDisabledClueCode"
                
                 v-model:value="EditData.clueCode"
                 placeholder="请输入线索编号"
@@ -68,7 +68,7 @@
 
             <a-form-item label="姓名" name="name">
               <a-input
-            
+             :disabled="IsDisabled"
                
                 v-model:value="EditData.name"
                 placeholder="请输入姓名"
@@ -100,7 +100,7 @@
 
             <a-form-item label="公司" name="firm">
               <a-input
-            
+             :disabled="IsDisabled"
                
                 v-model:value="EditData.firm"
                 placeholder="请输入公司"
@@ -546,6 +546,8 @@ import {
  import { message, Modal } from "ant-design-vue";
 
    import dayjs, { Dayjs } from 'dayjs';
+   import type { FormInstance } from 'ant-design-vue';
+import { ANT_MARK } from "ant-design-vue/es/locale-provider";
 export default defineComponent({
   components: { UploadOutlined,SearchDataModal2 },
   setup() {
@@ -558,7 +560,7 @@ export default defineComponent({
       IsShowContinueAdd: false,
        title: "新建线索",
       submitDesc: "提交",
-      IsDisabledClueCode: false,
+      IsDisabledClueCode: true,
     });
     const layout = {
       labelCol: { span: 3 },
@@ -686,8 +688,25 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
         },
       ],
     };
-    const handleFinishBtn = async (values: any) => {
-      console.log(values);
+
+     const formRef = ref<FormInstance>();
+    const handleFinishBtn = async (values: any) => { 
+      var doMark=true;
+   try{
+ const values1 = await formRef.value?.validateFields();
+   }
+   catch (e:any){
+     if(e.errorFields&&e.errorFields.length>0)
+     {
+      doMark=false;
+     }
+   }
+
+ if(!doMark){
+  return;
+ }
+   
+      
      state.spinning = !state.spinning;
       let pageType = route.query.pageType; 
       //console.log("pageType", pageType);
@@ -801,7 +820,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
   
     const continueAdd=()=>{
        state.IsDisabled=false;
-        state.IsDisabledClueCode=false;
+        state.IsDisabledClueCode=true;
        
         state.IsShowSubmit=true;
     state.IsShowContinueAdd=false;
@@ -861,7 +880,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
     return {
       ...toRefs(state),
       ...toRefs(DataEntityState),
-      rules,
+      rules,formRef,
       handleFinishBtn,goBackBtn,
       layout,
      

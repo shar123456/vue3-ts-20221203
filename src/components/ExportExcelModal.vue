@@ -32,6 +32,13 @@
       {{ uploading ? 'Uploading' : '执行导入' }}
     </a-button></a-col>
     <a-col :span="12">仅支持扩展名：.xlsx 文件，大小：最大支持30M</a-col>
+  
+  </a-row>
+   <a-row>
+    <a-col :span="12">
+    </a-col>
+    <a-col :span="12" >  <a  :href="downLoadHref">{{downLoadName}}</a></a-col>
+  
   </a-row>
    </div>
     
@@ -59,7 +66,7 @@ import {
 } from "../Request/GlobelConfig";
 
 export default defineComponent({
-      props: { UserData: UserDataEntity,urlData:String,
+      props: { UserData: UserDataEntity,urlData:String,configType:String,
        visibleExportExcel:Boolean,modalExportExcelTitles: String,},
        components: {
     InboxOutlined,
@@ -67,13 +74,29 @@ export default defineComponent({
     setup (props,context) {
         const state = reactive({
             count: 0,
+            downLoadName:"",
+            downLoadHref:""
         })
           let visibleExportExcel = ref<boolean>(props.visibleExportExcel);
           let modalTitleeExportExcel = ref<string|undefined>(props.modalExportExcelTitles);
            const EditData:IUserInfo=props.UserData?.EditData as IUserInfo;
            let urlDataT = ref<string|undefined>(props.urlData);
-
-
+let configType = ref<string|undefined>(props.configType);
+  if(configType.value=="ClueManagement")
+           {
+            state.downLoadName="线索模板下载";
+state.downLoadHref="./线索导入模板.xlsx";
+           }
+  if(configType.value=="CustomerManagement")
+           {
+            state.downLoadName="客户模板下载";
+state.downLoadHref="./客户导入模板.xlsx";
+           }
+ if(configType.value=="CommercialManagement")
+           {
+            state.downLoadName="商机模板下载";
+state.downLoadHref="./商机导入模板.xlsx";
+           }
 
  const fileList = ref<any['fileList']>([]);
     const uploading = ref<boolean>(false);
@@ -188,6 +211,7 @@ message.success(res.data.msg)
             modalTitleeExportExcel.value=newValue;
       }
     );
+   
         return {
             ...toRefs(state),visibleExportExcel,modalTitleeExportExcel,EditData,onCancel,handleRemove,beforeUpload,handleUpload,uploading,fileList,
      
