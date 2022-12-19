@@ -367,7 +367,7 @@ if (to.path === "/login" || to.path === "/register") {
 }
 else {
   const token = localStorage.getItem("starToken");
-  //console.log(token);
+  console.log("token",token);
 
   if (!token) {
     next("/login");
@@ -391,67 +391,80 @@ else {
     }
     else {
       //console.log("getInitRouter",store.state.allRoutes)
+try{
+  GetMenuDatas({
+    current: 1,
+    pageSize: 1000,
+    ...DataEntityState.QueryConditionInfo,
+  }).then((res: any) => {
+if(res==undefined)
+{
+  
+}
+    if (res!=undefined&&res.isSuccess) {
+      //console.log("111111routerMenu",res.datas);
+      if (res.datas != undefined && res.datas != null) {
 
-      GetMenuDatas({
-        current: 1,
-        pageSize: 1000,
-        ...DataEntityState.QueryConditionInfo,
-      }).then((res: any) => {
+        res.datas.forEach((element: any) => {
+          // console.log("routerMenuelement",element);
+          if (element.menuLevel == 1) {
+            if (element.hasSub == "是") {
+              element?.children?.forEach((elementSub2: any) => {
+                const menuPageTemp = elementSub2.menuUrl.split('/');
+                const menuPage = menuPageTemp[menuPageTemp.length - 1]
+               
+                // console.log("menuPage",menuPage);
+                // MenuArr.push(
+                //   {
+                //     path: menuPage,
+                //     name: menuPage,
+                //     meta:{rName:"/"+element.menuTitle+"/"+elementSub2.menuTitle,Sub:element.menuKey},
+                //     component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
+                //   }
+                // );
 
-        if (res.isSuccess) {
-          //console.log("111111routerMenu",res.datas);
-          if (res.datas != undefined && res.datas != null) {
+                router.addRoute('Home', {
+                  path: menuPage,
+                  name: menuPage,
+                  meta: { rName: "/" + element.menuTitle + "/" + elementSub2.menuTitle, Sub: element.menuKey,requiresAuth : true },
+                  // component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
+                 // component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuTitle==="CRM"?"CrmPage":"MainPage"}/${menuPage}.vue`)
+                 component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuAreaName}/${menuPage}.vue`)
 
-            res.datas.forEach((element: any) => {
-              // console.log("routerMenuelement",element);
-              if (element.menuLevel == 1) {
-                if (element.hasSub == "是") {
-                  element?.children?.forEach((elementSub2: any) => {
-                    const menuPageTemp = elementSub2.menuUrl.split('/');
-                    const menuPage = menuPageTemp[menuPageTemp.length - 1]
-                   
-                    // console.log("menuPage",menuPage);
-                    // MenuArr.push(
-                    //   {
-                    //     path: menuPage,
-                    //     name: menuPage,
-                    //     meta:{rName:"/"+element.menuTitle+"/"+elementSub2.menuTitle,Sub:element.menuKey},
-                    //     component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
-                    //   }
-                    // );
-
-                    router.addRoute('Home', {
-                      path: menuPage,
-                      name: menuPage,
-                      meta: { rName: "/" + element.menuTitle + "/" + elementSub2.menuTitle, Sub: element.menuKey,requiresAuth : true },
-                      // component: () => import(/* webpackChunkName: "about" */ `../views/MainPage/${menuPage}.vue`)
-                     // component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuTitle==="CRM"?"CrmPage":"MainPage"}/${menuPage}.vue`)
-                     component: () => import(/* webpackChunkName: "about" */ `../views/${element.menuAreaName}/${menuPage}.vue`)
-
-                    })
-
-
-
-                  })
-                }
+                })
 
 
-              }
+
+              })
+            }
 
 
-            });
-
-            //console.log("set");
-            //将更新后的路由提交给store，后续展示中会从store中获取
-            store.commit('set_allRoutes', router.getRoutes());
-            //console.log("111埃夫特rgetInitRouter",store.state.allRoutes)
-            next({ ...to, replace: true });
-
-            //console.log("MenuArr",MenuArr);
           }
 
-        }
-      });
+
+        });
+
+        //console.log("set");
+        //将更新后的路由提交给store，后续展示中会从store中获取
+        store.commit('set_allRoutes', router.getRoutes());
+        //console.log("111埃夫特rgetInitRouter",store.state.allRoutes)
+        next({ ...to, replace: true });
+
+        //console.log("MenuArr",MenuArr);
+      }
+
+    }else
+    { resetRouter()
+      next("/login");
+      console.log("getmenudatas error")
+    }
+  });
+}
+catch{
+  resetRouter()
+  next("/login");
+}
+      
 
 
     }

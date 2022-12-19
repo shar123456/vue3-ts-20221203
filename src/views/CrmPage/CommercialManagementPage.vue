@@ -478,6 +478,8 @@ let ExportColumnsList = await GetExpColumnsConfig({
 
 /***功能按钮****************************************** */
 const SearchBtn = async (payload: any) => {
+  DataEntityState.selectedRowKeys = [];
+                DataEntityState.selectedRows = [];
       loading.value = true;
 
       let UserDatasList1 = await GetCommercialManagementDatas({
@@ -728,7 +730,7 @@ const CancelCommercialShift = (item: any) => {
             //   res.headers["Content-Disposition"];
             //   console.log("contentDisposition",contentDisposition)
             //const fileName =(contentDisposition && contentDisposition.split(";")[1]).split("=")[1] ||f ||"";
-         const fileName ="产品-"+new Date().getTime();
+         const fileName ="商机-"+new Date().getTime();
             //const fileName = '统计.xlsx';
             const elink = document.createElement("a");
             elink.download = fileName;
@@ -851,7 +853,8 @@ const RefreshBtn = async (payload: any) => {
     //     workScheduleType: "未选择",
     //       workScheduleStatus: "未选择",
     //   };
-
+    DataEntityState.selectedRowKeys = [];
+                DataEntityState.selectedRows = [];
  for(let item in  DataEntityState.QueryConditionInfo)
   {
 if(DataEntityState.QueryConditionInfoConfig[item].type=="text")
