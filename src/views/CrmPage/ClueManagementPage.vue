@@ -698,6 +698,8 @@ modalTitleConfigClueShift.value = "【线索转换】线索编号："+item.clueC
 
 const CloseClueShiftMoadl = () => {
   visibleConfigClueShift.value = false;
+
+      refreshMark.value = new Date().getTime().toString();
     };
 
 

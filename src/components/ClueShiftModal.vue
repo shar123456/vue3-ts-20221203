@@ -73,9 +73,9 @@ import {defineComponent, reactive, toRefs,ref,onMounted,watch } from 'vue'
 import { UserDataEntity,IUserInfo } from "../TypeInterface/IUserInterface";
 import { message} from "ant-design-vue";
 import {
-SetExpColumnsConfig
+SetClueShift
  
-} from "../Request/userRequest";
+} from "../Request/CrmRequest/ClueManagementRequest";
 
 import { InboxOutlined } from '@ant-design/icons-vue';
 import { string } from 'vue-types';
@@ -114,10 +114,37 @@ export default defineComponent({
        
  let configType = ref<string|undefined>(props.configType);
 const handleOk = (e: MouseEvent) => {
-state.spinning = !state.spinning;
-     state.confirmLoading = true;
 
- 
+if(noticeTypeArray.value.length<=0||(noticeTypeArray.value&&noticeTypeArray.value.length==3&&noticeTypeArray.value[0]==""&&noticeTypeArray.value[1]==""&&noticeTypeArray.value[2]==""))
+{
+   message.success("请勾选需要转换的类型.");
+   return;
+}
+
+state.spinning = true;
+state.confirmLoading = true;
+      console.log(noticeTypeArray.value)
+ console.log(LData.value.clueCode)
+
+           SetClueShift({ListCnoticeTypeArrayolumns:noticeTypeArray.value,ClueCode:LData.value.clueCode}).then((res: any) => {
+            console.log(res)
+            if (res.isSuccess) {
+              
+          state.confirmLoading = false;
+            state.spinning== false;
+
+            context.emit("CloseConfigGridMoadl");
+            message.success("配置成功.");
+            
+            }
+            state.confirmLoading = false;
+            state.spinning== false;
+         });     
+
+
+
+
+   
   };
 
  
