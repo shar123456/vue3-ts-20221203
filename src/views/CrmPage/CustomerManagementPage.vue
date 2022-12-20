@@ -251,6 +251,7 @@ import ExportExcelModal from "../../components/ExportExcelModal.vue";
 
 import {
   GetCustomerManagementDatas,AddCustomer,UpdateCustomer,DeleteById,BatchDelete,BatchExport,CopyDataById,
+  CancelClueShift
 }
  from "../../Request/CrmRequest/CustomerManagementRequest";
 
@@ -588,7 +589,7 @@ router.push({ path: "/Home/CreateCustomerPage", query: {pageType:"edit",id: item
 const CancelCustomerShift = (item: any) => {
 
   Modal.confirm({
-        title: "您确定要执行撤销操作吗?",
+        title: "您确定要执行线索转换撤销操作吗?",
         icon: createVNode(ExclamationCircleOutlined),
         content: `客户姓名：${item.customername} `,
         okText: "Yes",
@@ -598,7 +599,17 @@ const CancelCustomerShift = (item: any) => {
           
         },
         onOk() {
-         
+          CancelClueShift(item).then((res: any) => {
+            if (res.isSuccess) {
+              refreshMark.value = new Date().getTime().toString();
+             
+              message.success("线索转换撤销成功.");
+            }
+            else
+            {
+              message.error(res.msg);
+            }
+          });
          
         },
         onCancel() {

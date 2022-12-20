@@ -82,7 +82,7 @@
 
     <template #action="{ record }">
 
-      <a  @click="CancelClueShift(record)" v-if="record.customerSource === '线索转换'"
+      <a  @click="CancelContactShift(record)" v-if="record.contactSource === '线索转换'"
 
 style="
   
@@ -146,7 +146,7 @@ title="撤销"
 
 
 <a  @click="DeleteBth(record.id,record.contactCode)"
- v-if="record.customerSource != '线索转换'"
+ v-if="record.contactSource != '线索转换'"
   style="
     color: #fff;
     font-size: 14px;
@@ -251,6 +251,7 @@ import {
 
 import {
   GetContactManagementDatas,AddContact,UpdateContact,DeleteById,BatchDelete,BatchExport,CopyDataById,
+  CancelClueShift
 }
  from "../../Request/CrmRequest/ContactManagementRequest";
 
@@ -589,7 +590,7 @@ router.push({ path: "/Home/CreateContactPage", query: {pageType:"edit",id: item}
 const CancelContactShift = (item: any) => {
 
   Modal.confirm({
-        title: "您确定要执行撤销操作吗?",
+        title: "您确定要执行线索转换撤销操作吗?",
         icon: createVNode(ExclamationCircleOutlined),
         content: `联系人姓名：${item.name} `,
         okText: "Yes",
@@ -600,7 +601,17 @@ const CancelContactShift = (item: any) => {
         },
         onOk() {
          
-         
+          CancelClueShift(item).then((res: any) => {
+            if (res.isSuccess) {
+              refreshMark.value = new Date().getTime().toString();
+             
+              message.success("线索转换撤销成功.");
+            }
+            else
+            {
+              message.error(res.msg);
+            }
+          });
         },
         onCancel() {
           message.error("已取消.");

@@ -54,31 +54,31 @@ const CustomerColumns = [
   
   {  oldTitle: '客户编号',title: '客户编号',width:130, dataIndex: 'customerCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
     { oldTitle: '客户名称', title: '客户名称',width:170, dataIndex: 'customername', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
-    {  oldTitle: '股票代码',title: '股票代码',width:100, dataIndex: 'stockCode', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
-   
-
-
-    {  oldTitle: '员工数量',title: '员工数量',width:90,  dataIndex: 'employeeQty', isUse: true,configOrder: 4 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '行业',title: '行业',width:120,  dataIndex: 'industry', isUse: true,configOrder: 5  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '评级',title: '评级',width:80,  dataIndex: 'rate', slots: { customRender: 'rate' },isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '年收入',title: '年收入',width:100,  dataIndex: 'annualIncome', isUse: true,configOrder: 7  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '货币',title: '货币',width:100,  dataIndex: 'currency', isUse: true,configOrder: 8 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '客户来源',title: '客户来源',width:90,  dataIndex: 'customerSource', isUse: true,configOrder: 9 ,resizable: true,ellipsis: true,},
-
-
-    {  oldTitle: '电话',title: '电话',width:120,  dataIndex: 'phone', isUse: true,configOrder: 10  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '传真',title: '传真',width:120,  dataIndex: 'fax', isUse: true,configOrder: 12  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '电邮',title: '电邮',width:150,  dataIndex: 'email', isUse: true,configOrder: 12 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '第二电邮',title: '第二电邮',width:150,  dataIndex: 'secondEmail', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '邮件免打扰',title: '邮件免打扰',width:90,  dataIndex: 'emailNoDisturb', isUse: true,configOrder: 14 ,resizable: true,ellipsis: true,},
-    
-    {  oldTitle: '网站',title: '网站',width:130,  dataIndex: 'webSite', isUse: true,configOrder: 15 ,resizable: true,ellipsis: true,},
     
    
 
 
+    {  oldTitle: '员工数量',title: '员工数量',width:90,  dataIndex: 'employeeQty', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '行业',title: '行业',width:120,  dataIndex: 'industry', isUse: true,configOrder: 4  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '评级',title: '评级',width:80,  dataIndex: 'rate', slots: { customRender: 'rate' },isUse: true,configOrder: 5 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '年收入',title: '年收入',width:100,  dataIndex: 'annualIncome', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '货币',title: '货币',width:100,  dataIndex: 'currency', isUse: true,configOrder: 7 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '客户来源',title: '客户来源',width:100,  dataIndex: 'customerSource', isUse: true,configOrder: 8 ,resizable: true,ellipsis: true,},
+
+
+    {  oldTitle: '电话',title: '电话',width:120,  dataIndex: 'phone', isUse: true,configOrder: 9 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '传真',title: '传真',width:120,  dataIndex: 'fax', isUse: true,configOrder: 10  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '电邮',title: '电邮',width:150,  dataIndex: 'email', isUse: true,configOrder: 11 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '第二电邮',title: '第二电邮',width:150,  dataIndex: 'secondEmail', isUse: true,configOrder: 12 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '邮件免打扰',title: '邮件免打扰',width:90,  dataIndex: 'emailNoDisturb', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
+    
+    {  oldTitle: '网站',title: '网站',width:130,  dataIndex: 'webSite', isUse: true,configOrder: 14 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '股票代码',title: '股票代码',width:100, dataIndex: 'stockCode', isUse: true,configOrder: 15 ,resizable: true,ellipsis: true},
    
-    {  oldTitle: '线索编号',title: '线索编号',width:110,  dataIndex: 'clueCode', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
+
+
+   
+    {  oldTitle: '线索编号',title: '线索编号',width:130,  dataIndex: 'clueCode', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
 
     {  oldTitle: '客户状态',title: '客户状态',width:80,  dataIndex: 'customerState', isUse: true,configOrder: 17,resizable: true,ellipsis: true,},
   
@@ -146,7 +146,7 @@ const CustomerDatas=[
          employeeQty:0,//员工数量
          sicCode:"",
       
-          currency: "",//货币
+          currency: "人民币",//货币
            
          
            phone:"",//电话

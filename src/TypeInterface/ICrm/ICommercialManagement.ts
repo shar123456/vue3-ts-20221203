@@ -35,10 +35,10 @@ remark:string;//备注
 
 const CommercialColumns = [
   
-  {  oldTitle: '客户编号',title: '客户编号',width:110, dataIndex: 'customerCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
+  {  oldTitle: '客户编号',title: '客户编号',width:130, dataIndex: 'customerCode', isUse: true,configOrder: 1 ,resizable: true,ellipsis: true,}, 
     { oldTitle: '客户名称', title: '客户名称',width:180, dataIndex: 'customername', isUse: true,configOrder: 2  ,resizable: true,ellipsis: true },
   
-     {  oldTitle: '商机编号',title: '商机编号',width:110, dataIndex: 'commercialCode', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
+     {  oldTitle: '商机编号',title: '商机编号',width:130, dataIndex: 'commercialCode', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
      {  oldTitle: '商机名称',title: '商机名称',width:110, dataIndex: 'commercialName', isUse: true,configOrder: 3 ,resizable: true,ellipsis: true},
      {  oldTitle: '商机类型',title: '商机类型',width:110,  dataIndex: 'commercialType', isUse: true,configOrder: 4 ,resizable: true,ellipsis: true,},
 
@@ -54,7 +54,7 @@ const CommercialColumns = [
     {  oldTitle: '概率',title: '概率',width:150,  dataIndex: 'probability', isUse: true,configOrder: 11 ,resizable: true,ellipsis: true,},
     {  oldTitle: '阶段',title: '阶段',width:150,  dataIndex: 'commercialStage', isUse: true,configOrder: 12 ,resizable: true,ellipsis: true,},
 
-    {  oldTitle: '线索编号',title: '线索编号',width:110,  dataIndex: 'clueCode', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '线索编号',title: '线索编号',width:130,  dataIndex: 'clueCode', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
     {  oldTitle: '创建人',title: '创建人',width:110,  dataIndex: 'createrStr', isUse: true,configOrder: 14 ,resizable: true,ellipsis: true,},
     {  oldTitle: '创建时间',title: '创建时间',width:110,  dataIndex: 'createTimeStr', isUse: true,configOrder: 15 ,resizable: true,ellipsis: true,},
     {  oldTitle: '备注',title: '备注',width:110,  dataIndex: 'remark', isUse: true,configOrder: 16,resizable: true,ellipsis: true,},
@@ -104,18 +104,18 @@ const CommercialDatas=[
           commercialCode:"",
           commercialName:"",//商机名称
           
-          commercialType:"",//商机类型
+          commercialType:"未选择",//商机类型
           prospectionIncome:0,//预期收入
           amount:0,//金额
          commercialSource:"",//商机来源
       
-          currency: "",//货币
+          currency: "人民币",//货币
            
          
           contactName:"",//联系人
           commercialState:"启用",//商机状态
           probability:"",//概率
-          commercialStage:"",//商机阶段
+          commercialStage:"未选择",//商机阶段
         
       remark:"",//备注
       createrStr: "",//创建人

@@ -63,43 +63,44 @@ const ClueColumns = [
     {  oldTitle: '公司',title: '公司',width:170,  dataIndex: 'firm', isUse: true,configOrder: 6 ,resizable: true,ellipsis: true,},
     {  oldTitle: '员工数量',title: '员工数量',width:80,  dataIndex: 'employeeQty', isUse: true,configOrder: 7 ,resizable: true,ellipsis: true,},
     {  oldTitle: '行业',title: '行业',width:120,  dataIndex: 'industry', isUse: true,configOrder: 8  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '年收入',title: '年收入',width:80,  dataIndex: 'annualIncome', isUse: true,configOrder: 9  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '线索审核状态',title: '线索审核状态',width:110,  dataIndex: 'clueAuditState', isUse: true,configOrder: 9 ,resizable: true,ellipsis: true,},
+
     {  oldTitle: '联系人转换标识',title: '联系人转换标识',width:120,  dataIndex: 'contactShiftMark', isUse: true,configOrder: 10 ,resizable: true,ellipsis: true,},
     {  oldTitle: '客户转换标识',title: '客户人转换标识',width:120,  dataIndex: 'customerShiftMark', isUse: true,configOrder: 11 ,resizable: true,ellipsis: true,},
     {  oldTitle: '商机转换标识',title: '商机转换标识',width:120,  dataIndex: 'businessShiftMark', isUse: true,configOrder: 12 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '线索来源',title: '线索来源',width:100,  dataIndex: 'clueSource', isUse: true,configOrder: 12 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '线索来源',title: '线索来源',width:100,  dataIndex: 'clueSource', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
   
   
-  
-    {  oldTitle: '货币',title: '货币',width:80,  dataIndex: 'currency', isUse: true,configOrder:14,resizable: true,ellipsis: true,},
-    {  oldTitle: '手机号',title: '手机号',width:110,  dataIndex: 'mobilePhone', isUse: true,configOrder: 15  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '电话',title: '电话',width:110,  dataIndex: 'phone', isUse: true,configOrder: 16 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '传真',title: '传真',width:110,  dataIndex: 'fax', isUse: true,configOrder: 17  ,resizable: true,ellipsis: true,},
-    {  oldTitle: '电邮',title: '电邮',width:150,  dataIndex: 'email', isUse: true,configOrder: 18 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '第二电邮',title: '第二电邮',width:150,  dataIndex: 'secondEmail', isUse: true,configOrder: 19 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '邮件免打扰',title: '邮件免打扰',width:160,  dataIndex: 'emailNoDisturb', isUse: true,configOrder: 20 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '年收入',title: '年收入',width:80,  dataIndex: 'annualIncome', isUse: true,configOrder: 14  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '货币',title: '货币',width:80,  dataIndex: 'currency', isUse: true,configOrder:15,resizable: true,ellipsis: true,},
+    {  oldTitle: '手机号',title: '手机号',width:110,  dataIndex: 'mobilePhone', isUse: true,configOrder: 16  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '电话',title: '电话',width:110,  dataIndex: 'phone', isUse: true,configOrder: 17 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '传真',title: '传真',width:110,  dataIndex: 'fax', isUse: true,configOrder: 18  ,resizable: true,ellipsis: true,},
+    {  oldTitle: '电邮',title: '电邮',width:150,  dataIndex: 'email', isUse: true,configOrder: 19 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '第二电邮',title: '第二电邮',width:150,  dataIndex: 'secondEmail', isUse: true,configOrder: 20 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '邮件免打扰',title: '邮件免打扰',width:160,  dataIndex: 'emailNoDisturb', isUse: true,configOrder: 21 ,resizable: true,ellipsis: true,},
     
-    {  oldTitle: '网站',title: '网站',width:160,  dataIndex: 'webSite', isUse: true,configOrder: 21 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '网站',title: '网站',width:160,  dataIndex: 'webSite', isUse: true,configOrder: 22 ,resizable: true,ellipsis: true,},
     
    
     
     
-    {  oldTitle: '线索状态',title: '线索状态',width:100,  dataIndex: 'clueState', isUse: true,configOrder: 22 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '线索状态',title: '线索状态',width:100,  dataIndex: 'clueState', isUse: true,configOrder: 23 ,resizable: true,ellipsis: true,},
     
-    {  oldTitle: '评级',title: '评级',width:80,  dataIndex: 'rate', slots: { customRender: 'rate' },isUse: true,configOrder: 23 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '评级',title: '评级',width:80,  dataIndex: 'rate', slots: { customRender: 'rate' },isUse: true,configOrder: 24 ,resizable: true,ellipsis: true,},
     
-    {  oldTitle: '线索审核状态',title: '线索审核状态',width:100,  dataIndex: 'clueAuditState', isUse: true,configOrder: 24 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '线索审核状态',title: '线索审核状态',width:100,  dataIndex: 'clueAuditState', isUse: true,configOrder: 25 ,resizable: true,ellipsis: true,},
     
-    {  oldTitle: '地址',title: '地址',width:160,  dataIndex: 'address', isUse: true,configOrder: 25 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '地址',title: '地址',width:160,  dataIndex: 'address', isUse: true,configOrder: 26 ,resizable: true,ellipsis: true,},
     
-    {  oldTitle: '省份',title: '省份',width:100,  dataIndex: 'province', isUse: true,configOrder: 26 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '城市',title: '城市',width:100,  dataIndex: 'city', isUse: true,configOrder: 27 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '邮政编码',title: '邮政编码',width:160,  dataIndex: 'postalCode', isUse: true,configOrder: 28 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '省份',title: '省份',width:100,  dataIndex: 'province', isUse: true,configOrder: 27,resizable: true,ellipsis: true,},
+    {  oldTitle: '城市',title: '城市',width:100,  dataIndex: 'city', isUse: true,configOrder: 28 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '邮政编码',title: '邮政编码',width:160,  dataIndex: 'postalCode', isUse: true,configOrder: 29 ,resizable: true,ellipsis: true,},
  
-    {  oldTitle: '创建人',title: '创建人',width:100,  dataIndex: 'createrStr', isUse: true,configOrder: 29 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '创建时间',title: '创建时间',width:120,  dataIndex: 'createTimeStr', isUse: true,configOrder: 30 ,resizable: true,ellipsis: true,},
-    {  oldTitle: '备注',title: '备注',width:160,  dataIndex: 'remark', isUse: true,configOrder: 31,resizable: true,ellipsis: true,},
-    {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:163, slots: { customRender: 'action' } ,isUse: true,configOrder: 32,fixed: 'right', },
+    {  oldTitle: '创建人',title: '创建人',width:100,  dataIndex: 'createrStr', isUse: true,configOrder: 30 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '创建时间',title: '创建时间',width:120,  dataIndex: 'createTimeStr', isUse: true,configOrder: 31 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '备注',title: '备注',width:160,  dataIndex: 'remark', isUse: true,configOrder: 32,resizable: true,ellipsis: true,},
+    {  oldTitle: '操作',title: '操作',dataIndex: 'id', key: 'operation',width:163, slots: { customRender: 'action' } ,isUse: true,configOrder: 33,fixed: 'right', },
 
   ];
   
@@ -153,7 +154,7 @@ const ClueDatas=[
          employeeQty:0,//员工数量
       
       
-          currency: "",//货币
+          currency: "人民币",//货币
            
            mobilePhone:"",//手机号
            phone:"",//电话

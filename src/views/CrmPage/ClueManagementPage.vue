@@ -686,6 +686,8 @@ modalTitleConfigClueShift.value = "【线索转换】批量操作";
 };
 const ShowClueShiftRow = (item: any) => {
 console.log("ClueShiftBth",item)
+DataEntityState.selectedRowKeys = [];
+DataEntityState.selectedRows = [];
 DataEntityState.Selectkeys=[];
 DataEntityState.EditData=item;
 

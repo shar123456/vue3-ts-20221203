@@ -73,7 +73,7 @@ import {defineComponent, reactive, toRefs,ref,onMounted,watch } from 'vue'
 import { UserDataEntity,IUserInfo } from "../TypeInterface/IUserInterface";
 import { message} from "ant-design-vue";
 import {
-SetClueShift
+SetClueShift,BatchSetClueShift
  
 } from "../Request/CrmRequest/ClueManagementRequest";
 
@@ -121,6 +121,31 @@ if(noticeTypeArray.value.length<=0||(noticeTypeArray.value&&noticeTypeArray.valu
    return;
 }
 
+if(LSelectkeysData.value.length>0)
+{
+  BatchSetClueShift({ keys: LSelectkeysData.value ,ListCnoticeTypeArrayolumns:noticeTypeArray.value,}).then((res: any) => {
+            if (res.isSuccess) {
+              state.confirmLoading = false;
+            state.spinning== false;
+
+            context.emit("CloseConfigGridMoadl");
+            message.success("线索批量转换成功.");
+            }
+            state.confirmLoading = false;
+            state.spinning== false;
+          });
+}
+else{
+  if(LData.value.clueAuditState=="未审核")
+{
+  message.warn(`线索 ${LData.value.clueCode}，尚未审核`);
+   return;
+}
+if(LData.value.clueAuditState=="驳回")
+{
+  message.warn(`线索 ${LData.value.clueCode}，已被驳回，禁止转换`);
+   return;
+}
 state.spinning = true;
 state.confirmLoading = true;
       console.log(noticeTypeArray.value)
@@ -134,12 +159,15 @@ state.confirmLoading = true;
             state.spinning== false;
 
             context.emit("CloseConfigGridMoadl");
-            message.success("配置成功.");
+            message.success("转换成功.");
             
             }
             state.confirmLoading = false;
             state.spinning== false;
          });     
+
+}
+
 
 
 

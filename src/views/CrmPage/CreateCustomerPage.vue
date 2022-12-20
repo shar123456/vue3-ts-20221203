@@ -142,12 +142,22 @@
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
             <a-form-item label="货币" name="currency">
-              <a-input
-            
+              <a-select
                :disabled="IsDisabled"
                 v-model:value="EditData.currency"
-                placeholder="请输入货币"
-              />
+                style="width: 100%"
+                placeholder="请选择货币"
+              >
+                <a-select-option value="未选择">未选择</a-select-option>
+                <a-select-option value="人民币"
+                  >人民币</a-select-option
+                >
+                <a-select-option value="欧元">欧元</a-select-option>
+                <a-select-option value="英镑">英镑</a-select-option>
+                <a-select-option value="港元">港元</a-select-option>
+                <a-select-option value="日元">日元</a-select-option>
+                <a-select-option value="美元">美元</a-select-option>
+              </a-select>
             </a-form-item>
             
           </a-col>
@@ -700,7 +710,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
      DataEntityState.EditData.customername="";
      DataEntityState.EditData.stockCode= "";
     
-     DataEntityState.EditData.industry="";
+     DataEntityState.EditData.industry="人民币";
   
      DataEntityState.EditData.annualIncome=0;
      DataEntityState.EditData.employeeQty=0;
@@ -769,7 +779,7 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
      DataEntityState.EditData.customername="";
      DataEntityState.EditData.stockCode= "";
     
-     DataEntityState.EditData.industry="";
+     DataEntityState.EditData.industry="人民币";
   
      DataEntityState.EditData.annualIncome=0;
      DataEntityState.EditData.employeeQty=0;

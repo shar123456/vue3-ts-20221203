@@ -61,7 +61,7 @@ const ContactColumns = [
     {  oldTitle: '助理电话',title: '助理电话',width:130,  dataIndex: 'assistantPhone', isUse: true,configOrder: 12 ,resizable: true,ellipsis: true,},
 
    
-    {  oldTitle: '线索编号',title: '线索编号',width:100,  dataIndex: 'clueCode', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
+    {  oldTitle: '线索编号',title: '线索编号',width:120,  dataIndex: 'clueCode', isUse: true,configOrder: 13 ,resizable: true,ellipsis: true,},
 
     {  oldTitle: '联系人状态',title: '联系人状态',width:110,  dataIndex: 'contactState', isUse: true,configOrder: 14 ,resizable: true,ellipsis: true,},
   

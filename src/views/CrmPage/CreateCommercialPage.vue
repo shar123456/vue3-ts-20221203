@@ -142,24 +142,54 @@
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
             <a-form-item label="货币" name="currency">
-              <a-input
-            
-               
+              <a-select
+               :disabled="IsDisabled"
                 v-model:value="EditData.currency"
-                placeholder="请输入货币"
-              />
+                style="width: 100%"
+                placeholder="请选择货币"
+              >
+                <a-select-option value="未选择">未选择</a-select-option>
+                <a-select-option value="人民币"
+                  >人民币</a-select-option
+                >
+                <a-select-option value="欧元">欧元</a-select-option>
+                <a-select-option value="英镑">英镑</a-select-option>
+                <a-select-option value="港元">港元</a-select-option>
+                <a-select-option value="日元">日元</a-select-option>
+                <a-select-option value="美元">美元</a-select-option>
+              </a-select>
             </a-form-item>
             
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
+           
+
+
             <a-form-item label="商机类型" name="commercialType">
-              <a-input
-              :disabled="IsDisabled"
+              <a-select
+               :disabled="IsDisabled"
                 v-model:value="EditData.commercialType"
-                placeholder="请输入商机类型"
-              />
+                style="width: 100%"
+                placeholder="请选择商机类型"
+              >
+                <a-select-option value="未选择">未选择</a-select-option>
+                <a-select-option value="已有业务"
+                  >已有业务</a-select-option
+                >
+                <a-select-option value="新业务">新业务</a-select-option>
+             
+               
+              </a-select>
             </a-form-item>
+
+
+
+
+
+
+
+
           </a-col>
         </a-row>
 
@@ -212,15 +242,36 @@
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
+           
+
+
             <a-form-item label="阶段" name="commercialStage">
-              <a-input
-            
-               
+              <a-select
+               :disabled="IsDisabled"
                 v-model:value="EditData.commercialStage"
+                style="width: 100%"
                 placeholder="请输入阶段"
-              />
+              >
+                <a-select-option value="未选择">未选择</a-select-option>
+                <a-select-option value="资质审查"
+                  >资质审查</a-select-option
+                >
+                <a-select-option value="价值建议">价值建议</a-select-option>
+                <a-select-option value="确定决策者">确定决策者</a-select-option>
+                <a-select-option value="提案/报价">提案/报价</a-select-option>
+                <a-select-option value="谈判/复审">谈判/复审</a-select-option>
+                <a-select-option value="赢单关闭">赢单关闭</a-select-option>
+                <a-select-option value="丢单关闭">丢单关闭</a-select-option>
+                <a-select-option value="因竞争丢单关闭">因竞争丢单关闭</a-select-option>
+              </a-select>
             </a-form-item>
-            
+
+
+
+
+
+
+
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
@@ -554,14 +605,14 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
   
      DataEntityState.EditData.prospectionIncome=0;
      DataEntityState.EditData.amount=0;
-     DataEntityState.EditData.currency="";
-     DataEntityState.EditData.commercialType="";
+     DataEntityState.EditData.currency="人民币";
+     DataEntityState.EditData.commercialType="未选择";
      
      DataEntityState.EditData.commercialSource="";
      DataEntityState.EditData.contactName="";
      DataEntityState.EditData.commercialState="启用",
      DataEntityState.EditData.probability="";
-     DataEntityState.EditData.commercialStage=""
+     DataEntityState.EditData.commercialStage="未选择"
   
      DataEntityState.EditData.clueCode="",
     
@@ -614,14 +665,14 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
   
      DataEntityState.EditData.prospectionIncome=0;
      DataEntityState.EditData.amount=0;
-     DataEntityState.EditData.currency="";
-     DataEntityState.EditData.commercialType="";
+     DataEntityState.EditData.currency="人民币";
+     DataEntityState.EditData.commercialType="未选择";
      
      DataEntityState.EditData.commercialSource="";
      DataEntityState.EditData.contactName="";
      DataEntityState.EditData.commercialState="启用",
      DataEntityState.EditData.probability="";
-     DataEntityState.EditData.commercialStage=""
+     DataEntityState.EditData.commercialStage="未选择"
   
      DataEntityState.EditData.clueCode="",
     

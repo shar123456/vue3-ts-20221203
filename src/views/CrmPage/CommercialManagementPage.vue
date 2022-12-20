@@ -58,6 +58,28 @@
         </span>
       </template>
      
+      <template v-if="column.dataIndex === 'commercialType'">
+        <span>
+          <a-tag
+           
+          :color="record.commercialType=='未选择' ? '#b0b0b0' :'geekblue' ">
+          
+            {{ record.commercialType}}
+          </a-tag>
+        </span>
+      </template>
+      <template v-if="column.dataIndex === 'commercialStage'">
+        <span>
+          <a-tag
+           
+          :color="record.commercialStage=='未选择' ? '#b0b0b0' :'geekblue' ">
+          
+            {{ record.commercialStage}}
+          </a-tag>
+        </span>
+      </template>
+
+
     </template>
 
 
@@ -245,6 +267,7 @@ import ExportExcelModal from "../../components/ExportExcelModal.vue";
 
 import {
   GetCommercialManagementDatas,AddCommercial,UpdateCommercial,DeleteById,BatchDelete,BatchExport,CopyDataById,
+  CancelClueShift
 }
  from "../../Request/CrmRequest/CommercialManagementRequest";
 
@@ -596,9 +619,9 @@ router.push({ path: "/Home/CreateCommercialPage", query: {pageType:"edit",id: it
 const CancelCommercialShift = (item: any) => {
 
   Modal.confirm({
-        title: "您确定要执行撤销操作吗?",
+        title: "您确定要执行线索转换撤销操作吗?",
         icon: createVNode(ExclamationCircleOutlined),
-        content: `商机名称：${item.commercialName} `,
+        content: `商机名称：${item.commercialCode} `,
         okText: "Yes",
         okType: "danger",
         cancelText: "No",
@@ -606,7 +629,17 @@ const CancelCommercialShift = (item: any) => {
           
         },
         onOk() {
-         
+          CancelClueShift(item).then((res: any) => {
+            if (res.isSuccess) {
+              refreshMark.value = new Date().getTime().toString();
+             
+              message.success("线索转换撤销成功.");
+            }
+            else
+            {
+              message.error(res.msg);
+            }
+          });
          
         },
         onCancel() {
