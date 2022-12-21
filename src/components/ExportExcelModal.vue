@@ -97,7 +97,11 @@ state.downLoadHref="./客户导入模板.xlsx";
             state.downLoadName="商机模板下载";
 state.downLoadHref="./商机导入模板.xlsx";
            }
-
+           if(configType.value=="QuotesManagement")
+           {
+            state.downLoadName="报价单模板下载";
+state.downLoadHref="./报价单模板下载.xlsx";
+           }
  const fileList = ref<any['fileList']>([]);
     const uploading = ref<boolean>(false);
 
