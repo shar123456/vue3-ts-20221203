@@ -17,9 +17,9 @@ interface IQuotesInfo {
     quoteOwner:string;//报价单所有者
     quoteSubject:string;//报价单描述
     quoteDealName:string;//报价单交易描述
-    validitySdateStr: Dayjs;//有效开始日期
+    validitySdateStr: any;//有效开始日期
 
-     validityEdateStr: Dayjs;//有效截止日期
+     validityEdateStr: any;//有效截止日期
 
      contactID: string;//联系人ID
      
@@ -267,6 +267,8 @@ const QuotesDatas=[
         { name:"CreaterStr",oldTitle: '创建人', currentTitle: '创建人', isUse: true,configOrder: 26 },
         { name:"Remark",oldTitle: '备注', currentTitle: '备注', isUse: true,configOrder: 27 },
       ];
+
+   
 
    
    

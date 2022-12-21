@@ -66,15 +66,25 @@
         <a-row type="flex" justify="center">
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
 
-            <a-form-item label="产品名称" name="productCode">
+            <!-- <a-form-item label="产品名称" name="productCode">
               <a-input
             
                :disabled="IsDisabled"
                 v-model:value="EditData.productCode"
                 placeholder="请输入产品名称"
               />
+            </a-form-item> -->
+             <a-form-item label="产品名称" name="productCode">
+           
+
+              <a-input-search
+                :disabled="IsDisabled"
+                v-model:value="EditData.productCode"
+                placeholder="请输入产品名称"
+                enter-button
+                @search="onSearch"
+              />
             </a-form-item>
-            
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
@@ -547,6 +557,19 @@
   </div>
   </a-spin>
   
+
+<SearchCommonModal
+    :visibleModelConfigGrid="visibleSearchModal"
+    :modalTitleConfigGrid="modalTitleSearchModal"
+    configType="SysUser"
+    configName="发起人"
+    @CloseConfigGridMoadl="CloseConfigSearchModal"
+    :ListColumns="ProductColumns"
+    :ListDatas="ProductDatas"
+   @selectRowFunc="SelectProduct"
+  />
+
+
 </template>
 
 <script lang="ts">
@@ -556,7 +579,7 @@ import { useRouter, useRoute } from "vue-router";
 import { QuotesEntity } from "../../TypeInterface/ICrm/IQuotesManagement";
 import SearchDataModal2 from "../../components/SearchDataModal2.vue";
 import { GetUsers } from "../../Request/userRequest";
-import { SearchUserColumns ,SearchFlowColumns} from "../../TypeInterface/ISearchDataModalInterface";
+import { SearchUserColumns ,SearchProductColumns} from "../../TypeInterface/ISearchDataModalInterface";
  import {dateFormat} from '../../utility/commonFunc'
  import {
   ExaminationFlowEntity,ExaminationFlowColumns
@@ -564,12 +587,16 @@ import { SearchUserColumns ,SearchFlowColumns} from "../../TypeInterface/ISearch
 import {
   AddQuotes,UpdateQuotes,GetQuotesById
 } from "../../Request/CrmRequest/QuotesManagementRequest";
+import {
+ GetProductManagementDatas
+} from "../../Request/CrmRequest/ProductManagementRequest";
  import { useStore } from "vuex";
  import { message, Modal } from "ant-design-vue";
    import type { FormInstance } from 'ant-design-vue';
    import dayjs, { Dayjs } from 'dayjs';
+   import SearchCommonModal from "../../components/SearchCommonModal.vue";
 export default defineComponent({
-  components: { UploadOutlined,SearchDataModal2 },
+  components: { UploadOutlined,SearchCommonModal },
   setup() {
     const state = reactive({
       count: 0,
@@ -594,36 +621,60 @@ export default defineComponent({
       const store = useStore();
     let DataEntityState = reactive(new QuotesEntity());
 
+
+
     let visibleSearchModal = ref<boolean>(false);
     let modalTitleSearchModal = ref<string>("");
+  let ProductColumns = ref<any[]>([]);
+    let ProductDatas = ref<any[]>([]);
 
+    ProductColumns.value = SearchProductColumns;
     const CloseConfigSearchModal = () => {
       visibleSearchModal.value = false;
       modalTitleSearchModal.value = "";
     };
 
-let visibleSearchModal_FlowNo = ref<boolean>(false);
-    let modalTitleSearchModal_FlowNo = ref<string>("");
+ const onSearch = (searchValue: string) => {
+   
+      visibleSearchModal.value = true;
+      modalTitleSearchModal.value = "【信息搜索】";
+     
+    };
 
-    const CloseConfigSearchModal_FlowNo = () => {
-      visibleSearchModal_FlowNo.value = false;
-      modalTitleSearchModal_FlowNo.value = "";
+ let SelectProduct = (item: any) => {
+      CloseConfigSearchModal();
+ console.log("or use this.value", item);
+      item.forEach((i: any) => {
+        console.log("or use this.value", i);
+        DataEntityState.EditData.productCode = i.productCode;
+      });
     };
 
 
-  let FlowColumns = ref<any[]>([]);
-    let FlowDatas = ref<any[]>([]);
-
- FlowColumns.value = SearchFlowColumns;
 
 
-    let UserColumns = ref<any[]>([]);
-    let UserDatas = ref<any[]>([]);
-
-    UserColumns.value = SearchUserColumns;
+  
 
     onMounted(async () => {
-      
+     let  ProductQueryConditionInfo:any={
+           
+            productName: "",
+            productCode: "",
+        
+            productCategory: "未选择",
+          
+          }
+ let ProductDatasList = await GetProductManagementDatas({
+        current: 1,
+        pageSize: 200,
+        ...ProductQueryConditionInfo,
+      });
+
+      ProductDatas.value.push(...ProductDatasList.datas);
+console.log("ProductDatas",ProductDatas.value)
+
+
+
       let pageType = route.query.pageType;
       let Id = route.query.id;
       if ((pageType != undefined && pageType == "add")||pageType==undefined) {
@@ -901,6 +952,11 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
 
     }
 
+
+  
+
+
+
     return {
       ...toRefs(state),
       ...toRefs(DataEntityState),
@@ -908,18 +964,14 @@ let visibleSearchModal_FlowNo = ref<boolean>(false);
       handleFinishBtn,goBackBtn,
       layout,
      
-      visibleSearchModal,
-      modalTitleSearchModal,
+     
 
-      CloseConfigSearchModal,
-
-      UserColumns,
-      UserDatas,
+      ProductColumns,
+      ProductDatas,
       continueAdd,
-       visibleSearchModal_FlowNo,
-      modalTitleSearchModal_FlowNo,
-
-      CloseConfigSearchModal_FlowNo,  FlowColumns,FlowDatas
+     
+onSearch,SelectProduct,
+      visibleSearchModal,modalTitleSearchModal,CloseConfigSearchModal
     };
   },
 });

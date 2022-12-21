@@ -17,6 +17,18 @@ export function GetProductManagementDatas(param:any):any {
   }
 
 
+
+  export function GetProduct():any {
+    
+    return instance({
+        url: '/ProductManagement/GetProduct',
+        method: 'get',
+        //data:param,
+       
+    })
+}
+
+
   export function AddProduct(param:any):any {
     
     return instance({
