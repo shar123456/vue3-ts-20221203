@@ -74,13 +74,13 @@
                 placeholder="请输入产品名称"
               />
             </a-form-item> -->
-             <a-form-item label="产品名称" name="productCode">
+             <a-form-item label="产品编号" name="productCode">
            
 
               <a-input-search
                 :disabled="IsDisabled"
                 v-model:value="EditData.productCode"
-                placeholder="请输入产品名称"
+                placeholder="请输入产品编号"
                 enter-button
                 @search="onSearch"
               />
@@ -88,13 +88,27 @@
           </a-col>
           <a-col class="col" :xs="{ span: 0 }" :lg="{ span: 1 }"></a-col>
           <a-col class="col" :xs="{ span: 24 }" :lg="{ span: 11 }">
-            <a-form-item label="客户名称" name="customerCode">
+            <!-- <a-form-item label="客户名称" name="customerCode">
               <a-input
               :disabled="IsDisabled"
                 v-model:value="EditData.customerCode"
                 placeholder="请输入客户名称"
               />
-            </a-form-item>
+            </a-form-item> -->
+
+
+            <a-form-item label="客户编号" name="customerCode">
+           
+
+           <a-input-search
+             :disabled="IsDisabled"
+             v-model:value="EditData.customerCode"
+             placeholder="请输入客户编号"
+             enter-button
+             @search="onSearch_Customer"
+           />
+         </a-form-item>
+
           </a-col>
         </a-row>
 
@@ -569,6 +583,21 @@
    @selectRowFunc="SelectProduct"
   />
 
+  <SearchCommonModal
+    :visibleModelConfigGrid="visibleSearch_Customer"
+    :modalTitleConfigGrid="modalTitleSearch_Customer"
+    configType="Customer"
+    configName=""
+    @CloseConfigGridMoadl="CloseConfigSearch_Customer"
+    :ListColumns="CustomerColumns"
+    :ListDatas="CustomerDatas"
+   @selectRowFunc="SelectCustomer"
+  />
+
+
+
+
+
 
 </template>
 
@@ -579,7 +608,7 @@ import { useRouter, useRoute } from "vue-router";
 import { QuotesEntity } from "../../TypeInterface/ICrm/IQuotesManagement";
 import SearchDataModal2 from "../../components/SearchDataModal2.vue";
 import { GetUsers } from "../../Request/userRequest";
-import { SearchUserColumns ,SearchProductColumns} from "../../TypeInterface/ISearchDataModalInterface";
+import { SearchUserColumns ,SearchProductColumns,SearchCustomerColumns} from "../../TypeInterface/ISearchDataModalInterface";
  import {dateFormat} from '../../utility/commonFunc'
  import {
   ExaminationFlowEntity,ExaminationFlowColumns
@@ -590,6 +619,9 @@ import {
 import {
  GetProductManagementDatas
 } from "../../Request/CrmRequest/ProductManagementRequest";
+import {
+ GetCustomerManagementDatas
+} from "../../Request/CrmRequest/CustomerManagementRequest";
  import { useStore } from "vuex";
  import { message, Modal } from "ant-design-vue";
    import type { FormInstance } from 'ant-design-vue';
@@ -621,7 +653,7 @@ export default defineComponent({
       const store = useStore();
     let DataEntityState = reactive(new QuotesEntity());
 
-
+/***产品搜索配置 */
 
     let visibleSearchModal = ref<boolean>(false);
     let modalTitleSearchModal = ref<string>("");
@@ -637,21 +669,50 @@ export default defineComponent({
  const onSearch = (searchValue: string) => {
    
       visibleSearchModal.value = true;
-      modalTitleSearchModal.value = "【信息搜索】";
+      modalTitleSearchModal.value = "【产品信息搜索】";
      
     };
 
  let SelectProduct = (item: any) => {
       CloseConfigSearchModal();
- console.log("or use this.value", item);
+ console.log("SelectProduct", item);
       item.forEach((i: any) => {
-        console.log("or use this.value", i);
+       // console.log("or use this.value", i);
         DataEntityState.EditData.productCode = i.productCode;
       });
     };
 
+/***产品搜索配置 */
+/***客户搜索配置 */
 
+let visibleSearch_Customer = ref<boolean>(false);
+    let modalTitleSearch_Customer = ref<string>("");
+  let CustomerColumns = ref<any[]>([]);
+    let CustomerDatas = ref<any[]>([]);
 
+    CustomerColumns.value = SearchCustomerColumns;
+    const CloseConfigSearch_Customer = () => {
+      visibleSearch_Customer.value = false;
+      modalTitleSearch_Customer.value = "";
+    };
+
+ const onSearch_Customer = (searchValue: string) => {
+   
+      visibleSearch_Customer.value = true;
+      modalTitleSearch_Customer.value = "【客户信息搜索】";
+     
+    };
+
+ let SelectCustomer = (item: any) => {
+      CloseConfigSearch_Customer();
+ 
+      item.forEach((i: any) => {
+    
+        DataEntityState.EditData.customerCode = i.customerCode;
+      });
+    };
+
+/***客户搜索配置 */
 
   
 
@@ -672,6 +733,28 @@ export default defineComponent({
 
       ProductDatas.value.push(...ProductDatasList.datas);
 console.log("ProductDatas",ProductDatas.value)
+
+let  CustomerQueryConditionInfo:any={
+           
+  customerCode: "",
+          customername: "",
+        
+          industry: "",
+        
+          phone:"",
+         
+         }
+let CustomerDatasList = await GetCustomerManagementDatas({
+       current: 1,
+       pageSize: 200,
+       ...CustomerQueryConditionInfo,
+     });
+
+     CustomerDatas.value.push(...CustomerDatasList.datas);
+
+
+
+
 
 
 
@@ -966,12 +1049,21 @@ console.log("ProductDatas",ProductDatas.value)
      
      
 
+    
+      continueAdd,
+
+
       ProductColumns,
       ProductDatas,
-      continueAdd,
-     
 onSearch,SelectProduct,
-      visibleSearchModal,modalTitleSearchModal,CloseConfigSearchModal
+      visibleSearchModal,modalTitleSearchModal,CloseConfigSearchModal,
+
+
+      CustomerColumns,
+      CustomerDatas,
+onSearch_Customer,SelectCustomer,
+      visibleSearch_Customer,modalTitleSearch_Customer,CloseConfigSearch_Customer,
+
     };
   },
 });

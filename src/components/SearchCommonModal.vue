@@ -26,8 +26,8 @@
         <a  @click="selectRecord(record.id)"
           style="
             color: rgba(18, 96, 214, 0.733);
-            font-size: 17px;
-            font-weight: 700;
+            font-size: 15px;
+            font-weight: 600;
           "
          
           title="选择"
@@ -103,7 +103,7 @@ let selectedRows=ref<any>([])
 const selectRecord=(item:any)=>{
     selectedRows.value=[];
       
-         console.log("selectedRows changed: ", item);
+         //console.log("selectedRows changed: ", item);
 
         let Datas=  props.ListDatas?.filter((i:any)=>i.id==item);
       if(Datas&&Datas.length>0)
@@ -198,7 +198,7 @@ selectedRows.value.push({
 
 #SearchCommonModalList .ant-table-thead > tr > th,
 #SearchCommonModalList .ant-table-tbody > tr > td {
-  padding: 9px 9px;
+  padding: 7px 7px;
 }
 .table-striped td {
 }

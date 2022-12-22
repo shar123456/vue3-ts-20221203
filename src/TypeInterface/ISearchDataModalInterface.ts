@@ -28,4 +28,14 @@ const SearchUserColumns = [
   
  
   ];
-  export {SearchUserColumns,SearchFlowColumns,SearchProductColumns}
+
+  const SearchCustomerColumns = [
+
+    { title: '操作', dataIndex: 'action:', key: 'operation',width:20, slots: { customRender: 'action' },fixed:'left' },
+    { title: '客户名称',width:70, dataIndex: 'customername', },
+    {title: '客户编号',width:70, dataIndex: 'customerCode',},
+ 
+  
+ 
+  ];
+  export {SearchUserColumns,SearchFlowColumns,SearchProductColumns,SearchCustomerColumns}

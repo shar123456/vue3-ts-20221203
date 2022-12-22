@@ -178,6 +178,36 @@
       </div>
     </div>
 
+
+    <div class="modalEditCol">
+       <label>Level：</label>
+        <div>
+          <a-select mode="multiple"
+            ref="select"
+            v-model:value="EditData.belongAreaArr"
+            style="width: 100%"
+          >
+          <a-select-option value="未选择">未选择</a-select-option>
+                <a-select-option value="华中"
+                  >华中</a-select-option
+                >
+                <a-select-option value="华北">华北</a-select-option>
+                <a-select-option value="华东">华东</a-select-option>
+                <a-select-option value="华南">华南</a-select-option>
+                <a-select-option value="西北">西北</a-select-option>
+                <a-select-option value="西南">西南</a-select-option>
+                <a-select-option value="东北">东北</a-select-option>
+                <a-select-option value="全部">全部</a-select-option>
+          </a-select>
+        </div>
+      </div>
+  
+
+
+
+
+
+
 </a-spin>
 
 

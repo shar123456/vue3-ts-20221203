@@ -135,6 +135,20 @@
         </span>
       </template>
 
+      <template #belongArea="{ text: belongArea }">
+        <span>
+          <a-tag
+          :color="belongArea=='未选择' ? '#b0b0b0' :belongArea=='全部'?'geekblue':'green' ">
+            {{ belongArea }}
+          </a-tag>
+        </span>
+      </template>
+
+
+
+
+
+   
       <!-- <template #expandedRowRender="{ record }">
       <p style="margin: 0">
         {{ record.desc }}
@@ -353,6 +367,7 @@ export default defineComponent({
       UserDataEntityState.EditData.pcLoginStatus = "未选择";
       UserDataEntityState.EditData.weChatLoginStatus = "未选择";
       UserDataEntityState.EditData.appLoginStatus = "未选择";
+      UserDataEntityState.EditData.belongAreaArr = ["未选择"];
     };
 
     const closeMoadl = () => {
@@ -779,6 +794,8 @@ export default defineComponent({
             UserDataEntityState.EditData.weChatLoginStatus =
               res[0].weChatLoginStatus;
             UserDataEntityState.EditData.appLoginStatus = res[0].appLoginStatus;
+
+            UserDataEntityState.EditData.belongAreaArr = res[0].belongAreaArr;
             visible.value = true;
             modalTitle.value = "编辑【用户信息】";
           }

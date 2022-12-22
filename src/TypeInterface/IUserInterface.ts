@@ -21,8 +21,8 @@ interface IDataItem {
    pcLoginStatus: string;
    weChatLoginStatus: string;
    appLoginStatus: string;
-
-
+   belongArea: string;
+   belongAreaArr:string[];
   
 
 
@@ -76,6 +76,8 @@ interface IDataItem {
         pcLoginStatus: "",
         weChatLoginStatus: "",
         appLoginStatus: "",
+        belongArea:"",
+        belongAreaArr:["未选择"]
   }
     UserListColumns:any=[];
     selectedRowKeys:string[]= [];
