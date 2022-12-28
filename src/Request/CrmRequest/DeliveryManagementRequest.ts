@@ -2,6 +2,7 @@ import instance from '../../Request/request'
 
 export function GetDeliveryManagementDatas(param:any):any {
     
+
     return instance({
         url: '/DeliveryManagement/SearchDeliveryByQuery',
         method: 'post',

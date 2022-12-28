@@ -1,5 +1,5 @@
 import {dateFormat} from '../../utility/commonFunc'
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';   
 interface IDeliveryInfo {
     id: string;
     deliveryCode:string; //交货单
